@@ -1,7 +1,7 @@
 import React from 'react';
 import SiteHeader from "./SiteHeader";
-import mainImage from '../static/img/diet-centrum.png';
-import {landingPageBenefits} from "../helpers/content";
+import mainImage from '../../static/img/diet-centrum.png';
+import {landingPageBenefits} from "../../helpers/shop/content";
 
 const LandingPage = () => {
     return <div className="landing w">

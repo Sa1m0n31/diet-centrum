@@ -1,8 +1,8 @@
-import icon1 from "../static/img/salad.svg";
-import icon2 from "../static/img/salad.svg";
-import icon3 from "../static/img/salad.svg";
-import facebookIcon from '../static/img/facebook.svg'
-import instagramIcon from '../static/img/instagram.svg'
+import icon1 from "../../static/img/salad.svg";
+import icon2 from "../../static/img/salad.svg";
+import icon3 from "../../static/img/salad.svg";
+import facebookIcon from '../../static/img/facebook.svg'
+import instagramIcon from '../../static/img/instagram.svg'
 
 const landingPageBenefits = [
     {

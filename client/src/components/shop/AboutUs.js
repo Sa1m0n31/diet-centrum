@@ -1,6 +1,6 @@
 import React from 'react';
-import manImage from '../static/img/man.png'
-import {socialMedia} from "../helpers/content";
+import manImage from '../../static/img/man.png'
+import {socialMedia} from "../../helpers/shop/content";
 
 const AboutUs = () => {
     return <div className="section section--aboutUs w">

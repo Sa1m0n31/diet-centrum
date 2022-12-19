@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from '../static/img/logo.png'
-import phoneIcon from '../static/img/phone.svg'
-import cartIcon from '../static/img/shopping-basket.svg'
+import logo from '../../static/img/logo.png'
+import phoneIcon from '../../static/img/phone.svg'
+import cartIcon from '../../static/img/shopping-basket.svg'
 
 const SiteHeader = ({homepage}) => {
     const PHONE_NUMBER = '539 439 432';

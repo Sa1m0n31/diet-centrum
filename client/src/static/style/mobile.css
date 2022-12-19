@@ -1,0 +1,21 @@
+@media(max-width: 1400px) {
+
+}
+
+@media(max-width: 1200px) {
+
+}
+
+@media(max-width: 996px) {
+
+}
+
+@media(max-width: 768px) {
+
+}
+
+@media(max-width: 576px) {
+    .loginForm {
+        box-shadow: none;
+    }
+}
