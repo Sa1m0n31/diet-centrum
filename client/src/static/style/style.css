@@ -417,7 +417,7 @@ a, button {
     width: 18%;
     height: 100vh;
     border-right: 2px solid var(--primary);
-    z-index: 3;
+    z-index: 30;
     background: #fff;
 }
 
@@ -465,10 +465,11 @@ a, button {
     position: fixed;
     top: 0;
     left: 0;
+    background: #fff;
     width: 100%;
     height: 70px;
     border-bottom: 2px solid var(--primary);
-    z-index: 2;
+    z-index: 10;
     padding-left: 20%;
     padding-right: 40px;
     display: flex;
@@ -513,4 +514,339 @@ a, button {
 
 a.btn--adminTopMenu {
     border-bottom: 1px solid #fff;
+}
+
+.admin {
+    margin: 100px 10% 40px 20%;
+}
+
+.admin__label {
+    display: block;
+    margin: 30px 0 50px;
+}
+
+.input--admin {
+    height: 40px;
+}
+
+.admin__label--choice > label {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+}
+
+.btn--adminSelect {
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: 1px solid var(--primary);
+    position: relative;
+    margin-right: 10px;
+    border-radius: 3px;
+    max-width: 30px;
+    padding: 0;
+}
+
+.adminSelect .btn--adminSelect::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    background: var(--primary);
+}
+
+.admin__offerTypeHeader {
+    font-size: 18px;
+    margin: -10px 0 20px;
+}
+
+.admin__header {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.input--textarea {
+    height: 150px;
+    padding: 15px;
+    resize: none;
+}
+
+.admin__label > span {
+    width: 100%;
+    display: block;
+    font-size: 13px;
+    margin-bottom: 5px;
+    margin-top: -15px;
+}
+
+.admin__points__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.btn--deletePoint {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    border-radius: 50%;
+    margin-left: 15px;
+    padding: 0;
+}
+
+.btn--addPoint {
+    background: transparent;
+    border-bottom: 1px solid rgba(80, 131, 69, 0.5);
+    filter: brightness(.7);
+    padding-bottom: 12px;
+    padding-left: 0;
+    font-weight: 400;
+    font-size: 15px;
+    height: 30px;
+    color: var(--primary);
+    margin-top: 30px;
+    width: 300px;
+    box-shadow: none !important;
+    justify-content: flex-start;
+    text-align: left;
+    border-radius: 0;
+}
+
+.admin__points__item {
+    margin-bottom: 15px;
+}
+
+.btn--submitProduct {
+    width: 100%;
+    height: 60px;
+}
+
+.btn--submitProduct:hover {
+    transform: translateY(-3px);
+}
+
+.flex > .admin__label:first-of-type {
+    width: 80%;
+}
+
+.flex > .admin__label:last-of-type {
+    width: 18%;
+}
+
+.flex > .admin__label {
+    margin-bottom: 10px;
+}
+
+.btn--addPoint > .img {
+    width: 15px;
+    margin-left: 10px;
+}
+
+.filesUploadLabel {
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    height: auto;
+    min-height: 100px;
+    border: 1px dashed var(--primary);
+    border-radius: 5px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .2s all;
+}
+
+.filesUploadLabel:hover {
+    border-width: 2px;
+}
+
+.filesUploadLabel__inner {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.filesUploadLabel__inner > .img {
+    width: 40px;
+    margin-left: 20px;
+}
+
+.filesUploadLabel__item {
+    height: 45px;
+    width: auto;
+    position: relative;
+    margin: 0 30px;
+}
+
+.filesUploadLabel__item > .img {
+    height: 100%;
+    width: auto;
+}
+
+.removeProfileImageBtn {
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: .2s all;
+    z-index: 5;
+    background: var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.removeProfileImageBtn:hover {
+    background: var(--hover);
+    transform: none !important;
+}
+
+.removeProfileImageBtn > .img {
+    display: block;
+    width: 60% !important;
+    filter: brightness(0) invert(1);
+}
+
+.input--file {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.filesUploadLabel__profileImage .img {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 100%;
+    height: auto;
+    display: block;
+}
+
+.admin__header--image {
+    font-size: 14px;
+    margin-top: -10px;
+    font-weight: 400;
+}
+
+.rdw-editor-main {
+    min-height: 200px;
+    border: 2px solid var(--primary);
+    padding: 5px 15px;
+    font-size: 15px;
+}
+
+.flex--alignEnd {
+    align-items: flex-end;
+}
+
+.mb {
+    margin-bottom: 25px;
+}
+
+.error {
+    color: red;
+    padding: 10px 0;
+    font-size: 14px;
+}
+
+.error--100 {
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin: 0 0 50px;
+    text-align: center;
+}
+
+.info {
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    padding: 3px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--hover);
+    font-size: 14px;
+}
+
+.info--error {
+    background: red;
+    border: 2px solid #ee2211;
+}
+
+.admin__products__item {
+    border-bottom: 1px solid var(--primary);
+    padding: 15px 0;
+    margin: 15px 0;
+}
+
+.admin__products__item__column > .key {
+    font-size: 12px;
+    color: grey;
+    text-transform: uppercase;
+    display: block;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.admin__products__item__column > .value {
+    text-align: center;
+    display: block;
+    color: #000;
+    font-size: 14px;
+}
+
+.admin__products__item__column > figure {
+    height: 80px;
+}
+
+.admin__products__item__column > figure > .img {
+    height: 100%;
+    width: auto;
+}
+
+.admin__products__item__column > .value--flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn--productList {
+    margin: 0 6px;
+    width: 16px;
+    height: 16px;
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    display: block;
+}
+
+.btn--addProductPage {
+    width: 300px;
+    height: 40px;
+    font-size: 14px;
+    border-radius: 40px;
+}
+
+.admin__products {
+    margin-top: 25px;
 }

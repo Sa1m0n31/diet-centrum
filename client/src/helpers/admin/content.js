@@ -14,7 +14,7 @@ const menu = [
     {
         name: 'Produkty',
         icon: productIcon,
-        link: '/panel/produkty'
+        link: '/panel/lista-produktow'
     },
     {
         name: 'Zamówienia',

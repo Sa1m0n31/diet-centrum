@@ -7,6 +7,9 @@ import * as Joi from "@hapi/joi";
 import {MailerModule} from "@nestjs-modules/mailer";
 import {join} from "path";
 import { ServeStaticModule } from '@nestjs/serve-static';
+import {ProductModule} from "./product/product.module";
+import {PurchaseModule} from "./purchase/purchase.module";
+import {BlogModule} from "./blog/blog.module";
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -38,7 +41,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
         },
         secure: true
       }
-    })],
+    }), ProductModule, PurchaseModule, BlogModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -24,7 +24,6 @@ export class FileUploadHelper {
             fileExtension = 'docx';
         }
 
-        const originalName = file.originalname.split(".")[0];
-        cb(null, originalName + '-' + uniqueSuffix+"."+fileExtension);
+        cb(null, uniqueSuffix + "." + fileExtension);
     }
 }
