@@ -5,7 +5,7 @@ import {socialMedia} from "../../helpers/shop/content";
 const AboutUs = () => {
     return <div className="section section--aboutUs w">
         <h2 className="section__header">
-            O nas
+            O mnie
         </h2>
         <div className="aboutUs__box">
             <figure className="aboutUs__box__image">

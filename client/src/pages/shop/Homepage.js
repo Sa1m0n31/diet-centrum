@@ -6,11 +6,13 @@ import References from "../../components/shop/References";
 import CooperationProcess from "../../components/shop/CooperationProcess";
 import BeforeFooterSection from "../../components/shop/BeforeFooterSection";
 import Footer from "../../components/shop/Footer";
+import ProblemsSection from "../../components/shop/ProblemsSection";
 
 const Homepage = () => {
     return <div className="container container--homepage">
         <LandingPage />
         <AboutUs />
+        <ProblemsSection />
         <Offer />
         <References />
         <CooperationProcess />
