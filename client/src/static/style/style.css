@@ -65,6 +65,24 @@ body {
     margin: 45px auto 25px;
 }
 
+.siteHeader.w .siteHeader__logo {
+    height: 150px;
+}
+
+.siteHeader.w .siteHeader__logo > .img {
+    height: 100%;
+    width: auto;
+}
+
+.siteHeader.w {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #A8A8A8;
+}
+
+.siteHeader.w .siteHeader__main__right {
+    margin-bottom: -15px;
+}
+
 .siteHeader__contact {
     position: absolute;
     top: 0;
@@ -1269,4 +1287,126 @@ a.btn--adminTopMenu {
 
 .problems__right {
     width: 45%;
+}
+
+.admin--contentEdition .admin__offerTypeHeader {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.admin--content--flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -25px;
+}
+
+.admin--content--flex > label {
+    width: 48%;
+}
+
+.problems__right > * {
+    margin: 15px 0;
+}
+
+.flex--alignStart {
+    align-items: flex-start;
+}
+
+.contactForm {
+    width: 52%;
+    padding-right: 60px;
+    margin-right: 60px;
+    border-right: 1px solid #D2D2D2;
+}
+
+.contactData {
+    width: 45%;
+}
+
+.contactForm__header {
+    font-size: 36px;
+}
+
+.contactForm__text {
+    color: #5D5D5D;
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.contactForm__label {
+    display: block;
+    margin: 15px 0;
+}
+
+.btn--submitContactForm {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.btn--submitContactForm:hover {
+    background: var(--hover);
+}
+
+.contact__data__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.contact__data__item > figure {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    background: #EBF1EA;
+    margin-right: 20px;
+}
+
+.contact__data__item > figure > .img {
+    height: 40%;
+    width: auto;
+}
+
+.contact__data__item > span {
+    font-weight: 600;
+    font-size: 32px;
+}
+
+.contactData__secondHeader {
+    font-weight: 500;
+    margin-top: 80px;
+    font-size: 32px;
+}
+
+.contactData__secondText {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.contactData__secondText > a {
+    color: var(--primary);
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+.contact {
+    align-items: flex-start;
+    margin: 80px auto 100px;
+}
+
+.input--contactForm {
+    height: 50px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.contactForm__label {
+    font-size: 14px;
+    margin: 20px 0;
+}
+
+.input--contactForm.input--textarea {
+    height: 150px;
 }

@@ -1,20 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import logo from '../../static/img/logo.png'
 import phoneIcon from '../../static/img/phone.svg'
 import cartIcon from '../../static/img/shopping-basket.svg'
+import {ContentContext} from "../../App";
 
 const SiteHeader = ({homepage}) => {
-    const PHONE_NUMBER = '539 439 432';
+    const { c } = useContext(ContentContext);
 
-    return <header className="siteHeader">
+    return <header className={homepage ? "siteHeader" : "siteHeader w"}>
         <span className="siteHeader__contact flex">
             <img className="img" src={phoneIcon} alt="telefon" />
             <span>
                 Skontaktuj się z nami:
             </span>
             <a className="siteHeader__contact__link"
-               href={`tel:+48${PHONE_NUMBER.replace(' ', '')}`}>
-                {PHONE_NUMBER}
+               href={`tel:${c?.phoneNumber?.replace(' ', '')}`}>
+                {c.phoneNumber}
             </a>
         </span>
 

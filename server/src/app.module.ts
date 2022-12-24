@@ -10,6 +10,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import {ProductModule} from "./product/product.module";
 import {PurchaseModule} from "./purchase/purchase.module";
 import {BlogModule} from "./blog/blog.module";
+import {AdminModule} from "./admin/admin.module";
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -41,7 +42,7 @@ import {BlogModule} from "./blog/blog.module";
         },
         secure: true
       }
-    }), ProductModule, PurchaseModule, BlogModule],
+    }), ProductModule, PurchaseModule, BlogModule, AdminModule],
   controllers: [AppController],
   providers: [AppService],
 })

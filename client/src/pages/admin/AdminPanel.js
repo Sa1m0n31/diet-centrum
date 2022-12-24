@@ -4,6 +4,7 @@ import AdminHome from "../../components/admin/AdminHome";
 import AdminTop from "../../components/admin/AdminTop";
 import AdminProductList from "../../components/admin/AdminProductList";
 import AdminProductEdition from "../../components/admin/AdminProductEdition";
+import AdminContentEdition from "../../components/admin/AdminContentEdition";
 
 const AdminPanel = ({selectedItem, page}) => {
     const [mainComponent, setMainComponent] = useState(<AdminHome />);
@@ -18,6 +19,9 @@ const AdminPanel = ({selectedItem, page}) => {
                     setMainComponent(<AdminProductList />);
                 else if(page === 1)
                     setMainComponent(<AdminProductEdition />);
+                break;
+            case 4:
+                setMainComponent(<AdminContentEdition />);
                 break;
             default:
                 break;

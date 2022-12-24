@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {ContentContext} from "../../App";
 
 const BeforeFooterSection = () => {
+    const { c } = useContext(ContentContext);
+
     return <div className="section section--beforeFooter">
         <h3 className="beforeFooter__header">
-            Rozpoznij swoją przemianę już dziś!
+            {c.beforeFooterHeader}
         </h3>
-        <h4 className="beforeFooter__subheader">
-            Przejdź do <a href="/oferta">sklepu</a> lub wypełnij <a href="/kontakt">formularz kontaktowy</a>
-             i umów się na konsultację dietetyczną.
+        <h4 className="beforeFooter__subheader" dangerouslySetInnerHTML={{
+            __html: c.beforeFooterSubheader
+        }}>
+
         </h4>
-        <a className="btn btn--beforeFooter center" href="/oferta">
-            Chcę profesjonalny plan żywieniowy
+        <a className="btn btn--beforeFooter center"
+           href={c.beforeFooterButtonLink}>
+            {c.beforeFooterButtonText}
         </a>
     </div>
 };
