@@ -9,6 +9,7 @@ import './static/style/style.css'
 import './static/style/mobile.css'
 import {getContent} from "./helpers/api/admin";
 import Contact from "./pages/shop/Contact";
+import TyPage from "./pages/shop/TyPage";
 
 const ContentContext = React.createContext({});
 
@@ -33,6 +34,9 @@ function App() {
       </Route>
       <Route path="/kontakt">
         <Contact />
+      </Route>
+      <Route path="/dziekujemy">
+        <TyPage />
       </Route>
 
       {/* Admin */}

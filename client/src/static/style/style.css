@@ -1123,6 +1123,7 @@ a.btn--adminTopMenu {
     color: #2A2A2A;
     font-size: 20px;
     margin: 20px auto 40px;
+    text-align: center;
 }
 
 .beforeFooter__subheader > a {
@@ -1409,4 +1410,62 @@ a.btn--adminTopMenu {
 
 .input--contactForm.input--textarea {
     height: 150px;
+}
+
+.img--ty {
+    width: 200px;
+}
+
+.ty {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 0 80px;
+}
+
+.ty * {
+    text-align: center;
+}
+
+.ty__header {
+    margin: 40px auto 20px;
+    font-size: 36px;
+}
+
+.ty__text {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.ty__text__date {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.ty__buttons {
+    margin: 30px auto;
+    width: 530px;
+}
+
+.btn--ty {
+    width: 250px;
+    height: 50px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.btn--ty--1 {
+    background: #fff;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.btn--ty--2 {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn--ty:hover {
+    transform: translateY(-3px);
 }
