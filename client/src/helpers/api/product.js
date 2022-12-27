@@ -5,8 +5,8 @@ const getAllProducts = () => {
     return axios.get(`/product/getAll`);
 }
 
-const getProductBySlug = (slug) => {
-    return axios.get(`/product/getBySlug/${slug}`);
+const getProductBySlugAndType = (slug, type) => {
+    return axios.get(`/product/getBySlugAndType/${slug}/${type}`);
 }
 
 const getProductById = (id) => {
@@ -50,4 +50,4 @@ const deleteProduct = (id) => {
     return axios.delete(`/product/delete/${id}`);
 }
 
-export { getAllProducts, getProductBySlug, addProduct, updateProduct, getProductById, deleteProduct }
+export { getAllProducts, getProductBySlugAndType, addProduct, updateProduct, getProductById, deleteProduct }

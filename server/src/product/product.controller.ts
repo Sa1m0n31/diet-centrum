@@ -49,9 +49,9 @@ export class ProductController {
         return this.productService.getAllProducts();
     }
 
-    @Get('/getBySlug/:slug')
-    getProductBySlug(@Param('slug') slug) {
-        return this.productService.getProductBySlug(slug);
+    @Get('/getBySlugAndType/:slug/:type')
+    getProductBySlug(@Param('slug') slug, @Param('type') type) {
+        return this.productService.getProductBySlug(slug, type);
     }
 
     @Get('/getById/:id')

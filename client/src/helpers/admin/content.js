@@ -89,6 +89,10 @@ const problems = [
     {
         icon: problem12Icon, text: 'Cukrzyca typu I i II'
     },
-]
+];
 
-export { menu, errorText, problems }
+const offerColors = [
+    '#EBF1EA', '#EFF6FF', '#FFFBEC', '#FFF5F5', '#F5FFFF', '#F8F8F8'
+];
+
+export { menu, errorText, problems, offerColors }

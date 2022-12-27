@@ -7,7 +7,7 @@ import cartIcon from '../../static/img/shopping-basket.svg';
 import backIcon from '../../static/img/arrow-back.svg';
 import {ContentContext} from "../../App";
 
-const SiteHeader = ({homepage}) => {
+const SiteHeader = ({homepage, breadcrumb}) => {
     const { c } = useContext(ContentContext);
 
     let mobileMenu = useRef(null);
@@ -137,6 +137,14 @@ const SiteHeader = ({homepage}) => {
                 </a>
             </div>
         </div>
+
+        {breadcrumb ? <div className="breadcrumb d-desktop">
+            {breadcrumb.map((item, index) => {
+                return <p key={index}>
+                    {item}
+                </p>
+            })}
+        </div> : ''}
 
         {/* MOBILE */}
         <a href="/" className="siteHeader__mobileLogo d-mobile">

@@ -66,9 +66,10 @@ export class ProductService {
         return this.productRepository.find();
     }
 
-    async getProductBySlug(slug: string) {
+    async getProductBySlug(slug: string, type: number) {
         return this.productRepository.findOneBy({
-            slug
+            slug,
+            type
         });
     }
 

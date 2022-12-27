@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {getAllProducts} from "../../helpers/api/product";
 import checkIcon from '../../static/img/check.svg';
-
-const offerColors = [
-    '#EBF1EA', '#EFF6FF', '#FFFBEC', '#FFF5F5', '#F5FFFF', '#F8F8F8'
-];
+import {offerColors} from "../../helpers/admin/content";
 
 const Offer = () => {
     const [offerType, setOfferType] = useState(0);
