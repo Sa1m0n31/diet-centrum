@@ -108,6 +108,9 @@ function App() {
         <Route path="/panel/edycja-tresci">
           <AdminPanel selectedItem={4} />
         </Route>
+        <Route path="/panel/kody-rabatowe">
+          <AdminPanel selectedItem={6} />
+        </Route>
       </Router>
     </ContentContext.Provider>
   </CartContext.Provider>

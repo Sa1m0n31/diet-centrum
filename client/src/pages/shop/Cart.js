@@ -6,21 +6,23 @@ import {getAllProducts} from "../../helpers/api/product";
 import EmptyCart from "../../components/shop/EmptyCart";
 import DiscountCodeSection from "../../components/shop/DiscountCodeSection";
 import arrowWhite from '../../static/img/arrow-white.svg';
+import {API_URL} from "../../static/settings";
+import trashIcon from '../../static/img/trash.svg';
 
 const Cart = () => {
-    const { cart } = useContext(CartContext);
+    const { cart, removeFromCart } = useContext(CartContext);
 
     const [cartItems, setCartItems] = useState([]);
     const [cartSum, setCartSum] = useState(0);
+    const [discountCode, setDiscountCode] = useState('');
+    const [discount, setDiscount] = useState(0);
 
     useEffect(() => {
         if(cart.length) {
             getAllProducts()
                 .then((res) => {
                     if(res.status === 200) {
-                        console.log(cart);
                         setCartItems(res.data.filter((item) => {
-                            console.log(item.id);
                             return cart.includes(item.id);
                         }));
                     }
@@ -49,6 +51,7 @@ const Cart = () => {
                         <span className="cart__table__header__col">-</span>
                         <span className="cart__table__header__col">Plan</span>
                         <span className="cart__table__header__col">Cena</span>
+                        <span className="cart__table__header__col">Usuń</span>
                     </div>
 
                     {cartItems.map((item, index) => {
@@ -58,23 +61,38 @@ const Cart = () => {
                                 {index+1}.
                             </span>
                             <span className="cart__table__item__col">
-                                <img className="img" src={item.image} alt={item.title} />
+                                <img className="img" src={`${API_URL}/${item.image}`} alt={item.title} />
                             </span>
                                 <span className="cart__table__item__col">
                                 {item.title}
                             </span>
-                                <span className="cart__table__item__col">
+                            <span className="cart__table__item__col">
                                 {item.price} zł
+                            </span>
+                            <span className="cart__table__item__col">
+                                <button className="btn btn--deleteFromCart"
+                                        onClick={() => { removeFromCart(item.id); }}>
+                                    <img className="img" src={trashIcon} alt="usuń" />
+                                </button>
                             </span>
                         </div>
                     })}
 
                     <div className="cart__table__bottom flex">
-                        <DiscountCodeSection />
+                        <DiscountCodeSection setCartSum={setCartSum}
+                                             cartSum={cartSum}
+                                             discountCode={discountCode}
+                                             setDiscount={setDiscount}
+                                             setDiscountCode={setDiscountCode} />
 
-                        <h4 className="cart__table__bottom__sum">
-                            Łącznie do zapłaty: <span>{cartSum} zł</span>
-                        </h4>
+                        <div className="cart__table__bottom__right">
+                            {discount ? <h4 className="cart__table__bottom__sum cart__table__bottom__sum--discount">
+                                Rabat: <span>-{discount} zł</span>
+                            </h4> : ''}
+                            <h4 className="cart__table__bottom__sum">
+                                Łącznie do zapłaty: <span>{cartSum} zł</span>
+                            </h4>
+                        </div>
                     </div>
                 </div>
 

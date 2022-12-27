@@ -11,6 +11,7 @@ import {ProductModule} from "./product/product.module";
 import {PurchaseModule} from "./purchase/purchase.module";
 import {BlogModule} from "./blog/blog.module";
 import {AdminModule} from "./admin/admin.module";
+import { CodeModule } from './code/code.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -42,7 +43,7 @@ import {AdminModule} from "./admin/admin.module";
         },
         secure: true
       }
-    }), ProductModule, PurchaseModule, BlogModule, AdminModule],
+    }), ProductModule, PurchaseModule, BlogModule, AdminModule, CodeModule],
   controllers: [AppController],
   providers: [AppService],
 })

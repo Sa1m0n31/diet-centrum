@@ -4,6 +4,7 @@ import orderIcon from '../../static/img/shopping-bag.svg'
 import contentIcon from '../../static/img/content.svg'
 import termsIcon from '../../static/img/agreement.svg'
 import blogIcon from '../../static/img/blog.svg'
+import discountIcon from '../../static/img/discount.svg'
 import problem1Icon from "../../static/img/problem-1.svg";
 import problem2Icon from "../../static/img/problem-2.svg";
 import problem3Icon from "../../static/img/problem-3.svg";
@@ -47,6 +48,11 @@ const menu = [
         name: 'Regulaminy',
         icon: termsIcon,
         link: '/panel/regulaminy'
+    },
+    {
+        name: 'Kody rabatowe',
+        icon: discountIcon,
+        link: '/panel/kody-rabatowe'
     }
 ]
 
