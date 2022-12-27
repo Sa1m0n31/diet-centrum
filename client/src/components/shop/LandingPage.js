@@ -24,12 +24,12 @@ const LandingPage = () => {
                     </a>
                 </div>
             </div>
-            <figure className="landing__main__right">
+            <figure className="landing__main__right d-desktop">
                 <img className="img" src={mainImage} alt="diet-centrum-zdrowe-odzywanianie" />
             </figure>
         </div>
 
-        <div className="landing__benefits flex">
+        <div className="landing__benefits flex d-desktop">
             {landingPageBenefits.map((item, index) => {
                 return <div className="landing__benefits__item flex" key={index}>
                     <img className="img" src={item.icon} alt={item.header} />

@@ -17,7 +17,7 @@ const AboutUs = () => {
             <p className="aboutUs__box__text">
                 Z pasji i wykształcenia jestem dietetykiem klinicznym z Limanowej, absolwentką Krakowskiej Wyższej Szkoły Promocji Zdrowia. Moja praca dyplomowa o żywieniu w chorobach zapalnych jelit utwierdziła mnie w przekonaniu, że żywienie chorobach przewlekłych i chorobach jelit, to moja droga. Wciąż głodna wiedzy nieustannie aktualizuję ją na kursach i uczestnicząc w konferencjach.
             </p>
-            <a href="/o-nas" className="btn btn--aboutUsBox">
+            <a href="/o-nas" className="btn btn--aboutUsBox d-desktop">
                 Przeczytaj o nas więcej
             </a>
 
