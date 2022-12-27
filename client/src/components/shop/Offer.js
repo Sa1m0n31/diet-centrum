@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {getAllProducts} from "../../helpers/api/product";
 import checkIcon from '../../static/img/check.svg';
 import {offerColors} from "../../helpers/admin/content";
@@ -9,6 +9,8 @@ const Offer = () => {
     const [normalOffer, setNormalOffer] = useState([]);
     const [businessOffer, setBusinessOffer] = useState([]);
     const [offers, setOffers] = useState([]);
+
+    let content = useRef(null);
 
     useEffect(() => {
         getAllProducts()
@@ -23,8 +25,15 @@ const Offer = () => {
 
     useEffect(() => {
         if(normalOffer && businessOffer) {
-            if(offerType === 0) setOffers(normalOffer);
-            else setOffers(businessOffer);
+            content.current.style.opacity = '0';
+            setTimeout(() => {
+                if(offerType === 0) setOffers(normalOffer);
+                else setOffers(businessOffer);
+
+                setTimeout(() => {
+                    content.current.style.opacity = '1';
+                }, 150);
+            }, 150);
         }
     }, [normalOffer, businessOffer, offerType]);
 
@@ -52,7 +61,7 @@ const Offer = () => {
             </button>
         </div>
 
-        <div className="offer flex w">
+        <div className="offer flex w" ref={content}>
             {offers.map((item, index) => {
                 return <div className="offer__item"
                             style={{

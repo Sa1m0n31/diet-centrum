@@ -51,6 +51,13 @@ body {
     width: 100%;
 }
 
+.hidden {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
 .shadow {
     -webkit-box-shadow: 0px 0px 8px -5px rgba(27, 25, 25, 1);
     -moz-box-shadow: 0px 0px 8px -5px rgba(27, 25, 25, 1);
@@ -473,8 +480,8 @@ body {
 }
 
 .adminMenu__logo {
-    width: 50%;
-    margin: 40px auto;
+    width: 40%;
+    margin: 30px auto;
 }
 
 .adminMenu__item--selected {
@@ -886,6 +893,7 @@ a.btn--adminTopMenu {
     align-items: flex-start;
     flex-wrap: wrap;
     margin: 80px auto 20px;
+    transition: .1s all;
 }
 
 .offer__item {
@@ -1920,4 +1928,256 @@ a.btn--adminTopMenu {
     left: 12px;
     font-size: 12px;
     z-index: -1;
+}
+
+.orderWrapper {
+    margin: 40px auto 60px;
+}
+
+.flex--start {
+    justify-content: flex-start;
+}
+
+.order label {
+    margin-top: 20px;
+    font-size: 14px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    color: #5D5D5D;
+}
+
+.order .flex--start label {
+    margin-right: 15px;
+}
+
+.input--order {
+    margin-top: 4px;
+    height: 50px;
+}
+
+.input--firstName {
+    width: 250px;
+}
+
+.input--lastName {
+    width: 350px;
+}
+
+.input--flat {
+    width: 100px;
+}
+
+.input--postalCode {
+    width: 150px;
+}
+
+.input--city {
+    width: 315px;
+}
+
+.input--phoneNumber {
+    width: 200px;
+}
+
+.input--email {
+    width: 400px;
+}
+
+.btn--adminSelect--order {
+    width: 25px;
+    height: 25px;
+}
+
+.order label.flex {
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.checkboxWrapper {
+    margin: 20px 0;
+}
+
+.checkboxWrapper__header {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: -5px;
+}
+
+.checkboxWrapper .btn--adminSelect {
+    border-width: 2px;
+}
+
+.cart__bottom--order {
+    justify-content: flex-start;
+}
+
+.cart__bottom--order > .btn {
+    margin-left: 0;
+    margin-right: 10px;
+}
+
+.input--companyName {
+    width: 550px;
+}
+
+.input--nip {
+    width: 400px;
+}
+
+.invoiceData {
+    margin-top: -15px;
+}
+
+.order__section__header {
+    font-weight: 400;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.order__section {
+    margin: 25px 0 40px;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.btn--download {
+    width: 250px;
+    font-weight: 600;
+    height: 50px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.btn--download:hover {
+    background: var(--hover);
+}
+
+.btn--download .img {
+    width: 10px;
+    margin-left: 12px;
+}
+
+.uploadAttachmentLabel {
+    position: relative;
+    width: 250px;
+    height: 50px;
+    background: #F8F8F8;
+    border: 1px dashed #A8A8A8;
+    border-radius: 10px;
+    display: block;
+    transition: .2s all;
+}
+
+.uploadAttachmentLabel:hover {
+    border: 2px dashed var(--primary);
+}
+
+.uploadAttachmentLabel > span {
+    color: #5D5D5D;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.uploadAttachmentLabel > span > .img {
+    width: 20px;
+    margin-left: 12px;
+    filter: brightness(.2);
+}
+
+.uploadAttachmentLabel > span > .img--check {
+    filter: none;
+    margin: 0 12px 0 0;
+}
+
+.uploadAttachmentLabel .input--file {
+    position: absolute;
+    background: transparent;
+    color: transparent;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 30;
+    cursor: pointer;
+}
+
+.uploadAttachmentLabel .removeProfileImageBtn {
+    width: 25px;
+    height: 25px;
+}
+
+.calendarEditionHeader {
+    font-weight: 500;
+    font-size: 18px;
+    margin: 20px 0 30px;
+}
+
+.calendar {
+    max-width: 1000px;
+    flex-wrap: wrap;
+    margin: 20px 0 40px;
+}
+
+.btn--calendar {
+    border-radius: 5px;
+    width: 125px;
+    height: 125px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--primary);
+    margin: 0 15px 15px 0;
+    background: transparent;
+}
+
+.btn--calendar:hover {
+    opacity: .75;
+}
+
+.btn--calendar--selected {
+    background: var(--primary);
+}
+
+.btn--calendar--excluded {
+    opacity: .5;
+    border: 2px solid #D2D2D2;
+}
+
+.btn--calendar > * {
+    color: var(--primary);
+}
+
+.btn--calendar--selected > * {
+    color: #fff;
+}
+
+.btn--calendar--excluded:hover,
+.btn--calendar--selected:hover {
+    opacity: 1;
+}
+
+.calendar__day {
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.calendar__weekday {
+    font-weight: 700;
+    font-size: 15px;
+    margin: 10px auto 5px;
+}
+
+.calendar__month {
+    font-size: 14px;
+    font-weight: 400;
 }

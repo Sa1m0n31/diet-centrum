@@ -111,6 +111,9 @@ function App() {
         <Route path="/panel/kody-rabatowe">
           <AdminPanel selectedItem={6} />
         </Route>
+        <Route path="/panel/kalendarz">
+          <AdminPanel selectedItem={7} />
+        </Route>
       </Router>
     </ContentContext.Provider>
   </CartContext.Provider>

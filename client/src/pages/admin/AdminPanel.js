@@ -6,6 +6,7 @@ import AdminProductList from "../../components/admin/AdminProductList";
 import AdminProductEdition from "../../components/admin/AdminProductEdition";
 import AdminContentEdition from "../../components/admin/AdminContentEdition";
 import AdminDiscountCode from "../../components/admin/AdminDiscountCode";
+import AdminCalendarEdition from "../../components/admin/AdminCalendarEdition";
 
 const AdminPanel = ({selectedItem, page}) => {
     const [mainComponent, setMainComponent] = useState(<AdminHome />);
@@ -26,6 +27,9 @@ const AdminPanel = ({selectedItem, page}) => {
                 break;
             case 6:
                 setMainComponent(<AdminDiscountCode />);
+                break;
+            case 7:
+                setMainComponent(<AdminCalendarEdition />);
                 break;
             default:
                 break;
