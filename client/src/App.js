@@ -105,6 +105,12 @@ function App() {
         <Route path="/panel/edycja-produktu">
           <AdminPanel selectedItem={1} page={1} />
         </Route>
+        <Route path="/panel/lista-wpisow">
+          <AdminPanel selectedItem={3} page={0} />
+        </Route>
+        <Route path="/panel/edycja-wpisu">
+          <AdminPanel selectedItem={3} page={1} />
+        </Route>
         <Route path="/panel/edycja-tresci">
           <AdminPanel selectedItem={4} />
         </Route>

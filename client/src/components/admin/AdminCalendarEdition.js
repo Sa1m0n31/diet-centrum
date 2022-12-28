@@ -1,15 +1,38 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import OrderCalendar from "../shop/OrderCalendar";
+import {updateBlockedDays} from "../../helpers/api/admin";
+import {errorText} from "../../helpers/admin/content";
+import {scrollToTop} from "../../helpers/api/others";
+import Loader from "./Loader";
 
 const AdminCalendarEdition = () => {
-    const [selected, setSelected] = useState(-1);
+    const [selectedDays, setSelectedDays] = useState(-1);
     const [multipleSelected, setMultipleSelected] = useState([]);
     const [info, setInfo] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
+    useEffect(() => {
+        if(info || error) {
+            scrollToTop();
+            setLoading(false);
+        }
+    }, [info, error]);
+
     const handleSubmit = () => {
-        console.log(multipleSelected);
+        setLoading(true);
+        updateBlockedDays(selectedDays)
+            .then((res) => {
+                if(res.status === 201) {
+                    setInfo('Dostępne dni zostały zaktualizowane');
+                }
+                else {
+                    setError(errorText);
+                }
+            })
+            .catch(() => {
+                setError(errorText);
+            });
     }
 
     return <main className="admin admin--productEdition">
@@ -33,17 +56,17 @@ const AdminCalendarEdition = () => {
 
         <OrderCalendar numberOfDays={35}
                        offset={2}
-                       selected={selected}
-                       setSelected={setSelected}
+                       setSelectedDays={setSelectedDays}
                        multipleSelected={multipleSelected}
                        setMultipleSelected={setMultipleSelected}
                        multiple={true} />
 
-        <button className="btn btn--submitProduct btn--submitCalendar"
-                onClick={() => { handleSubmit(); }}>
+        {loading ? <div className="center">
+            <Loader />
+        </div> : <button className="btn btn--submitProduct btn--submitCalendar"
+                         onClick={() => { handleSubmit(); }}>
             Aktualizuj dostępne dni
-        </button>
-
+        </button>}
     </main>
 };
 

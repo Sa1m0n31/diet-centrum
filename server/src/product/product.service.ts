@@ -14,24 +14,22 @@ export class ProductService {
     createSlug(title: string) {
         return title
             .toLowerCase()
-            .replace(' ', '-')
-            .replace('ą', 'a')
-            .replace('ć', '')
-            .replace('ę', '')
-            .replace('ł', '')
-            .replace('ó', '')
-            .replace('ś', '')
-            .replace('ż', '')
-            .replace('ź', '')
-            .replace('ń', '');
+            .replace(/ /g, '-')
+            .replace(/ą/g, 'a')
+            .replace(/ć/g, 'c')
+            .replace(/ę/g, 'e')
+            .replace(/ł/g, 'l')
+            .replace(/ó/g, 'o')
+            .replace(/ś/g, 's')
+            .replace(/ż/g, 'z')
+            .replace(/ź/g, 'z')
+            .replace(/ń/g, 'n');
     }
 
     async addProduct(files, body) {
         const { type, title, short_description, long_description, points, price } = body;
 
         const slug = this.createSlug(title);
-
-        console.log(long_description);
 
         return this.productRepository.save({
             type,

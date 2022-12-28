@@ -2149,7 +2149,7 @@ a.btn--adminTopMenu {
 }
 
 .btn--calendar--excluded {
-    opacity: .5;
+    opacity: .35;
     border: 2px solid #D2D2D2;
 }
 
@@ -2180,4 +2180,59 @@ a.btn--adminTopMenu {
 .calendar__month {
     font-size: 14px;
     font-weight: 400;
+}
+
+.categories__header {
+    margin-bottom: 20px;
+}
+
+.categories__list label {
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.categories__list__item {
+    max-width: 600px;
+}
+
+.addNewCategory {
+    margin: 20px 0 30px;
+}
+
+.input--newCategory {
+    height: 50px;
+    width: 400px;
+    border-radius: 0;
+}
+
+.btn--addNewCategory {
+    height: 50px;
+    border-radius: 0;
+}
+
+.btn--addNewCategory:hover {
+    background: var(--hover);
+}
+
+.flex--end {
+    justify-content: flex-end;
+}
+
+.categories__list__item__buttons > .btn {
+    background: transparent;
+    width: 15px;
+    margin: 0 0 0 10px;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    height: auto;
+}
+
+.input--updateCategory {
+    border: none;
+    border-bottom: 1px solid var(--primary);
+    padding-left: 2px;
+    font-size: 16px;
+    border-radius: 0;
+    box-shadow: none !important;
 }

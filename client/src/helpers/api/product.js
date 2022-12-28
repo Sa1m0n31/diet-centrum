@@ -17,8 +17,6 @@ const addProduct = (title, price, type, shortDescription, longDescription, point
     const config = { headers: { 'Content-Type': 'multipart/form-data' } };
     const formData = new FormData();
 
-    console.log(JSON.stringify(convertToRaw(longDescription?.getCurrentContent())));
-
     formData.append('title', title);
     formData.append('price', price);
     formData.append('type', type);

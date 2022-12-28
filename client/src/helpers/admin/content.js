@@ -38,7 +38,7 @@ const menu = [
     {
         name: 'Blog',
         icon: blogIcon,
-        link: '/panel/blog'
+        link: '/panel/lista-wpisow'
     },
     {
         name: 'Edycja treści',

@@ -9,6 +9,9 @@ export class Blog {
     title: string;
 
     @Column()
+    slug: string;
+
+    @Column()
     excerpt: string;
 
     @Column()
@@ -18,5 +21,8 @@ export class Blog {
     image: string;
 
     @Column()
-    category: number;
+    categories: string;
+
+    @Column()
+    created_at: Date;
 }

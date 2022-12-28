@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Patch} from '@nestjs/common';
+import {Body, Controller, Get, Patch, Post} from '@nestjs/common';
 import {AdminService} from "./admin.service";
 
 @Controller('admin')
@@ -16,5 +16,15 @@ export class AdminController {
     @Get('/getContent')
     getContent() {
         return this.adminService.getContent();
+    }
+
+    @Get('/getBlockedDays')
+    getBlockedDays() {
+        return this.adminService.getBlockedDays();
+    }
+
+    @Post('/updateBlockedDays')
+    updateBlockedDays(@Body() body) {
+        return this.adminService.updateBlockedDays(body.days);
     }
 }

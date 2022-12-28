@@ -27,7 +27,9 @@ const getNextNDays = (n, offset) => {
         nextDays.push({
             day: nextDay.getDate(),
             month: months[nextDay.getMonth()],
-            weekday: weekdays[nextDay.getDay()]
+            monthNumber: nextDay.getMonth()+1,
+            weekday: weekdays[nextDay.getDay()],
+            year: nextDay.getFullYear()
         });
     }
 

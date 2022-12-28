@@ -14,4 +14,14 @@ const sendContactForm = (name, email, phoneNumber, message) => {
     });
 }
 
-export { updateContent, getContent, sendContactForm }
+const getBlockedDays = () => {
+    return axios.get('/admin/getBlockedDays');
+}
+
+const updateBlockedDays = (days) => {
+    return axios.post('/admin/updateBlockedDays', {
+        days
+    });
+}
+
+export { updateContent, getContent, sendContactForm, getBlockedDays, updateBlockedDays }
