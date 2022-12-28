@@ -367,6 +367,37 @@
         font-size: 12px;
     }
 
+    .cart__table--order .cart__table__header__col:first-of-type,
+    .cart__table--order .cart__table__item__col:first-of-type {
+        max-width: 12%;
+    }
+
+    .cart__table--order .cart__table__header__col:nth-of-type(2),
+    .cart__table--order .cart__table__item__col:nth-of-type(2) {
+        max-width: 25%;
+    }
+
+    .cart__table--order .cart__table__header__col:nth-of-type(3),
+    .cart__table--order .cart__table__item__col:nth-of-type(3) {
+        max-width: 42%;
+    }
+
+    .cart__table--order .cart__table__header__col:nth-of-type(4),
+    .cart__table--order .cart__table__item__col:nth-of-type(4) {
+        max-width: 15%;
+    }
+
+    .cart__bottom--order--3,
+    .clientData,
+    .cart__table--order {
+        width: 650px;
+    }
+
+    .clientData__section__header,
+    .clientData__section__data {
+        font-size: 14px;
+    }
+
     .cart .section__header {
         font-size: 26px;
     }
@@ -479,6 +510,44 @@
     .footer__col__header {
         margin-bottom: 5px;
     }
+
+    .btn--calendar {
+        width: 90px;
+        height: 80px;
+    }
+
+    .calendar__day {
+        font-size: 16px;
+        margin-bottom: 6px;
+    }
+
+    .calendar__weekday {
+        margin-top: 0;
+        font-size: 10px;
+    }
+
+    .calendar__month {
+        font-size: 10px;
+    }
+
+    .btn--download {
+        height: 40px;
+        width: 220px;
+        font-size: 13px;
+    }
+
+    .calendar--order {
+        max-width: 600px;
+    }
+
+    .order__section__header {
+        font-size: 14px;
+    }
+
+    .input--email {
+        max-width: 100%;
+        height: 45px;
+    }
 }
 
 @media(max-width: 768px) {
@@ -492,6 +561,40 @@
 
     .d-mobile.flex {
         display: flex !important;
+    }
+
+    .btn--calendar {
+        margin: 0 10px 10px 0;
+    }
+
+    .cart__bottom {
+        flex-direction: column;
+        margin-bottom: 0;
+    }
+
+    .uploadAttachmentLabel > span > .img--check {
+        width: 14px;
+    }
+
+    .uploadAttachmentLabel > span {
+        font-size: 12px;
+    }
+
+    .cart__bottom--order--3, .clientData, .cart__table--order {
+        width: 100% !important;
+    }
+
+    .orderWrapper {
+        margin: 20px auto 40px;
+    }
+
+    .cart__bottom > * {
+        width: 100% !important;
+        margin: 0 0 8px 0 !important;
+    }
+
+    .btn--handleSubmitOrder {
+        width: 100% !important;
     }
 
     .blog--single {
@@ -1023,12 +1126,45 @@
         flex-direction: column;
     }
 
+    .cart__table--order .cart__table__item__col:first-of-type,
+    .cart__table--order .cart__table__header__col:first-of-type {
+        display: none;
+    }
+
+    .cart__table--order .cart__table__header__col:last-of-type,
+    .cart__table--order .cart__table__item__col:last-of-type {
+        max-width: 15%;
+    }
+
+    .cart__table--order .cart__table__header__col:nth-of-type(2),
+    .cart__table--order .cart__table__item__col:nth-of-type(2) {
+        max-width: 25%;
+    }
+
+    .cart__table--order .cart__table__header__col:nth-of-type(3),
+    .cart__table--order .cart__table__item__col:nth-of-type(3) {
+        max-width: 50%;
+    }
+
+    .cart__table--order .cart__table__header__col:nth-of-type(4),
+    .cart__table--order .cart__table__item__col:nth-of-type(4) {
+        max-width: 24%;
+    }
+
+    .clientData {
+        margin-top: 5px;
+    }
+
     .cart__table__bottom > * {
         width: 100%;
     }
 
     .cart__table__bottom__right {
         margin-top: 25px;
+    }
+
+    .order .cart__table__bottom__right {
+        margin-top: -5px;
     }
 
     .cart__table__bottom__sum {
@@ -1126,11 +1262,53 @@
         margin: 40px 0;
         grid-template-columns: 1fr;
     }
+
+    .btn--goToCart,
+    .btn--handleSubmitOrder {
+        order: -1;
+        height: 50px !important;
+    }
+
+    .btn--nextToHandleSubmitOrder {
+        height: 35px !important;
+    }
+
+    .order__header {
+        font-size: 24px;
+    }
+
+    .order--1 .flex {
+        flex-wrap: wrap;
+    }
+
+    .order--1 label,
+    .order--1 .input {
+        font-size: 12px;
+        margin-right: 0 !important;
+        width: 100% !important;
+    }
+
+    .order--1 .input {
+        height: 40px;
+    }
+
+    .order--1 .flex--start:not(label) {
+        justify-content: space-between;
+    }
+
+    .order--1 .label--flat {
+        width: 48% !important;
+    }
 }
 
 @media(max-width: 576px) {
     .loginForm {
         box-shadow: none;
+    }
+
+    .uploadAttachmentLabel,
+    .btn--download {
+        width: 100%;
     }
 
     .problems__left__item {

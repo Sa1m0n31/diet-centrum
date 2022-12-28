@@ -40,7 +40,7 @@ const OrderStep2 = () => {
     const validateData = () => {
         let err = [];
 
-        if(!day) err.push('day');
+        if(day === null) err.push('day');
         if(!isEmail(email)) err.push('email');
         if(!attachment) err.push('attachment');
 
@@ -69,7 +69,7 @@ const OrderStep2 = () => {
 
             <OrderCalendar selected={day}
                            setSelected={setDay}
-                           numberOfDays={10}
+                           numberOfDays={15}
                            offset={2} />
         </div>
 

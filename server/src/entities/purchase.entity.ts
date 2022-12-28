@@ -51,5 +51,17 @@ export class Purchase {
     paper_version: boolean;
 
     @Column()
+    discount_code: string;
+
+    @Column()
+    discount_value: number;
+
+    @Column()
+    payment_id: string;
+
+    @Column()
+    payment_status: string;
+
+    @Column()
     sum: number;
 }

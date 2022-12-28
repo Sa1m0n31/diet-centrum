@@ -1,21 +1,30 @@
 import React, {useContext, useEffect, useState} from 'react';
-import editIcon from '../../static/img/pen.svg';
-import arrowIcon from '../../static/img/arrow-white.svg';
 import {CartContext} from "../../App";
 import {OrderContext} from "../../pages/shop/OrderProcess";
 import {getAllProducts} from "../../helpers/api/product";
 import {API_URL} from "../../static/settings";
-import trashIcon from "../../static/img/trash.svg";
-import DiscountCodeSection from "./DiscountCodeSection";
 import nextArrow from "../../static/img/arrow-white.svg";
+import penIcon from '../../static/img/pen.svg';
+import {getNextNDays, getStringDate} from "../../helpers/api/others";
+import {addPurchase} from "../../helpers/api/purchase";
+import {errorText} from "../../helpers/admin/content";
 
 const OrderStep3 = () => {
-    const { cart, removeFromCart } = useContext(CartContext);
+    const { cart } = useContext(CartContext);
     const { userData, invoice, invoiceData, email, day, paperVersion, setStep } = useContext(OrderContext);
 
     const [cartItems, setCartItems] = useState([]);
     const [cartSum, setCartSum] = useState(0);
     const [discount, setDiscount] = useState('');
+    const [sendPlanDate, setSendPlanDate] = useState({});
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const nextDays = getNextNDays(10, 2);
+
+    useEffect(() => {
+        setSendPlanDate(nextDays[day]);
+    }, [day]);
 
     useEffect(() => {
         if(cart.length) {
@@ -33,11 +42,28 @@ const OrderStep3 = () => {
     useEffect(() => {
         setCartSum(cartItems.reduce((prev, curr) => {
             return prev + curr.price;
-        }, 0));
-    }, [cartItems]);
+        }, 0) + (paperVersion ? 5 : 0));
+    }, [cartItems, paperVersion]);
 
     const handleSubmit = () => {
+        const sendDate = day;
+        setLoading(true);
 
+        addPurchase(userData, invoice ? invoiceData : null,
+            email, sendDate, paperVersion,
+            'code', 'value', cartSum)
+            .then((res) => {
+                if(!res) {
+                    setError(errorText);
+                }
+                else {
+                    window.location = '/dziekujemy';
+                }
+            })
+            .catch((e) => {
+                setError(errorText);
+                setLoading(false);
+            });
     }
 
     return <main className="order order--1">
@@ -59,13 +85,13 @@ const OrderStep3 = () => {
                             <span className="cart__table__item__col">
                                 {index+1}.
                             </span>
-                    <span className="cart__table__item__col">
+                            <span className="cart__table__item__col">
                                 <img className="img" src={`${API_URL}/${item.image}`} alt={item.title} />
                             </span>
-                    <span className="cart__table__item__col">
+                            <span className="cart__table__item__col">
                                 {item.title}
                             </span>
-                    <span className="cart__table__item__col">
+                            <span className="cart__table__item__col">
                                 {item.price} zł
                             </span>
                 </div>
@@ -84,12 +110,70 @@ const OrderStep3 = () => {
         </div>
 
         <div className="clientData">
+            <div className="clientData__section">
+                <h5 className="clientData__section__header">
+                    Dane Klienta:
+                </h5>
+                <span className="clientData__section__data">
+                    {userData.firstName} {userData.lastName}
+                </span>
+                <span className="clientData__section__data">
+                    {userData.street} {userData.building}{userData.flat ? `/${userData.flat}` : ''}, {userData.postalCode} {userData.city}
+                </span>
+                <span className="clientData__section__data">
+                    tel. {userData.phoneNumber}
+                </span>
+                <span className="clientData__section__data">
+                    {userData.email}
+                </span>
+            </div>
 
+            <div className="clientData__section">
+                <h5 className="clientData__section__header">
+                    Mail do wysyłki planu:
+                </h5>
+                <span className="clientData__section__data">
+                    {email}
+                </span>
+            </div>
+
+            <div className="clientData__section">
+                <h5 className="clientData__section__header">
+                    Wersja papierowa planu (+5 zł):
+                </h5>
+                <span className="clientData__section__data">
+                    {paperVersion ? 'TAK' : 'NIE'}
+                </span>
+            </div>
+
+            <div className="clientData__section">
+                <h5 className="clientData__section__header">
+                    Sposób płatności:
+                </h5>
+                <span className="clientData__section__data">
+                    Płatność online z Przelewy24
+                </span>
+            </div>
+
+            <div className="clientData__section">
+                <h5 className="clientData__section__header">
+                    Dzień wysyłki:
+                </h5>
+                <span className="clientData__section__data">
+                    {getStringDate(sendPlanDate.day, sendPlanDate.monthNumber, sendPlanDate.year)}
+                </span>
+            </div>
+
+            <button className="btn btn--editOrderData"
+                    onClick={() => { setStep(0); }}>
+                Edytuj dane
+                <img className="img" src={penIcon} alt="edytuj" />
+            </button>
         </div>
 
         <div className="cart__bottom cart__bottom--order cart__bottom--order--3 flex">
             <button className="btn btn--closeModal btn--nextToHandleSubmitOrder"
-                    onClick={() => { setStep(0); }}>
+                    onClick={() => { setStep(1); }}>
                 Wróć
             </button>
             <button className="btn btn--goToCart btn--handleSubmitOrder"

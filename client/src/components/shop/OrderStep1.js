@@ -92,13 +92,13 @@ const OrderStep1 = () => {
                        value={userData.street}
                        onChange={(e) => { handleChange('street', e.target.value); }} />
             </label>
-            <label>
+            <label className="label--flat">
                 Nr domu
                 <input className={errors.includes('buildingUser') ? "input input--order input--flat input--error" : "input input--order input--flat"}
                        value={userData.building}
                        onChange={(e) => { handleChange('building', e.target.value); }} />
             </label>
-            <label>
+            <label className="label--flat">
                 Nr lokalu
                 <input className="input input--order input--flat"
                        value={userData.flat}
@@ -165,13 +165,13 @@ const OrderStep1 = () => {
                            value={invoiceData.street}
                            onChange={(e) => { handleChangeInvoice('street', e.target.value); }} />
                 </label>
-                <label>
+                <label className="label--flat">
                     Nr domu
                     <input className={errors.includes('buildingInvoice') ? "input input--order input--flat input--error" : "input input--order input--flat"}
                            value={invoiceData.building}
                            onChange={(e) => { handleChangeInvoice('building', e.target.value); }} />
                 </label>
-                <label>
+                <label className="label--flat">
                     Nr lokalu
                     <input className="input input--order input--flat"
                            value={invoiceData.flat}
@@ -216,7 +216,7 @@ const OrderStep1 = () => {
             </label>
         </div>
 
-        <div className="cart__bottom cart__bottom--order flex">
+        <div className="cart__bottom cart__bottom--order cart__bottom--order--1 flex">
             <button className="btn btn--goToCart"
                     onClick={() => { nextStep(); }}>
                 Przejdź dalej

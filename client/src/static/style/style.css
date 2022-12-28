@@ -2016,11 +2016,20 @@ a.btn--adminTopMenu {
 
 .cart__bottom--order {
     justify-content: flex-start;
+    max-width: 900px;
 }
 
 .clientData,
 .cart__bottom--order--3 {
-    max-width: 900px;
+    max-width: 800px;
+}
+
+.cart__bottom--order--1 {
+    max-width: 650px;
+}
+
+.cart__bottom--order--3 {
+    justify-content: space-between;
 }
 
 .cart__bottom--order > .btn {
@@ -2395,6 +2404,7 @@ a.btn--adminTopMenu {
 
 .btn--handleSubmitOrder {
     width: 600px !important;
+    margin-right: 0 !important;
 }
 
 .btn--handleSubmitOrder .img {
@@ -2407,4 +2417,47 @@ a.btn--adminTopMenu {
 
 .btn--nextToHandleSubmitOrder {
     width: 280px !important;
+}
+
+.clientData {
+    margin-top: -50px;
+}
+
+.clientData__section {
+    margin: 10px 0;
+    padding: 10px 0;
+}
+
+.clientData__section:not(:last-of-type) {
+    border-bottom: 1px solid #D2D2D2;
+}
+
+.clientData__section__header {
+    font-size: 16px;
+}
+
+.clientData__section__data {
+    color: #5D5D5D;
+    display: block;
+    margin: 3px 0;
+}
+
+.btn--editOrderData {
+    background: transparent;
+    border: 1px solid var(--primary);
+    border-radius: 3px;
+    width: 145px;
+    height: 30px;
+    margin-bottom: 10px;
+    color: var(--primary);
+    font-weight: 400;
+}
+
+.btn--editOrderData:hover {
+    background: #efefef;
+}
+
+.btn--editOrderData .img {
+    width: 10px;
+    margin-left: 8px;
 }
