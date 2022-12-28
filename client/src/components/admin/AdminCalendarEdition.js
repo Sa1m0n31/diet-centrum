@@ -51,7 +51,7 @@ const AdminCalendarEdition = () => {
         </div>
 
         <h2 className="calendarEditionHeader">
-            Kliknij w wybrany dzień, aby wyłączyć go z dostępności, a następnie zatwierdź zmiany
+            Kliknij w wybrany dzień, aby wyłączyć go z dostępności, a następnie zatwierdź zmiany klikając "Aktualizuj dostępne dni".
         </h2>
 
         <OrderCalendar numberOfDays={35}

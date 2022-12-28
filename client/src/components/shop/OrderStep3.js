@@ -7,10 +7,11 @@ import {getAllProducts} from "../../helpers/api/product";
 import {API_URL} from "../../static/settings";
 import trashIcon from "../../static/img/trash.svg";
 import DiscountCodeSection from "./DiscountCodeSection";
+import nextArrow from "../../static/img/arrow-white.svg";
 
 const OrderStep3 = () => {
     const { cart, removeFromCart } = useContext(CartContext);
-    const { userData, invoice, invoiceData, email, day } = useContext(OrderContext);
+    const { userData, invoice, invoiceData, email, day, paperVersion, setStep } = useContext(OrderContext);
 
     const [cartItems, setCartItems] = useState([]);
     const [cartSum, setCartSum] = useState(0);
@@ -35,12 +36,16 @@ const OrderStep3 = () => {
         }, 0));
     }, [cartItems]);
 
+    const handleSubmit = () => {
+
+    }
+
     return <main className="order order--1">
         <h1 className="order__header">
             3. Podsumowanie zamówienia
         </h1>
 
-        <div className="cart__table">
+        <div className="cart__table cart__table--order">
             <div className="cart__table__header flex">
                 <span className="cart__table__header__col">l.p.</span>
                 <span className="cart__table__header__col">-</span>
@@ -76,6 +81,22 @@ const OrderStep3 = () => {
                     </h4>
                 </div>
             </div>
+        </div>
+
+        <div className="clientData">
+
+        </div>
+
+        <div className="cart__bottom cart__bottom--order cart__bottom--order--3 flex">
+            <button className="btn btn--closeModal btn--nextToHandleSubmitOrder"
+                    onClick={() => { setStep(0); }}>
+                Wróć
+            </button>
+            <button className="btn btn--goToCart btn--handleSubmitOrder"
+                    onClick={() => { handleSubmit(); }}>
+                Zamawiam i płacę
+                <img className="img" src={nextArrow} alt="dalej" />
+            </button>
         </div>
     </main>
 };

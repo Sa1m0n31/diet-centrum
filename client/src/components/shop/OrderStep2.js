@@ -1,19 +1,59 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import downloadIcon from '../../static/img/download.svg';
 import uploadIcon from '../../static/img/add.svg';
 import {OrderContext} from "../../pages/shop/OrderProcess";
 import OrderCalendar from "./OrderCalendar";
 import nextArrow from "../../static/img/arrow-white.svg";
-import trashIcon from '../../static/img/trash.svg';
 import checkIcon from '../../static/img/check-green.svg';
+import {isEmail, scrollToTop} from "../../helpers/api/others";
 
 const OrderStep2 = () => {
     const { day, setDay, email, setEmail, attachment, setAttachment, setStep } = useContext(OrderContext);
+
+    const [errors, setErrors] = useState([]);
+
+    useEffect(() => {
+        if(day !== null) {
+            setErrors(prevState => (prevState.filter((item) => (item !== 'day'))));
+        }
+    }, [day]);
+
+    useEffect(() => {
+        if(isEmail(email)) {
+            setErrors(prevState => (prevState.filter((item) => (item !== 'email'))));
+        }
+    }, [email]);
+
+    useEffect(() => {
+        if(attachment) {
+            setErrors(prevState => (prevState.filter((item) => (item !== 'attachment'))));
+        }
+    }, [attachment]);
 
     const handleAttachmentUpload = (files) => {
         let file = files[0];
         if(file) {
             setAttachment(file);
+        }
+    }
+
+    const validateData = () => {
+        let err = [];
+
+        if(!day) err.push('day');
+        if(!isEmail(email)) err.push('email');
+        if(!attachment) err.push('attachment');
+
+        setErrors(err);
+        return err.length === 0;
+    }
+
+    const nextStep = () => {
+        if(validateData()) {
+            setStep(2);
+        }
+        else {
+            scrollToTop();
         }
     }
 
@@ -23,12 +63,14 @@ const OrderStep2 = () => {
         </h1>
 
         <div className="order__section">
-            <h3 className="order__section__header">
+            <h3 className={errors.includes('day') ? "order__section__header red" : "order__section__header"}>
                 Wybierz dzień wysyłki Twojego planu żywieniowego
             </h3>
 
-            <OrderCalendar day={day}
-                           setDay={setDay} />
+            <OrderCalendar selected={day}
+                           setSelected={setDay}
+                           numberOfDays={10}
+                           offset={2} />
         </div>
 
         <div className="order__section">
@@ -36,7 +78,7 @@ const OrderStep2 = () => {
                 Adres e-mail, na który zostanie wysłany plan:
             </h3>
 
-            <input className="input input--order input--email"
+            <input className={errors.includes('email') ? "input input--order input--email input--error" : "input input--order input--email"}
                    value={email}
                    onChange={(e) => { setEmail(e.target.value); }} />
         </div>
@@ -57,7 +99,7 @@ const OrderStep2 = () => {
                 Miejsce na Twój załącznik
             </h3>
 
-            <label className="uploadAttachmentLabel">
+            <label className={errors.includes('attachment') ? "uploadAttachmentLabel uploadAttachmentLabel--error" : "uploadAttachmentLabel"}>
                 {!attachment ? <span>
                     Dodaj plik
                     <img className="img" src={uploadIcon} alt="dodaj" />
@@ -77,7 +119,7 @@ const OrderStep2 = () => {
                 Wróć
             </button>
             <button className="btn btn--goToCart"
-                    onClick={() => { setStep(2); }}>
+                    onClick={() => { nextStep(); }}>
                 Przejdź dalej
                 <img className="img" src={nextArrow} alt="dalej" />
             </button>

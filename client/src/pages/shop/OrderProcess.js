@@ -41,7 +41,7 @@ const OrderProcess = () => {
     let content = useRef(null);
 
     useEffect(() => {
-        if(content) {
+        if(content?.current) {
             scrollToTop();
             content.current.style.opacity = '0';
 
@@ -57,7 +57,9 @@ const OrderProcess = () => {
                 }
 
                 setTimeout(() => {
-                    content.current.style.opacity = '1';
+                    if(content.current) {
+                        content.current.style.opacity = '1';
+                    }
                 }, 200);
             }, 200);
         }

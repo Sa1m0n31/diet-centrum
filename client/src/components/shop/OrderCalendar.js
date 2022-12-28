@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {getNextNDays} from "../../helpers/api/others";
 import {getBlockedDays} from "../../helpers/api/admin";
 
-const OrderCalendar = ({setSelectedDays, day, setDay, selected, setSelected, multipleSelected, setMultipleSelected,
+const OrderCalendar = ({setSelectedDays, selected, setSelected, multipleSelected, setMultipleSelected,
                            numberOfDays, multiple, offset}) => {
     const [days, setDays] = useState([]);
     const [excluded, setExcluded] = useState([]);
@@ -47,15 +47,17 @@ const OrderCalendar = ({setSelectedDays, day, setDay, selected, setSelected, mul
     }, [numberOfDays, offset]);
 
     useEffect(() => {
-        setSelectedDays(multipleSelected.map((item) => {
-            const dayObject = days[item];
+        if(multipleSelected?.length) {
+            setSelectedDays(multipleSelected.map((item) => {
+                const dayObject = days[item];
 
-            return {
-                day: dayObject.day,
-                month: dayObject.monthNumber,
-                year: dayObject.year
-            }
-        }));
+                return {
+                    day: dayObject.day,
+                    month: dayObject.monthNumber,
+                    year: dayObject.year
+                }
+            }));
+        }
     }, [multipleSelected]);
 
     const isExcluded = (i) => {
@@ -63,7 +65,7 @@ const OrderCalendar = ({setSelectedDays, day, setDay, selected, setSelected, mul
     }
 
     const isSelected = (id) => {
-        return (id === selected) || (multipleSelected.includes(id));
+        return (id === selected) || (multipleSelected ? multipleSelected.includes(id) : 0);
     }
 
     const handleClick = (id) => {
@@ -82,11 +84,12 @@ const OrderCalendar = ({setSelectedDays, day, setDay, selected, setSelected, mul
         }
     }
 
-    return <div className="calendar flex">
+    return <div className={multiple ? "calendar flex" : "calendar calendar--order flex"}>
         {days.map((item, index) => {
-            return <button className={isExcluded(index) ? "btn btn--calendar btn--calendar--excluded" :
+            return <button className={isExcluded(index) && !multiple ? "btn btn--calendar btn--calendar--excluded" :
                 (isSelected(index) ? (multiple ? "btn btn--calendar btn--calendar--excluded" : "btn btn--calendar btn--calendar--selected") : "btn btn--calendar")}
                            onClick={() => { handleClick(index); }}
+                           disabled={!multiple && isExcluded(index)}
                            key={index}>
                 <span className="calendar__day">
                     {item.day}

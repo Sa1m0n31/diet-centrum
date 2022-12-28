@@ -17,6 +17,8 @@ const months = ['Stycznia', 'Lutego', 'Marca', 'Kwietnia', 'Maja', 'Czerwca', 'L
 
 const weekdays = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
 
+const polishMonths = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
+
 const getNextNDays = (n, offset) => {
     const today = new Date();
     const nextDays = [];
@@ -36,4 +38,8 @@ const getNextNDays = (n, offset) => {
     return nextDays;
 }
 
-export { scrollToTop, isEmail, getNextNDays }
+const getStringDate = (day, month, year) => {
+    return `${day} ${polishMonths[month-1]} ${year}`;
+}
+
+export { scrollToTop, isEmail, getNextNDays, getStringDate }
