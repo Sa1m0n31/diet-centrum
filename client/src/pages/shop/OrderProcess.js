@@ -1,14 +1,17 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import SiteHeader from "../../components/shop/SiteHeader";
 import Footer from "../../components/shop/Footer";
 import OrderStep1 from "../../components/shop/OrderStep1";
 import OrderStep2 from "../../components/shop/OrderStep2";
 import OrderStep3 from "../../components/shop/OrderStep3";
 import {scrollToTop} from "../../helpers/api/others";
+import {CartContext} from "../../App";
 
 const OrderContext = React.createContext(null);
 
 const OrderProcess = () => {
+    const { cart } = useContext(CartContext);
+
     const [step, setStep] = useState(0);
     const [mainComponent, setMainComponent] = useState(<OrderStep1 />);
 
@@ -64,17 +67,6 @@ const OrderProcess = () => {
             }, 200);
         }
     }, [step]);
-
-    const validateData = () => {
-
-        return 1;
-    }
-
-    const handleSubmit = () => {
-        if(validateData()) {
-
-        }
-    }
 
     return <div className="container container--order">
         <SiteHeader />

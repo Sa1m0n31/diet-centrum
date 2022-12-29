@@ -24,12 +24,22 @@ export class PurchaseService {
         });
     }
 
-    async paymentProcess(amount, email) {
+    async paymentProcess(id, amount, email) {
         let hash, data, gen_hash;
         const sessionId = uuid();
         hash = crypto.createHash('sha384');
         data = hash.update(`{"sessionId":"${sessionId}","merchantId":${process.env.PRZELEWY_24_CLIENT_ID},"amount":${parseFloat(amount)*100},"currency":"PLN","crc":"${process.env.PRZELEWY_24_CRC}"}`, 'utf-8');
         gen_hash = data.digest('hex');
+
+        // Add payment id
+        await this.purchaseRepository.createQueryBuilder()
+            .update({
+                payment_id: sessionId
+            })
+            .where({
+                id
+            })
+            .execute();
 
         let postData = {
             sessionId: sessionId,
@@ -42,8 +52,8 @@ export class PurchaseService {
             country: "PL",
             language: "pl",
             encoding: "utf-8",
-            urlReturn: `${process.env.API_URL}/dziekujemy`,
-            urlStatus: `${process.env.API_URL}/order/verifyPayment`,
+            urlReturn: `${process.env.WEBSITE_URL}/dziekujemy`,
+            urlStatus: `${process.env.API_URL}/purchase/verifyPayment`,
             sign: gen_hash
         };
 
@@ -55,12 +65,8 @@ export class PurchaseService {
             });
 
             if(res) {
-                const responseToClient = res.data.token;
-
-                console.log(responseToClient);
-
                 return {
-                    result: responseToClient,
+                    token: res.data.data.token,
                     sign: gen_hash
                 }
             }
@@ -69,17 +75,17 @@ export class PurchaseService {
             }
         }
         catch(e) {
-            console.log(e);
             return 0;
         }
     }
 
-    async addPurchase(body) {
-        const { firstName, lastName, street, building, flat, postalCode, city, phoneNumber, email,
+    async addPurchase(files, body) {
+        const { cart, firstName, lastName, street, building, flat, postalCode, city, phoneNumber, email,
             emailToSend, sendDate, invoice, paperVersion, discountCode, discountValue, sum} = body;
 
         try {
             const addResult = await this.purchaseRepository.save({
+                cart,
                 first_name: firstName,
                 last_name: lastName,
                 street,
@@ -98,11 +104,12 @@ export class PurchaseService {
                 discount_value: discountValue,
                 payment_id: null,
                 payment_status: 'Nieopłacone',
+                attachment: files?.attachment ? files.attachment[0]?.path : '',
                 sum
             });
 
             if(addResult) {
-                return this.paymentProcess(sum, email);
+                return this.paymentProcess(addResult.id, sum, email);
             }
             else {
                 throw new HttpException('Coś poszło nie tak... Prosimy spróbować później.', 500);
@@ -145,7 +152,7 @@ export class PurchaseService {
                             payment_status: 'Opłacone'
                         })
                         .where({
-                            payment_id: orderId
+                            payment_id: sessionId
                         })
                         .execute();
 

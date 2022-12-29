@@ -8,6 +8,7 @@ import DiscountCodeSection from "../../components/shop/DiscountCodeSection";
 import arrowWhite from '../../static/img/arrow-white.svg';
 import {API_URL} from "../../static/settings";
 import trashIcon from '../../static/img/trash.svg';
+import {getAmountInArray} from "../../helpers/api/others";
 
 const Cart = () => {
     const { cart, removeFromCart } = useContext(CartContext);
@@ -24,7 +25,16 @@ const Cart = () => {
                     if(res.status === 200) {
                         setCartItems(res.data.filter((item) => {
                             return cart.includes(item.id);
-                        }));
+                        }).map((item) => {
+                            let currentItemAmounts = [];
+                            let n = getAmountInArray(item.id, cart);
+
+                            for(let i=0; i<n; i++) {
+                                currentItemAmounts.push(item);
+                            }
+
+                            return currentItemAmounts;
+                        }).flat());
                     }
                 });
         }
@@ -71,7 +81,7 @@ const Cart = () => {
                             </span>
                             <span className="cart__table__item__col">
                                 <button className="btn btn--deleteFromCart"
-                                        onClick={() => { removeFromCart(item.id); }}>
+                                        onClick={() => { removeFromCart(item.id, index); }}>
                                     <img className="img" src={trashIcon} alt="usuń" />
                                 </button>
                             </span>

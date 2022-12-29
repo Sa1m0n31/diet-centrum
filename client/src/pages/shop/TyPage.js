@@ -7,8 +7,9 @@ const TyPage = () => {
     const [receivedDate, setReceivedDate] = useState('');
 
     useEffect(() => {
-        const date = localStorage.getItem('orderReceivedDate') || '10 grudnia 2022';
+        const date = localStorage.getItem('orderReceivedDate') || 'już za kilka dni';
         setReceivedDate(date);
+        localStorage.removeItem('orderReceivedDate');
     }, []);
 
     return <div className="container container--ty">

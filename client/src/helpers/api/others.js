@@ -42,4 +42,10 @@ const getStringDate = (day, month, year) => {
     return `${day} ${polishMonths[month-1]} ${year}`;
 }
 
-export { scrollToTop, isEmail, getNextNDays, getStringDate }
+const getAmountInArray = (el, arr) => {
+    return arr.reduce((prev, curr) => {
+        return prev + (curr === el ? 1 : 0);
+    }, 0);
+}
+
+export { scrollToTop, isEmail, getNextNDays, getStringDate, getAmountInArray }

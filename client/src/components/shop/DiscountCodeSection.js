@@ -38,17 +38,19 @@ const DiscountCodeSection = ({cartSum, setCartSum, setDiscount, discountCode, se
         }
     }
 
-    const handleSubmit = () => {
-        if(code) {
+    const handleSubmit = (localStorageCode = null) => {
+        const c = localStorageCode ? localStorageCode : code;
+
+        if(c) {
             if(!discountCode) {
-                if(code.length <= 3) {
+                if(c.length <= 3) {
                     setError('Podany kod nie istnieje');
                 }
                 else {
-                    verifyDiscountCode(code)
+                    verifyDiscountCode(c)
                         .then((res) => {
                             if(res?.status === 200) {
-                                localStorage.setItem('discountCode', code);
+                                localStorage.setItem('discountCode', c);
                                 const codeObj = res.data;
                                 calculateNewCartSum(codeObj.discount_type, codeObj.discount_value);
                             }

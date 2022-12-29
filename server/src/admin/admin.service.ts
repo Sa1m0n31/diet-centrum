@@ -3,6 +3,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {Content} from "../entities/content.entity";
 import {Repository} from "typeorm";
 import {BlockedDay} from "../entities/blocked_day.entity";
+import {MailerService} from "@nestjs-modules/mailer";
 
 @Injectable()
 export class AdminService {
@@ -10,7 +11,8 @@ export class AdminService {
         @InjectRepository(Content)
         private readonly contentRepository: Repository<Content>,
         @InjectRepository(BlockedDay)
-        private readonly blockedDayRepository: Repository<BlockedDay>
+        private readonly blockedDayRepository: Repository<BlockedDay>,
+        private readonly mailerService: MailerService
     ) {
     }
 
@@ -62,5 +64,24 @@ export class AdminService {
         catch(e) {
             throw new HttpException('Coś poszło nie tak...', 500);
         }
+    }
+
+    async sendContactForm(name, email, phoneNumber, message) {
+        return this.mailerService.sendMail({
+            to: process.env.CONTACT_FORM_ADDRESS,
+            from: process.env.EMAIL_ADDRESS,
+            subject: 'Nowa wiadomość w formularzu kontaktowym',
+            html: `<div>
+                    <h2>
+                        Ktoś wysłał wiadomość w formularzu kontaktowym Diet Centrum!
+                    </h2>
+                    <p>
+                        Imię: ${name}<br/>
+                        Nr telefonu: ${phoneNumber}<br/>
+                        Email: ${email}<br/>
+                        Wiadomość: ${message}
+                    </p>
+                </div>`
+        })
     }
 }

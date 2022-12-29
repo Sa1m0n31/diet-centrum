@@ -27,4 +27,9 @@ export class AdminController {
     updateBlockedDays(@Body() body) {
         return this.adminService.updateBlockedDays(body.days);
     }
+
+    @Post('/sendContactForm')
+    sendContactForm(@Body() body) {
+        return this.adminService.sendContactForm(body.name, body.email, body.phoneNumber, body.message);
+    }
 }

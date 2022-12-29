@@ -420,7 +420,7 @@
         font-size: 14px;
     }
 
-    .cart__bottom > .btn {
+    .cart__bottom .btn {
         font-size: 13px;
         width: 180px;
         height: 40px;
@@ -588,6 +588,7 @@
         margin: 20px auto 40px;
     }
 
+    .cart__bottom > .flex > *,
     .cart__bottom > * {
         width: 100% !important;
         margin: 0 0 8px 0 !important;
@@ -1299,6 +1300,10 @@
     .order--1 .label--flat {
         width: 48% !important;
     }
+
+    .error--order {
+        margin-top: 0;
+    }
 }
 
 @media(max-width: 576px) {
@@ -1344,6 +1349,7 @@
         margin-bottom: 30px;
     }
 
+    .cart__bottom > .flex > *,
     .cart__bottom > * {
         width: 100% !important;
         margin: 0 0 10px 0 !important;

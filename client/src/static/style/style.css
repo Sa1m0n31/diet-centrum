@@ -1666,6 +1666,7 @@ a.btn--adminTopMenu {
 }
 
 .cart__bottom {
+    position: relative;
     padding-top: 25px;
     margin-top: 30px;
     border-top: 1px solid #A8A8A8;
@@ -1869,7 +1870,7 @@ a.btn--adminTopMenu {
     margin-bottom: 80px;
 }
 
-.cart__bottom > .btn {
+.cart__bottom .btn {
     width: 250px;
     height: 50px;
     border-radius: 10px;
@@ -1877,7 +1878,7 @@ a.btn--adminTopMenu {
     margin-left: 15px;
 }
 
-.cart__bottom > .btn > .img {
+.cart__bottom .btn > .img {
     width: 15px;
     margin-left: 8px;
 }
@@ -2032,7 +2033,7 @@ a.btn--adminTopMenu {
     justify-content: space-between;
 }
 
-.cart__bottom--order > .btn {
+.cart__bottom--order .btn {
     margin-left: 0;
     margin-right: 10px;
 }
@@ -2460,4 +2461,29 @@ a.btn--adminTopMenu {
 .btn--editOrderData .img {
     width: 10px;
     margin-left: 8px;
+}
+
+.orderLoader {
+    opacity: 0;
+    transition: .2s all;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.orderButtons {
+    transition: .2s all;
+}
+
+.error--order {
+    display: block;
+    margin-top: -50px;
+}
+
+.info.center {
+    background: transparent;
+    text-align: center;
+    color: var(--primary);
+    border: none;
 }

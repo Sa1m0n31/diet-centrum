@@ -52,8 +52,8 @@ function App() {
     setCart(prevState => ([...prevState, id]));
   }
 
-  const removeFromCart = (id) => {
-    setCart(prevState => (prevState.filter((item) => (item !== id))));
+  const removeFromCart = (id, idx) => {
+    setCart(prevState => (prevState.filter((item, index) => ((item !== id) || (index !== idx)))));
   }
 
   return <CartContext.Provider value={{
@@ -104,6 +104,12 @@ function App() {
         </Route>
         <Route path="/panel/edycja-produktu">
           <AdminPanel selectedItem={1} page={1} />
+        </Route>
+        <Route path="/panel/zamowienia">
+          <AdminPanel selectedItem={2} page={0} />
+        </Route>
+        <Route path="/panel/szczegoly-zamowienia">
+          <AdminPanel selectedItem={2} page={1} />
         </Route>
         <Route path="/panel/lista-wpisow">
           <AdminPanel selectedItem={3} page={0} />

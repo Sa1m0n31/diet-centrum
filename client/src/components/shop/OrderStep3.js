@@ -1,26 +1,42 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {CartContext} from "../../App";
 import {OrderContext} from "../../pages/shop/OrderProcess";
 import {getAllProducts} from "../../helpers/api/product";
-import {API_URL} from "../../static/settings";
+import {API_URL, PAYMENT_PAGE_URL} from "../../static/settings";
 import nextArrow from "../../static/img/arrow-white.svg";
 import penIcon from '../../static/img/pen.svg';
-import {getNextNDays, getStringDate} from "../../helpers/api/others";
+import {getAmountInArray, getNextNDays, getStringDate} from "../../helpers/api/others";
 import {addPurchase} from "../../helpers/api/purchase";
 import {errorText} from "../../helpers/admin/content";
+import {verifyDiscountCode} from "../../helpers/api/code";
+import Loader from "../admin/Loader";
 
 const OrderStep3 = () => {
     const { cart } = useContext(CartContext);
-    const { userData, invoice, invoiceData, email, day, paperVersion, setStep } = useContext(OrderContext);
+    const { userData, invoice, invoiceData, email, day, paperVersion, setStep, attachment } = useContext(OrderContext);
 
+    const [products, setProducts] = useState([]);
     const [cartItems, setCartItems] = useState([]);
     const [cartSum, setCartSum] = useState(0);
+    const [discountCode, setDiscountCode] = useState('');
     const [discount, setDiscount] = useState('');
     const [sendPlanDate, setSendPlanDate] = useState({});
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const nextDays = getNextNDays(10, 2);
+    let buttonsSection = useRef(null);
+    let loader = useRef(null);
+
+    const nextDays = getNextNDays(15, 2);
+
+    useEffect(() => {
+        getAllProducts()
+            .then((res) => {
+                if(res?.status === 200) {
+                    setProducts(res.data);
+                }
+            });
+    }, []);
 
     useEffect(() => {
         setSendPlanDate(nextDays[day]);
@@ -33,31 +49,106 @@ const OrderStep3 = () => {
                     if(res.status === 200) {
                         setCartItems(res.data.filter((item) => {
                             return cart.includes(item.id);
-                        }));
+                        }).map((item) => {
+                            let currentItemAmounts = [];
+                            let n = getAmountInArray(item.id, cart);
+
+                            for(let i=0; i<n; i++) {
+                                currentItemAmounts.push(item);
+                            }
+
+                            return currentItemAmounts;
+                        }).flat());
                     }
                 });
         }
     }, [cart]);
 
     useEffect(() => {
-        setCartSum(cartItems.reduce((prev, curr) => {
-            return prev + curr.price;
-        }, 0) + (paperVersion ? 5 : 0));
+        if(cartItems?.length) {
+            setCartSum(cartItems.reduce((prev, curr) => {
+                return prev + curr.price;
+            }, 0) + (paperVersion ? 5 : 0));
+        }
     }, [cartItems, paperVersion]);
 
+    useEffect(() => {
+        if(cartSum && !discountCode) {
+            // Verify discount code
+            const code = localStorage.getItem('discountCode');
+            if(code) {
+                verifyDiscountCode(code)
+                    .then((res) => {
+                        if(res.status === 200) {
+                            setDiscountCode(code);
+                            const codeObject = res.data;
+                            calculateNewCartSum(codeObject.discount_type, codeObject.discount_value);
+                        }
+                    });
+            }
+        }
+    }, [cartSum]);
+
+    useEffect(() => {
+        if(loading) {
+            loader.current.style.zIndex = '3';
+            buttonsSection.current.style.opacity = '0';
+            loader.current.style.opacity = '1';
+        }
+        else {
+            buttonsSection.current.style.opacity = '1';
+            loader.current.style.opacity = '0';
+            setTimeout(() => {
+                if(loader?.current) {
+                    loader.current.style.zIndex = '-3';
+                }
+            }, 200);
+        }
+    }, [loading]);
+
+    const calculateNewCartSum = (type, value) => {
+        if(type === 0) {
+            setDiscount(value);
+            setCartSum(prevState => (Math.max(0, prevState - value)));
+        }
+        else {
+            const d = (cartSum * (value / 100)).toFixed();
+            setDiscount(d);
+            setCartSum(prevState => (Math.max(0, prevState - d)));
+        }
+    }
+
+    const getProductPriceById = (id) => {
+        return products.find((item) => (item.id === id))?.price || 0;
+    }
+
     const handleSubmit = () => {
-        const sendDate = day;
+        const sendDateObject = nextDays[day];
+        const sendDate = JSON.stringify(sendDateObject);
+        localStorage.setItem('orderReceivedDate', getStringDate(sendDateObject.day, sendDateObject.monthNumber, sendDateObject.year));
         setLoading(true);
 
-        addPurchase(userData, invoice ? invoiceData : null,
+        const cartWithPrices = cart.map((item) => {
+           return {
+               id: item,
+               price: getProductPriceById(item)
+           }
+        });
+
+        addPurchase(cartWithPrices, userData, invoice ? invoiceData : null,
             email, sendDate, paperVersion,
-            'code', 'value', cartSum)
+            discountCode, discount, cartSum, attachment)
             .then((res) => {
                 if(!res) {
                     setError(errorText);
                 }
                 else {
-                    window.location = '/dziekujemy';
+                    localStorage.removeItem('cart');
+                    localStorage.removeItem('discountCode');
+
+                    // Redirect to payment page
+                    const token = res.data.token;
+                    window.location = `${PAYMENT_PAGE_URL}${token}`;
                 }
             })
             .catch((e) => {
@@ -172,16 +263,28 @@ const OrderStep3 = () => {
         </div>
 
         <div className="cart__bottom cart__bottom--order cart__bottom--order--3 flex">
-            <button className="btn btn--closeModal btn--nextToHandleSubmitOrder"
-                    onClick={() => { setStep(1); }}>
-                Wróć
-            </button>
-            <button className="btn btn--goToCart btn--handleSubmitOrder"
-                    onClick={() => { handleSubmit(); }}>
-                Zamawiam i płacę
-                <img className="img" src={nextArrow} alt="dalej" />
-            </button>
+            <div className="center orderLoader"
+                 ref={loader}>
+                <Loader />
+            </div>
+
+            <div className="flex orderButtons"
+                 ref={buttonsSection}>
+                <button className="btn btn--closeModal btn--nextToHandleSubmitOrder"
+                        onClick={() => { setStep(1); }}>
+                    Wróć
+                </button>
+                <button className="btn btn--goToCart btn--handleSubmitOrder"
+                        onClick={() => { handleSubmit(); }}>
+                    Zamawiam i płacę
+                    <img className="img" src={nextArrow} alt="dalej" />
+                </button>
+            </div>
         </div>
+
+        {error ? <span className="error error--order">
+            {error}
+        </span> : ''}
     </main>
 };
 

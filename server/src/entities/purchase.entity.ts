@@ -63,5 +63,8 @@ export class Purchase {
     payment_status: string;
 
     @Column()
+    attachment: string;
+
+    @Column()
     sum: number;
 }

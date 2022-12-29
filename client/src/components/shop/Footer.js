@@ -18,6 +18,7 @@ const Footer = () => {
                     {socialMedia.map((item, index) => {
                         return <a href={item.link}
                                   rel="noreferrer"
+                                  key={index}
                                   className="aboutUs__box__socialMedia__link">
                             <img className="img" src={item.icon} alt="social-media" />
                         </a>

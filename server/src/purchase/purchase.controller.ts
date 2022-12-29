@@ -1,5 +1,9 @@
-import {Body, Controller, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, UploadedFiles, UseInterceptors} from '@nestjs/common';
 import {PurchaseService} from "./purchase.service";
+import {FileFieldsInterceptor} from "@nestjs/platform-express";
+import {diskStorage} from "multer";
+import {FileUploadHelper} from "../common/FileUploadHelper";
+import {Express} from "express";
 
 @Controller('purchase')
 export class PurchaseController {
@@ -19,8 +23,19 @@ export class PurchaseController {
     }
 
     @Post('/add')
-    addPurchase(@Body() body) {
-        return this.purchaseService.addPurchase(body);
+    @UseInterceptors(FileFieldsInterceptor([
+        {name: 'attachment', maxCount: 1}
+        ], {
+        storage: diskStorage({
+            filename: FileUploadHelper.customFileName,
+            destination: './uploads/attachments'
+        })
+    }
+    ))
+    addPurchase(@UploadedFiles() files: {
+        attachment?: Express.Multer.File[]
+    }, @Body() body) {
+        return this.purchaseService.addPurchase(files, body);
     }
 
     @Post('/verifyPayment')
