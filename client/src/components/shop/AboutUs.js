@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import manImage from '../../static/img/man.png'
 import {socialMedia} from "../../helpers/shop/content";
+import {ContentContext} from "../../App";
 
 const AboutUs = () => {
-    return <div className="section section--aboutUs w">
+    const { c } = useContext(ContentContext);
+
+    return c ? <div className="section section--aboutUs w">
         <h2 className="section__header">
             O mnie
         </h2>
@@ -12,10 +15,10 @@ const AboutUs = () => {
                 <img className="img" src={manImage} alt="diet-centrum" />
             </figure>
             <h3 className="aboutUs__box__header">
-                Jesteśmy świetnymi <span className="green">dietetykami</span>
+                {c.aboutMeHeader.split(' ').slice(0, -1).join(' ')} <span className="green">{c.aboutMeHeader.split(' ').slice(-1)}</span>
             </h3>
             <p className="aboutUs__box__text">
-                Z pasji i wykształcenia jestem dietetykiem klinicznym z Limanowej, absolwentką Krakowskiej Wyższej Szkoły Promocji Zdrowia. Moja praca dyplomowa o żywieniu w chorobach zapalnych jelit utwierdziła mnie w przekonaniu, że żywienie chorobach przewlekłych i chorobach jelit, to moja droga. Wciąż głodna wiedzy nieustannie aktualizuję ją na kursach i uczestnicząc w konferencjach.
+                {c.aboutMeText}
             </p>
             <a href="/o-nas" className="btn btn--aboutUsBox d-desktop">
                 Przeczytaj o nas więcej
@@ -27,6 +30,7 @@ const AboutUs = () => {
                 </span>
                 {socialMedia.map((item, index) => {
                     return <a href={item.link}
+                              key={index}
                               rel="noreferrer"
                               className="aboutUs__box__socialMedia__link">
                         <img className="img" src={item.icon} alt="social-media" />
@@ -34,7 +38,7 @@ const AboutUs = () => {
                 })}
             </div>
         </div>
-    </div>
+    </div> : '';
 };
 
 export default AboutUs;

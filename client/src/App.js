@@ -16,6 +16,9 @@ import SingleArticle from "./pages/shop/SingleArticle";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css?n=1";
 import './static/style/style.css'
 import './static/style/mobile.css'
+import TextPage from "./pages/shop/TextPage";
+import AboutUsPage from "./pages/shop/AboutUsPage";
+import LoadingPage from "./pages/shop/LoadingPage";
 
 const ContentContext = React.createContext({});
 const CartContext = React.createContext([]);
@@ -56,7 +59,7 @@ function App() {
     setCart(prevState => (prevState.filter((item, index) => ((item !== id) || (index !== idx)))));
   }
 
-  return <CartContext.Provider value={{
+  return content.landingHeader ? <CartContext.Provider value={{
     cart,
     addToCart,
     removeFromCart
@@ -85,11 +88,20 @@ function App() {
         <Route path="/oferta">
           <OfferPage />
         </Route>
+        <Route path="/o-nas">
+          <AboutUsPage />
+        </Route>
         <Route exact path="/blog">
           <Blog />
         </Route>
         <Route path="/blog/*">
           <SingleArticle />
+        </Route>
+        <Route path="/regulamin">
+          <TextPage header="Regulamin" />
+        </Route>
+        <Route path="/polityka-prywatnosci">
+          <TextPage header="Polityka prywatności" />
         </Route>
 
         {/* Admin */}
@@ -120,6 +132,9 @@ function App() {
         <Route path="/panel/edycja-tresci">
           <AdminPanel selectedItem={4} />
         </Route>
+        <Route path="/panel/edycja-tekstow">
+          <AdminPanel selectedItem={5} />
+        </Route>
         <Route path="/panel/kody-rabatowe">
           <AdminPanel selectedItem={6} />
         </Route>
@@ -128,7 +143,7 @@ function App() {
         </Route>
       </Router>
     </ContentContext.Provider>
-  </CartContext.Provider>
+  </CartContext.Provider> : <LoadingPage />
 }
 
 export default App;

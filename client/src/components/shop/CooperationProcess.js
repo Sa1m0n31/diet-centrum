@@ -1,26 +1,35 @@
-import React from 'react';
-
-const cooperationPoints = [
-    {
-        title: 'Wybierz interesujący Cię plan',
-        text: 'Wybierz swój plan opieki dietetycznej — 1 miesiąc, 3 miesiące lub 6 miesięcy.'
-    },
-    {
-        title: 'Konsultacja dietetyczna',
-        text: 'Chcemy poznać Twoje preferencje, oczekiwania i cele, by dopasować do Ciebie dietę online.'
-    },
-    {
-        title: 'Indywidualna dieta online',
-        text: 'Chcemy poznać Twoje preferencje, oczekiwania i cele, by dopasować do Ciebie dietę online.'
-    },
-    {
-        title: 'Ostatni punkt',
-        text: 'Wybierz swój plan opieki dietetycznej — 1 miesiąc, 3 miesiące lub 6 miesięcy.'
-    }
-]
+import React, {useContext, useEffect, useState} from 'react';
+import {ContentContext} from "../../App";
 
 const CooperationProcess = () => {
-    return <div className="section section--cooperation">
+    const { c } = useContext(ContentContext);
+
+    const [cooperationPoints, setCooperationPoints] = useState([]);
+
+    useEffect(() => {
+        if(c) {
+            setCooperationPoints([
+                {
+                    title: c.cooperationPoint1Header,
+                    text: c.cooperationPoint2Text
+                },
+                {
+                    title: c.cooperationPoint1Header,
+                    text: c.cooperationPoint2Text
+                },
+                {
+                    title: c.cooperationPoint1Header,
+                    text: c.cooperationPoint2Text
+                },
+                {
+                    title: c.cooperationPoint1Header,
+                    text: c.cooperationPoint2Text
+                }
+            ]);
+        }
+    }, [c]);
+
+    return cooperationPoints ? <div className="section section--cooperation">
         <h2 className="section__header">
             Jak przebiega współpraca?
         </h2>
@@ -40,7 +49,7 @@ const CooperationProcess = () => {
                 </div>
             })}
         </div>
-    </div>
+    </div> : '';
 };
 
 export default CooperationProcess;

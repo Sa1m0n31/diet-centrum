@@ -16,6 +16,18 @@ export class AdminService {
     ) {
     }
 
+    async updateTexts(termsOfService, privacyPolicy) {
+        await this.contentRepository.save({
+            field: 'termsOfService',
+            value: termsOfService
+        });
+
+        return this.contentRepository.save({
+            field: 'privacyPolicy',
+            value: privacyPolicy
+        });
+    }
+
     async updateContent(data) {
         const dataArray = Object.entries(data);
 

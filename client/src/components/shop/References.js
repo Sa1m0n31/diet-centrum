@@ -1,29 +1,38 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import starIcon from '../../static/img/star.svg';
 import assetIcon from '../../static/img/asset2.png';
-
-const referencesContent = [
-    {
-        name: 'Ania, -10kg w rok',
-        text: 'Ze wsparcia dietetycznego Alicji korzystam od około roku. Uczę się od niej jak jeść zdrowiej, a przy okazji znacznie lepiej teraz gotuję. Nie czuję monotonii stosując się do zaleceń i to jest na pewno fajne. Ale dla mnie najważniejsze jest jednak to, że widzę po sobie efekty tej współpracy. Dziękuję!'
-    },
-    {
-        name: 'Ania, -10kg w rok',
-        text: 'Ze wsparcia dietetycznego Alicji korzystam od około roku. Uczę się od niej jak jeść zdrowiej, a przy okazji znacznie lepiej teraz gotuję. Nie czuję monotonii stosując się do zaleceń i to jest na pewno fajne. Ale dla mnie najważniejsze jest jednak to, że widzę po sobie efekty tej współpracy. Dziękuję!'
-    },
-    {
-        name: 'Ania, -10kg w rok',
-        text: 'Ze wsparcia dietetycznego Alicji korzystam od około roku. Uczę się od niej jak jeść zdrowiej, a przy okazji znacznie lepiej teraz gotuję. Nie czuję monotonii stosując się do zaleceń i to jest na pewno fajne. Ale dla mnie najważniejsze jest jednak to, że widzę po sobie efekty tej współpracy. Dziękuję!'
-    }
-];
+import {ContentContext} from "../../App";
 
 const References = () => {
+    const { c } = useContext(ContentContext);
+
+    const [referencesContent, setReferencesContent] = useState([]);
+
+    useEffect(() => {
+        if(c) {
+            setReferencesContent([
+                {
+                    name: c.reference1Header,
+                    text: c.reference1Text
+                },
+                {
+                    name: c.reference2Header,
+                    text: c.reference2Text
+                },
+                {
+                    name: c.reference3Header,
+                    text: c.reference3Text
+                }
+            ])
+        }
+    }, [c]);
+
     return <div className="section section--references">
         <h3 className="section__header">
             Opinie
         </h3>
         <h4 className="section__subheader">
-            Dołącz do grona usatysfakcjonowanych Klientów, którzy odmienili swoje życie i zrealizowali cele dzięki naszym planom żywieniowym.
+            {c.referencesText}
         </h4>
 
         <div className="references w flex">

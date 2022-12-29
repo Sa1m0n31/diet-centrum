@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import logo from '../../static/img/logo-footer.png';
 import phoneIcon from '../../static/img/phone.svg';
 import mailIcon from '../../static/img/mail.svg';
 import {socialMedia} from "../../helpers/shop/content";
+import {ContentContext} from "../../App";
 
 const Footer = () => {
+    const { c } = useContext(ContentContext);
+
     return <footer className="footer w">
         <div className="footer__main flex">
             <div className="footer__col footer__col--first">
@@ -12,7 +15,7 @@ const Footer = () => {
                     <img className="img" src={logo} alt="diet-centrum" />
                 </a>
                 <p className="footer__col__text">
-                    Nazywam się Alicja Król i jestem dyplomowanym dietetykiem klinicznym w Limanowej (Małopolska, Kraków). Pomagam w zaburzeniach odżywiania osobom w każdym wieku!
+                    {c.footerText}
                 </p>
                 <div className="footer__col__socialMedia flex">
                     {socialMedia.map((item, index) => {
@@ -54,11 +57,11 @@ const Footer = () => {
 
                 <span className="footer__col__contact">
                     <img className="img" src={phoneIcon} alt="telefon" />
-                    +48 329 324 324
+                    {c.phoneNumber}
                 </span>
                 <span className="footer__col__contact">
                     <img className="img" src={mailIcon} alt="email" />
-                    kontakt@diet-centrum.pl
+                    {c.email}
                 </span>
             </div>
         </div>

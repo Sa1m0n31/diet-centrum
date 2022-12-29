@@ -8,6 +8,11 @@ export class AdminController {
     ) {
     }
 
+    @Patch('/updateTexts')
+    updateTexts(@Body() body) {
+        return this.adminService.updateTexts(body.termsOfService, body.privacyPolicy);
+    }
+
     @Patch('/updateContent')
     updateContent(@Body() body) {
         return this.adminService.updateContent(body);

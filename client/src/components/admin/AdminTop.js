@@ -18,9 +18,6 @@ const AdminTop = () => {
         </button>
 
         {menuVisible ? <div className="adminTop__menu">
-            <a className="btn btn--adminTopMenu" href="/zmiana-hasla">
-                Zmień hasło
-            </a>
             <button className="btn btn--adminTopMenu" onClick={() => { handleLogout(); }}>
                 Wyloguj się
             </button>

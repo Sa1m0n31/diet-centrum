@@ -1,7 +1,15 @@
 import axios from "axios";
+import {convertToRaw} from "draft-js";
 
 const updateContent = (data) => {
     return axios.patch('/admin/updateContent', data);
+}
+
+const updateTexts = (termsOfService, privacyPolicy) => {
+    return axios.patch('/admin/updateTexts', {
+        privacyPolicy: JSON.stringify(convertToRaw(privacyPolicy?.getCurrentContent())),
+        termsOfService: JSON.stringify(convertToRaw(termsOfService?.getCurrentContent()))
+    });
 }
 
 const getContent = () => {
@@ -24,4 +32,4 @@ const updateBlockedDays = (days) => {
     });
 }
 
-export { updateContent, getContent, sendContactForm, getBlockedDays, updateBlockedDays }
+export { updateContent, getContent, sendContactForm, getBlockedDays, updateBlockedDays, updateTexts }

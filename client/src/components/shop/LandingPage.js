@@ -1,26 +1,29 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import SiteHeader from "./SiteHeader";
 import mainImage from '../../static/img/diet-centrum.png';
 import {landingPageBenefits} from "../../helpers/shop/content";
+import {ContentContext} from "../../App";
 
 const LandingPage = () => {
-    return <div className="landing w">
+    const { c } = useContext(ContentContext);
+
+    return c ? <div className="landing w">
         <SiteHeader homepage={true} />
 
         <div className="landing__main flex">
             <div className="landing__main__left">
                 <h1 className="landing__header">
-                    Postaw na zdrowie już <span className='green'>dzisiaj</span>
+                    {c.landingHeader.split(' ').slice(0, -1).join(' ')} <span className='green'>{c.landingHeader.split(' ').slice(-1)}</span>
                 </h1>
                 <h2 className="landing__subheader">
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.
+                    {c.landingSubheader}
                 </h2>
                 <div className="landing__buttons flex">
-                    <a className="btn btn--landing" href="/oferta">
-                        Sprawdź ofertę
+                    <a className="btn btn--landing" href={c.landingBtn1Link}>
+                        {c.landingBtn1Text}
                     </a>
-                    <a className="btn btn--landing btn--white" href="/o-nas">
-                        Poznaj nas bliżej
+                    <a className="btn btn--landing btn--white" href={c.landingBtn2Link}>
+                        {c.landingBtn2Text}
                     </a>
                 </div>
             </div>
@@ -44,7 +47,7 @@ const LandingPage = () => {
                 </div>
             })}
         </div>
-    </div>
+    </div> : '';
 };
 
 export default LandingPage;

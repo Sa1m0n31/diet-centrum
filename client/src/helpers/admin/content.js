@@ -48,7 +48,7 @@ const menu = [
     {
         name: 'Regulaminy',
         icon: termsIcon,
-        link: '/panel/regulaminy'
+        link: '/panel/edycja-tekstow'
     },
     {
         name: 'Kody rabatowe',
