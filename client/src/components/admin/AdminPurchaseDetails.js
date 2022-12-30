@@ -40,7 +40,7 @@ const AdminPurchaseDetails = () => {
     }, []);
 
     useEffect(() => {
-        if(purchase && products?.length) {
+        if(purchase?.cart && products?.length) {
             setCart(purchase.cart.map((item) => {
                 const product = getProductFromList(item.id);
                 return {
@@ -51,16 +51,12 @@ const AdminPurchaseDetails = () => {
         }
     }, [purchase, products]);
 
-    useEffect(() => {
-        console.log(cart);
-    }, [cart]);
-
     const getProductFromList = (id) => {
         return products.find((item) => (item.id === id));
     }
 
     return <main className="admin admin--productEdition">
-        <div className="admin__main__header flex">
+        <div className="admin__main__header admin__main__header--purchaseDetails flex">
             <h1 className="admin__header">
                 Szczegóły zamówienia #{purchase.id}
             </h1>

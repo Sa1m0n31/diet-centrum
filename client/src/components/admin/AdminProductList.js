@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {getAllProducts} from "../../helpers/api/product";
+import {deleteProduct, getAllProducts} from "../../helpers/api/product";
 import {API_URL} from "../../static/settings";
 import editIcon from '../../static/img/edit.svg'
 import trashIcon from '../../static/img/trash.svg'
+import DeleteModal from "./DeleteModal";
 
 const AdminProductList = () => {
     const [products, setProducts] = useState([]);
     const [deleteCandidate, setDeleteCandidate] = useState(0);
+    const [success, setSuccess] = useState('');
 
     useEffect(() => {
         getAllProducts()
@@ -15,13 +17,36 @@ const AdminProductList = () => {
                     setProducts(res.data);
                 }
             });
-    }, []);
+    }, [success]);
+
+    useEffect(() => {
+        if(!deleteCandidate) {
+            setSuccess('');
+        }
+    }, [deleteCandidate]);
 
     const openDeleteModal = (id) => {
         setDeleteCandidate(id);
     }
 
+    const deleteProductById = () => {
+        deleteProduct(deleteCandidate)
+            .then((res) => {
+               if(res.status === 200) {
+                   setSuccess('Produkt został usunięty');
+                   setTimeout(() => {
+                       setDeleteCandidate(0);
+                   }, 3000);
+               }
+            });
+    }
+
     return <main className="admin">
+        {deleteCandidate ? <DeleteModal header="Czy na pewno chcesz usunąć ten produkt?"
+                                        success={success}
+                                        actionNo={() => { setDeleteCandidate(0); }}
+                                        actionYes={() => { deleteProductById(); }} /> : ''}
+
         <div className="admin__header flex">
             <h1 className="admin__header">
                 Lista produktów

@@ -130,15 +130,6 @@ const AdminBlogEdition = () => {
                    onChange={(e) => { setTitle(e.target.value); }}
                    placeholder="Tytuł" />
         </label>
-        <label className="admin__label">
-                <span>
-                   Zajawka
-                </span>
-            <textarea className="input input--admin input--textarea"
-                      value={excerpt}
-                      onChange={(e) => { setExcerpt(e.target.value); }}
-                      placeholder="Zajawka" />
-        </label>
 
         <label className="admin__label">
             <span>

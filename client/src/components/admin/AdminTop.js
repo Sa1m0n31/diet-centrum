@@ -1,27 +1,16 @@
-import React, {useState} from 'react';
-import userIcon from '../../static/img/account.svg'
+import React from 'react';
+import logoutIcon from '../../static/img/logout.svg';
+import {logoutAdmin} from "../../helpers/api/admin";
 
 const AdminTop = () => {
-    const [menuVisible, setMenuVisible] = useState(false);
-
-    const handleLogout = () => {
-
-    }
-
     return <div className="adminTop">
         <span className="adminTop__header">
             Panel administratora: Diet Centrum
         </span>
 
-        <button className="adminTop__btn" onClick={() => { setMenuVisible(p => !p); }}>
-            <img className="img" src={userIcon} alt="menu" />
+        <button className="adminTop__btn center" onClick={() => { logoutAdmin(); }}>
+            <img className="img" src={logoutIcon} alt="menu" />
         </button>
-
-        {menuVisible ? <div className="adminTop__menu">
-            <button className="btn btn--adminTopMenu" onClick={() => { handleLogout(); }}>
-                Wyloguj się
-            </button>
-        </div> : ''}
     </div>
 };
 

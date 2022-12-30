@@ -119,7 +119,7 @@ const AdminProductEdition = () => {
             </span> : ''}
         </div>
 
-        <div className="flex flex--alignEnd">
+        <div className="flex flex--alignEnd admin__productEdition--top">
             <label className="admin__label">
                 <h3 className="admin__offerTypeHeader mb">
                     Podstawowe informacje

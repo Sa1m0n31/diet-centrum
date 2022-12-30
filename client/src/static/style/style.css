@@ -29,8 +29,11 @@ a, button {
     transition: .2s all ease-in-out;
 }
 
+html,
 body {
+    width: 100%;
     overflow-x: hidden;
+    max-width: 100vw;
 }
 
 .container {
@@ -532,6 +535,11 @@ body {
     overflow: hidden;
 }
 
+.adminTop__btn > .img {
+    width: 60%;
+    margin-right: -5px;
+}
+
 .adminTop__menu {
     position: absolute;
     right: 40px;
@@ -865,6 +873,14 @@ a.btn--adminTopMenu {
     width: auto;
 }
 
+.admin__products__item--blog .admin__products__item__column:nth-of-type(2) {
+    min-width: 250px;
+}
+
+.admin__products__item--blog .admin__products__item__column:nth-of-type(3) {
+    width: 100%;
+}
+
 .admin__products__item__column > .value--flex {
     display: flex;
     justify-content: center;
@@ -886,6 +902,10 @@ a.btn--adminTopMenu {
     height: 40px;
     font-size: 14px;
     border-radius: 40px;
+}
+
+.btn--addProductPage:hover {
+    background: var(--hover);
 }
 
 .admin__products {
@@ -2610,8 +2630,8 @@ a.btn--adminTopMenu {
 .btn--adminDownload {
     flex-direction: column;
     border-radius: 10px;
-    width: 200px;
-    height: 100px;
+    width: 180px;
+    height: 90px;
     background: var(--primary);
     text-align: center;
     font-weight: 600;
@@ -2643,4 +2663,90 @@ a.btn--adminTopMenu {
 
 .loadingPage {
     height: 100vh;
+}
+
+.admin__start {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.admin__start__stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px 0 10px;
+    width: 24%;
+}
+
+.admin__start__stats__value {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.admin__start__stats__key {
+    font-size: 12px;
+    text-align: center;
+}
+
+.admin__start__statsWrapper {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.quickImg {
+    width: 25px;
+}
+
+.admin__start__section--100 {
+    width: 96%;
+    margin-top: 40px;
+}
+
+.admin__start__section--100 .admin__start__section__header {
+    margin-bottom: 10px;
+}
+
+.admin__start__section {
+    border: 2px solid var(--primary);
+    border-radius: 15px;
+    padding: 20px;
+    width: 100%;
+}
+
+.admin__start__section__header {
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.admin__start__section:last-child {
+    margin-top: 40px;
+}
+
+.admin__start__stats__value {
+    color: var(--primary);
+}
+
+.admin.center {
+    margin-left: 25%;
+    margin-right: 8%;
+    padding: 0;
+    height: calc(100vh - 150px);
+    flex-direction: column;
+}
+
+.modal--delete {
+    height: 100vh;
+    opacity: 1;
+    z-index: 99;
+}
+
+.text-center {
+    text-align: center;
 }

@@ -12,7 +12,6 @@ export class CodeService {
     }
 
     async addCode(code: string, discount_type: number, discount_value: number) {
-        console.log(code);
         return this.codeRepository.save({
             code,
             discount_type,

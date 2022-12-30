@@ -146,7 +146,7 @@ export class PurchaseService {
             });
 
             if(res) {
-                if(res.data.status === 'success') {
+                if(res.data.data.status === 'success') {
                     const updateOrderStatusResult = await this.purchaseRepository.createQueryBuilder()
                         .update({
                             payment_status: 'Opłacone'

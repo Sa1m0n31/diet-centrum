@@ -4,6 +4,9 @@ import {Content} from "../entities/content.entity";
 import {Repository} from "typeorm";
 import {BlockedDay} from "../entities/blocked_day.entity";
 import {MailerService} from "@nestjs-modules/mailer";
+import * as crypto from "crypto";
+import {Admin} from "../entities/admin.entity";
+import {JwtService} from "@nestjs/jwt";
 
 @Injectable()
 export class AdminService {
@@ -12,8 +15,35 @@ export class AdminService {
         private readonly contentRepository: Repository<Content>,
         @InjectRepository(BlockedDay)
         private readonly blockedDayRepository: Repository<BlockedDay>,
+        @InjectRepository(Admin)
+        private readonly adminRepository: Repository<Admin>,
+        private readonly jwtTokenService: JwtService,
         private readonly mailerService: MailerService
     ) {
+    }
+
+    async loginAdmin(username: string, password: string) {
+        const payload = { username: username, sub: password, role: 'admin' };
+        const passwordHash = crypto
+            .createHash('sha256')
+            .update(password)
+            .digest('hex');
+
+        const user = await this.adminRepository.findOneBy({
+            username,
+            password: passwordHash
+        });
+
+        if(user) {
+            return {
+                access_token: this.jwtTokenService.sign(payload, {
+                    secret: process.env.JWT_KEY
+                })
+            }
+        }
+        else {
+            throw new HttpException('Niepoprawna nazwa użytkownika lub hasło', 401);
+        }
     }
 
     async updateTexts(termsOfService, privacyPolicy) {

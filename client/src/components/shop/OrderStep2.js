@@ -6,6 +6,7 @@ import OrderCalendar from "./OrderCalendar";
 import nextArrow from "../../static/img/arrow-white.svg";
 import checkIcon from '../../static/img/check-green.svg';
 import {isEmail, scrollToTop} from "../../helpers/api/others";
+import {API_URL} from "../../static/settings";
 
 const OrderStep2 = () => {
     const { day, setDay, email, setEmail, attachment, setAttachment, setStep } = useContext(OrderContext);
@@ -88,7 +89,9 @@ const OrderStep2 = () => {
                 <span className="bold">Ważne:</span> pobierz formularz, który należy wypełnić i dołączyć do zamówienia w formie załącznika.
             </h3>
 
-            <a download="" target="_blank" className="btn btn--download center">
+            <a href={`${API_URL}/uploads/ankieta.pdf`}
+               target="_blank"
+               className="btn btn--download center">
                 Pobierz formularz
                 <img className="img" src={downloadIcon} alt="pobierz" />
             </a>
