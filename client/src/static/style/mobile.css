@@ -247,7 +247,6 @@
     }
 
     .references__asset,
-    .aboutUs__box__socialMedia__header,
     .aboutUs__box::after {
         display: none;
     }
@@ -548,6 +547,10 @@
         width: 275px;
     }
 
+    .aboutUs__box__socialMedia {
+        left: 288px;
+    }
+
     .aboutUs__box {
         padding-left: 288px;
     }
@@ -683,6 +686,10 @@
         font-size: 18px;
         text-align: center;
     }
+
+    .btn--handleSubmitOrder {
+        width: 300px !important;
+    }
 }
 
 @media(max-width: 768px) {
@@ -696,6 +703,21 @@
 
     .d-mobile.flex {
         display: flex !important;
+    }
+
+    .btn--handleSubmitOrder {
+        width: 100% !important;
+    }
+
+    .btn--problems {
+        height: 45px;
+        font-size: 14px;
+        border-radius: 5px;
+    }
+
+    .aboutUs__box__socialMedia {
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .admin__purchase > .flex--start {

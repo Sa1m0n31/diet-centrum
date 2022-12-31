@@ -98,7 +98,7 @@ const Blog = () => {
                 Blog
             </h1>
 
-            <div className="blog__top flex">
+            <div className="blog__top flex flex--alignStart">
                 <div className="blog__categories flex flex--start">
                     <button className={currentCategories.includes(0) ? "btn btn--category btn--category--selected" : "btn btn--category"}
                             onClick={() => { handleCategoriesChange(0); }}>

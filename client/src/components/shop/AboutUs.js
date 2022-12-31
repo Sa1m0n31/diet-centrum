@@ -20,9 +20,6 @@ const AboutUs = () => {
             <p className="aboutUs__box__text">
                 {c.aboutMeText}
             </p>
-            <a href="/o-nas" className="btn btn--aboutUsBox d-desktop">
-                Przeczytaj o nas więcej
-            </a>
 
             <div className="aboutUs__box__socialMedia">
                 <span className="aboutUs__box__socialMedia__header">

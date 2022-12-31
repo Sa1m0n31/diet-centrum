@@ -24,11 +24,17 @@ const ProblemsSection = () => {
                     </div>
                 })}
             </div>
-            {c.aboutMeContent ? <div className="problems__right" dangerouslySetInnerHTML={{
-                __html: draftToHtml(JSON.parse(c.aboutMeContent))
-            }}>
+            {c.aboutMeContent ? <div className="problems__right">
+                <div dangerouslySetInnerHTML={{
+                    __html: draftToHtml(JSON.parse(c.aboutMeContent))
+                }}>
 
-            </div> : ''}
+                </div>
+
+                <a href="/kontakt" className="btn btn--submit btn--problems">
+                    Skontaktuj się ze mną
+                </a>
+            </div>: ''}
         </div>
     </div>
 };

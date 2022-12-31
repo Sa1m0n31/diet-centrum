@@ -19,7 +19,7 @@ const OrderStep3 = () => {
     const [cartItems, setCartItems] = useState([]);
     const [cartSum, setCartSum] = useState(0);
     const [discountCode, setDiscountCode] = useState('');
-    const [discount, setDiscount] = useState('');
+    const [discount, setDiscount] = useState(0);
     const [sendPlanDate, setSendPlanDate] = useState({});
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -137,7 +137,7 @@ const OrderStep3 = () => {
 
         addPurchase(cartWithPrices, userData, invoice ? invoiceData : null,
             email, sendDate, paperVersion,
-            discountCode, discount, cartSum, attachment)
+            discountCode, isNaN(discount) ? 0 : discount, cartSum, attachment)
             .then((res) => {
                 if(!res) {
                     setError(errorText);
