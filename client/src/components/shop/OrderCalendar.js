@@ -1,33 +1,51 @@
 import React, {useEffect, useState} from 'react';
 import {getNextNDays} from "../../helpers/api/others";
-import {getBlockedDays} from "../../helpers/api/admin";
+import {getDays} from "../../helpers/api/admin";
 
-const OrderCalendar = ({setSelectedDays, selected, setSelected, multipleSelected, setMultipleSelected,
-                           numberOfDays, multiple, offset}) => {
+const OrderCalendar = ({selected, setSelected, numberOfDays, offset}) => {
+    const [daysInfo, setDaysInfo] = useState([]);
     const [days, setDays] = useState([]);
     const [excluded, setExcluded] = useState([]);
 
     useEffect(() => {
        if(days?.length) {
-           getBlockedDays()
+           getDays()
                .then((res) => {
                     if(res.status === 200) {
                         const blocked = res.data;
 
-                        setExcluded(days.map((item, index) => {
+                        setDaysInfo(days.map((item, index) => {
                             const { day, monthNumber, year } = item;
 
-                            const i = blocked.findIndex((item) => {
-                                return (item.day === day) && (item.month === monthNumber) && (item.year === year);
+                            const blockedItem = blocked.find((item) => {
+                                return (item.day === day) && (item.month === monthNumber)
+                                    && (item.year === year);
                             });
 
                             return {
                                 ...item,
-                                index: index,
-                                blocked: i !== -1
+                                index,
+                                price: blockedItem ? parseFloat(blockedItem.price) : 0,
+                                excluded: !blockedItem?.purchase_limit
+                            }
+                        }))
+
+                        setExcluded(days.map((item, index) => {
+                            const { day, monthNumber, year } = item;
+
+                            const blockedItem = blocked.find((item) => {
+                                return (item.day === day) && (item.month === monthNumber)
+                                    && (item.year === year);
+                            });
+
+                            return {
+                                ...item,
+                                index,
+                                price: blockedItem ? parseFloat(blockedItem.price) : 0,
+                                limit: blockedItem?.purchase_limit ? blockedItem.purchase_limit : 0
                             }
                         }).filter((item) => {
-                            return item.blocked;
+                            return item.limit === 0;
                         }).map((item) => (item.index)));
                     }
                });
@@ -35,61 +53,29 @@ const OrderCalendar = ({setSelectedDays, selected, setSelected, multipleSelected
     }, [days]);
 
     useEffect(() => {
-        if(multiple) {
-            setMultipleSelected((prevState => ([...prevState, ...excluded])));
-        }
-    }, [excluded]);
-
-    useEffect(() => {
         if(numberOfDays && offset >= 0) {
             setDays(getNextNDays(numberOfDays, offset));
         }
     }, [numberOfDays, offset]);
-
-    useEffect(() => {
-        if(multipleSelected?.length) {
-            setSelectedDays(multipleSelected.map((item) => {
-                const dayObject = days[item];
-
-                return {
-                    day: dayObject.day,
-                    month: dayObject.monthNumber,
-                    year: dayObject.year
-                }
-            }));
-        }
-    }, [multipleSelected]);
 
     const isExcluded = (i) => {
         return excluded.includes(i);
     }
 
     const isSelected = (id) => {
-        return (id === selected) || (multipleSelected ? multipleSelected.includes(id) : 0);
+        return id === selected;
     }
 
     const handleClick = (id) => {
-        if(multiple) {
-            setMultipleSelected(prevState => {
-                if(prevState.includes(id)) {
-                    return prevState.filter((item) => (item !== id));
-                }
-                else {
-                    return [...prevState, id];
-                }
-            });
-        }
-        else {
-            setSelected(id);
-        }
+        setSelected(id);
     }
 
-    return <div className={multiple ? "calendar flex" : "calendar calendar--order flex"}>
-        {days.map((item, index) => {
-            return <button className={isExcluded(index) && !multiple ? "btn btn--calendar btn--calendar--excluded" :
-                (isSelected(index) ? (multiple ? "btn btn--calendar btn--calendar--excluded" : "btn btn--calendar btn--calendar--selected") : "btn btn--calendar")}
+    return <div className="calendar calendar--order flex">
+        {daysInfo?.map((item, index) => {
+            return <button className={isSelected(index) ? "btn btn--calendar btn--calendar--selected" :
+                (isExcluded(index) ? "btn btn--calendar btn--calendar--excluded" : "btn btn--calendar")}
                            onClick={() => { handleClick(index); }}
-                           disabled={!multiple && isExcluded(index)}
+                           disabled={isExcluded(index)}
                            key={index}>
                 <span className="calendar__day">
                     {item.day}
@@ -100,6 +86,10 @@ const OrderCalendar = ({setSelectedDays, selected, setSelected, multipleSelected
                 <span className="calendar__month">
                     {item.month}
                 </span>
+
+                {item.price ? <span className="calendar__price">
+                    {item.price} zł
+                </span> : ''}
             </button>
         })}
     </div>

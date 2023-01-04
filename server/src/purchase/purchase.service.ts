@@ -5,12 +5,15 @@ import {Repository} from "typeorm";
 import * as crypto from 'crypto';
 import axios from 'axios'
 import { v4 as uuid } from 'uuid';
+import {Day} from "../entities/day.entity";
 
 @Injectable()
 export class PurchaseService {
     constructor(
         @InjectRepository(Purchase)
-        private readonly purchaseRepository: Repository<Purchase>
+        private readonly purchaseRepository: Repository<Purchase>,
+        @InjectRepository(Day)
+        private readonly dayRepository: Repository<Day>
     ) {
     }
 
@@ -107,6 +110,16 @@ export class PurchaseService {
                 attachment: files?.attachment ? files.attachment[0]?.path : '',
                 sum
             });
+
+            // Change limit - decrement by 1
+            const dateObject = JSON.parse(sendDate);
+            const changePurchaseLimitObject = await this.dayRepository.findOneBy({
+                day: dateObject.day,
+                month: dateObject.monthNumber,
+                year: dateObject.year
+            });
+            changePurchaseLimitObject.purchase_limit--;
+            await this.dayRepository.save(changePurchaseLimitObject);
 
             if(addResult) {
                 return this.paymentProcess(addResult.id, sum, email);

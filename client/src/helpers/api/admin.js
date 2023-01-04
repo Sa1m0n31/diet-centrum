@@ -65,12 +65,12 @@ const sendContactForm = (name, email, phoneNumber, message) => {
     });
 }
 
-const getBlockedDays = () => {
-    return axios.get('/admin/getBlockedDays');
+const getDays = () => {
+    return axios.get('/admin/getDays');
 }
 
-const updateBlockedDays = (days) => {
-    return axios.post('/admin/updateBlockedDays', {
+const updateDays = (days) => {
+    return axios.post('/admin/updateDays', {
         days
     }, {
         headers: {
@@ -79,5 +79,5 @@ const updateBlockedDays = (days) => {
     });
 }
 
-export { updateContent, getContent, sendContactForm, getBlockedDays, updateBlockedDays,
+export { updateContent, getContent, sendContactForm, getDays, updateDays,
     updateTexts, authAdmin, logoutAdmin, loginAdmin }

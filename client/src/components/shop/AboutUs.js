@@ -15,7 +15,7 @@ const AboutUs = () => {
                 <img className="img" src={manImage} alt="diet-centrum" />
             </figure>
             <h3 className="aboutUs__box__header">
-                {c.aboutMeHeader.split(' ').slice(0, -1).join(' ')} <span className="green">{c.aboutMeHeader.split(' ').slice(-1)}</span>
+                {c.aboutMeHeader.split(' ').slice(0, -2).join(' ')} <span className="green">{c.aboutMeHeader.split(' ').slice(-2).join(' ')}</span>
             </h3>
             <p className="aboutUs__box__text">
                 {c.aboutMeText}

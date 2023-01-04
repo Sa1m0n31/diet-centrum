@@ -27,7 +27,7 @@ const OrderStep3 = () => {
     let buttonsSection = useRef(null);
     let loader = useRef(null);
 
-    const nextDays = getNextNDays(15, 2);
+    const nextDays = getNextNDays(60, 2);
 
     useEffect(() => {
         getAllProducts()

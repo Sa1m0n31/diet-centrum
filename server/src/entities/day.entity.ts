@@ -1,7 +1,7 @@
 import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
-@Entity('blocked_day')
-export class BlockedDay {
+@Entity('day')
+export class Day {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -13,4 +13,10 @@ export class BlockedDay {
 
     @Column()
     year: number;
+
+    @Column()
+    price: string;
+
+    @Column()
+    purchase_limit: number;
 }

@@ -12,6 +12,7 @@ const OrderStep2 = () => {
     const { day, setDay, email, setEmail, attachment, setAttachment, setStep } = useContext(OrderContext);
 
     const [errors, setErrors] = useState([]);
+    const [attachmentName, setAttachmentName] = useState('');
 
     useEffect(() => {
         if(day !== null) {
@@ -34,6 +35,7 @@ const OrderStep2 = () => {
     const handleAttachmentUpload = (files) => {
         let file = files[0];
         if(file) {
+            setAttachmentName(file.name.length > 50 ? `${file.name.substring(0, 50)}...` : file.name);
             setAttachment(file);
         }
     }
@@ -43,7 +45,6 @@ const OrderStep2 = () => {
 
         if(day === null) err.push('day');
         if(!isEmail(email)) err.push('email');
-        if(!attachment) err.push('attachment');
 
         setErrors(err);
         return err.length === 0;
@@ -70,7 +71,7 @@ const OrderStep2 = () => {
 
             <OrderCalendar selected={day}
                            setSelected={setDay}
-                           numberOfDays={15}
+                           numberOfDays={60}
                            offset={2} />
         </div>
 
@@ -87,9 +88,12 @@ const OrderStep2 = () => {
         <div className="order__section">
             <h3 className="order__section__header">
                 <span className="bold">Ważne:</span> pobierz formularz, który należy wypełnić i dołączyć do zamówienia w formie załącznika.
+                Możesz również przesłać formularz później, na adres mailowy kontakt@diet-centrum.pl, jednak opóźnienie w wysłaniu formularza będzie
+                wiązało się z opóźnieniem w otrzymaniu planu.
             </h3>
 
             <a href={`${API_URL}/uploads/ankieta.pdf`}
+               download="ankieta.pdf"
                target="_blank"
                className="btn btn--download center">
                 Pobierz formularz
@@ -108,7 +112,7 @@ const OrderStep2 = () => {
                     <img className="img" src={uploadIcon} alt="dodaj" />
                 </span> :  <span>
                         <img className="img img--check" src={checkIcon} alt="dodano" />
-                        Załącznik został dodany
+                    {attachmentName}
                     </span>}
                 <input className="input input--file"
                        type="file"

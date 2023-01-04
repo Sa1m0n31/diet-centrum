@@ -1708,6 +1708,17 @@
     .discountPanel__list__item span {
         font-size: 12px;
     }
+
+    .references {
+        height: auto;
+    }
+
+    .references__block {
+        opacity: 1 !important;
+        z-index: 3 !important;
+        position: relative;
+        flex-direction: column;
+    }
 }
 
 @media(max-width: 576px) {

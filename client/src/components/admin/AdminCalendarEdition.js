@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import OrderCalendar from "../shop/OrderCalendar";
-import {updateBlockedDays} from "../../helpers/api/admin";
+import {updateDays} from "../../helpers/api/admin";
 import {errorText} from "../../helpers/admin/content";
 import {scrollToTop} from "../../helpers/api/others";
 import Loader from "./Loader";
+import OrderAdminCalendar from "./OrderAdminCalendar";
 
 const AdminCalendarEdition = () => {
+    const [daysInfo, setDaysInfo] = useState([]);
+
     const [selectedDays, setSelectedDays] = useState(-1);
     const [multipleSelected, setMultipleSelected] = useState([]);
     const [info, setInfo] = useState('');
@@ -21,7 +23,10 @@ const AdminCalendarEdition = () => {
 
     const handleSubmit = () => {
         setLoading(true);
-        updateBlockedDays(selectedDays)
+
+        const editedDaysInfo = daysInfo.filter((item) => (item.edited));
+
+        updateDays(editedDaysInfo)
             .then((res) => {
                 if(res.status === 201) {
                     setInfo('Dostępne dni zostały zaktualizowane');
@@ -54,12 +59,10 @@ const AdminCalendarEdition = () => {
             Kliknij w wybrany dzień, aby wyłączyć go z dostępności, a następnie zatwierdź zmiany klikając "Aktualizuj dostępne dni".
         </h2>
 
-        <OrderCalendar numberOfDays={35}
-                       offset={2}
-                       setSelectedDays={setSelectedDays}
-                       multipleSelected={multipleSelected}
-                       setMultipleSelected={setMultipleSelected}
-                       multiple={true} />
+        <OrderAdminCalendar numberOfDays={365}
+                           offset={2}
+                           daysInfo={daysInfo}
+                           setDaysInfo={setDaysInfo} />
 
         {loading ? <div className="center">
             <Loader />

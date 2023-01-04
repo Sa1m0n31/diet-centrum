@@ -32,7 +32,9 @@ const AdminLogin = () => {
         }
     }, [error]);
 
-    const handleLogin = async () => {
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
         if(login && password) {
             setLoading(true);
             try {
@@ -61,7 +63,7 @@ const AdminLogin = () => {
     }
 
     return render ? <div className="container container--login center">
-        <div className="loginForm shadow">
+        <form className="loginForm shadow">
             <figure className="loginForm__logo">
                 <img className="img" src={logo} alt="diet-centrum" />
             </figure>
@@ -82,14 +84,14 @@ const AdminLogin = () => {
             {loading ? <div className="center">
                 <Loader />
             </div> : <button className="btn btn--loginSubmit"
-                             onClick={(e) => { handleLogin(); }}>
+                             onClick={(e) => { handleLogin(e); }}>
                 Zaloguj się
             </button>}
 
             {error ? <span className="error text-center">
                 {error}
             </span> : ''}
-        </div>
+        </form>
     </div> : <LoadingPage />
 };
 

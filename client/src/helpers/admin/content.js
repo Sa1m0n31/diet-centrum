@@ -78,7 +78,7 @@ const problems = [
         icon: problem4Icon, text: 'Zaparcia, biegunki'
     },
     {
-        icon: problem5Icon, text: 'Problemy skórne'
+        icon: problem5Icon, text: 'Dna moczanowa'
     },
     {
         icon: problem6Icon, text: 'Insulinooporność'
@@ -87,7 +87,7 @@ const problems = [
         icon: problem7Icon, text: 'Nidoczynność tarczycy'
     },
     {
-        icon: problem8Icon, text: 'Dna moczanowa'
+        icon: problem8Icon, text: 'Problemy skórne'
     },
     {
         icon: problem9Icon, text: 'Refluks'
@@ -96,7 +96,7 @@ const problems = [
         icon: problem10Icon, text: 'Osteoporoza'
     },
     {
-        icon: problem11Icon, text: 'PCOS, IBS, SIBO'
+        icon: problem11Icon, text: 'IBS, SIBO'
     },
     {
         icon: problem12Icon, text: 'Cukrzyca typu I i II'

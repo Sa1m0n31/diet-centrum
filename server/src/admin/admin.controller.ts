@@ -47,15 +47,15 @@ export class AdminController {
         return this.adminService.getContent();
     }
 
-    @Get('/getBlockedDays')
+    @Get('/getDays')
     getBlockedDays() {
-        return this.adminService.getBlockedDays();
+        return this.adminService.getDays();
     }
 
     @UseGuards(JwtAuthGuard)
-    @Post('/updateBlockedDays')
+    @Post('/updateDays')
     updateBlockedDays(@Body() body) {
-        return this.adminService.updateBlockedDays(body.days);
+        return this.adminService.updateDays(body.days);
     }
 
     @Post('/sendContactForm')

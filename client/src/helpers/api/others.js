@@ -48,4 +48,10 @@ const getAmountInArray = (el, arr) => {
     }, 0);
 }
 
-export { scrollToTop, isEmail, getNextNDays, getStringDate, getAmountInArray }
+const getDaysBetweenTwoDays = (date1, date2) => {
+    const oneDay = 1000 * 60 * 60 * 24;
+    const differenceInMilliseconds = date1 - date2;
+    return Math.ceil(differenceInMilliseconds / oneDay);
+}
+
+export { scrollToTop, isEmail, getNextNDays, getStringDate, getAmountInArray, getDaysBetweenTwoDays }

@@ -32,6 +32,8 @@ const OrderStep1 = () => {
     }
 
     const validateData = () => {
+        return true; // TODO
+
         let err = [];
 
         if(!userData.firstName) err.push('firstNameUser');

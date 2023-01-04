@@ -7,6 +7,7 @@ import SingleProductMain from "../../components/shop/SingleProductMain";
 import {getProductBySlugAndType} from "../../helpers/api/product";
 import AddToCartModal from "../../components/shop/AddToCartModal";
 import {CartContext} from "../../App";
+import LoadingPage from "./LoadingPage";
 
 const SingleProduct = () => {
     const { addToCart } = useContext(CartContext);
@@ -48,7 +49,7 @@ const SingleProduct = () => {
         addToCartModal.current.style.transition = '.3s all';
     }
 
-    return <div className="container container--singleProduct">
+    return product?.id ? <div className="container container--singleProduct">
         <AddToCartModal modalRef={addToCartModal}
                         closeModal={() => { closeAddToCartModal(); }} />
 
@@ -59,7 +60,7 @@ const SingleProduct = () => {
         <DifferentProducts excludedOffer={product.id}
                            offerType={product.type} />
         <Footer />
-    </div>
+    </div> : <LoadingPage />
 };
 
 export default SingleProduct;

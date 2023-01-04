@@ -172,6 +172,7 @@ const AdminPurchaseDetails = () => {
                         Załącznik:
                     </h2>
                     <a className="btn btn--adminDownload center"
+                       download={`ankieta_zamowienie-${purchase.id}.${purchase?.attachment?.split('.')?.slice(-1)}`}
                        target="_blank"
                        href={`${API_URL}/${purchase.attachment}`}>
                         <img className="img" src={downloadIcon} alt="pobierz" />

@@ -2,7 +2,7 @@ import {HttpException, Injectable} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Content} from "../entities/content.entity";
 import {Repository} from "typeorm";
-import {BlockedDay} from "../entities/blocked_day.entity";
+import {Day} from "../entities/day.entity";
 import {MailerService} from "@nestjs-modules/mailer";
 import * as crypto from "crypto";
 import {Admin} from "../entities/admin.entity";
@@ -13,8 +13,8 @@ export class AdminService {
     constructor(
         @InjectRepository(Content)
         private readonly contentRepository: Repository<Content>,
-        @InjectRepository(BlockedDay)
-        private readonly blockedDayRepository: Repository<BlockedDay>,
+        @InjectRepository(Day)
+        private readonly blockedDayRepository: Repository<Day>,
         @InjectRepository(Admin)
         private readonly adminRepository: Repository<Admin>,
         private readonly jwtTokenService: JwtService,
@@ -78,26 +78,21 @@ export class AdminService {
         return this.contentRepository.find();
     }
 
-    async getBlockedDays() {
+    async getDays() {
         return this.blockedDayRepository.find();
     }
 
-    async updateBlockedDays(days) {
+    async updateDays(days) {
         try {
-            // Delete all blocked days
-            await this.blockedDayRepository.createQueryBuilder()
-                .delete()
-                .where(
-                    'id > :id', { id: 0 }
-                )
-                .execute();
-
             // Insert new blocked days
             for(const item of days) {
                 await this.blockedDayRepository.save({
+                    id: item.id,
                     day: item.day,
-                    month: item.month,
-                    year: item.year
+                    month: item.monthNumber,
+                    year: item.year,
+                    price: item.price.toString(),
+                    purchase_limit: item.limit
                 });
             }
 

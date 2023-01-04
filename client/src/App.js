@@ -13,6 +13,8 @@ import OfferPage from "./pages/shop/OfferPage";
 import Blog from "./pages/shop/Blog";
 import SingleArticle from "./pages/shop/SingleArticle";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css?n=1";
 import './static/style/style.css'
 import './static/style/mobile.css'

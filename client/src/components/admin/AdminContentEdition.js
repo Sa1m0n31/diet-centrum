@@ -20,9 +20,15 @@ const AdminContentEdition = () => {
     const [reference1Header, setReference1Header] = useState('');
     const [reference2Header, setReference2Header] = useState('');
     const [reference3Header, setReference3Header] = useState('');
+    const [reference4Header, setReference4Header] = useState('');
+    const [reference5Header, setReference5Header] = useState('');
+    const [reference6Header, setReference6Header] = useState('');
     const [reference1Text, setReference1Text] = useState('');
     const [reference2Text, setReference2Text] = useState('');
     const [reference3Text, setReference3Text] = useState('');
+    const [reference4Text, setReference4Text] = useState('');
+    const [reference5Text, setReference5Text] = useState('');
+    const [reference6Text, setReference6Text] = useState('');
     const [cooperationHeader, setCooperationHeader] = useState('');
     const [cooperationPoint1Header, setCooperationPoint1Header] = useState('');
     const [cooperationPoint2Header, setCooperationPoint2Header] = useState('');
@@ -65,6 +71,12 @@ const AdminContentEdition = () => {
                     setReference2Text(r.reference2Text);
                     setReference3Header(r.reference3Header);
                     setReference3Text(r.reference3Text);
+                    setReference4Header(r.reference4Header);
+                    setReference4Text(r.reference4Text);
+                    setReference5Header(r.reference5Header);
+                    setReference5Text(r.reference5Text);
+                    setReference6Header(r.reference6Header);
+                    setReference6Text(r.reference6Text);
                     setCooperationHeader(r.cooperationHeader);
                     setCooperationPoint1Header(r.cooperationPoint1Header);
                     setCooperationPoint2Header(r.cooperationPoint2Header);
@@ -98,6 +110,7 @@ const AdminContentEdition = () => {
             aboutMeHeader, aboutMeText,
             aboutMeContent: JSON.stringify(convertToRaw(aboutMeContent?.getCurrentContent())),
             referencesText, reference1Header, reference1Text, reference2Header, reference2Text, reference3Header, reference3Text,
+            reference4Header, reference4Text, reference5Header, reference5Text, reference6Header, reference6Text,
             cooperationHeader, cooperationPoint1Header, cooperationPoint1Text, cooperationPoint2Header, cooperationPoint2Text,
             cooperationPoint3Header, cooperationPoint3Text, cooperationPoint4Header, cooperationPoint4Text,
             beforeFooterHeader, beforeFooterSubheader, beforeFooterButtonText, beforeFooterButtonLink,
@@ -298,6 +311,61 @@ const AdminContentEdition = () => {
                       value={reference3Text}
                       onChange={(e) => { setReference3Text(e.target.value); }}
                       placeholder="Opinia 3 - tekst" />
+        </label>
+
+        <label className="admin__label">
+            <span>
+                Opinia 4 - nagłówek
+            </span>
+            <input className="input input--admin"
+                   value={reference4Header}
+                   onChange={(e) => { setReference4Header(e.target.value); }}
+                   placeholder="Opinia 4 - nagłówek" />
+        </label>
+        <label className="admin__label">
+            <span>
+                Opinia 4 - tekst
+            </span>
+            <textarea className="input input--admin input--textarea"
+                      value={reference4Text}
+                      onChange={(e) => { setReference4Text(e.target.value); }}
+                      placeholder="Opinia 4 - tekst" />
+        </label>
+        <label className="admin__label">
+            <span>
+                Opinia 5 - nagłówek
+            </span>
+            <input className="input input--admin"
+                   value={reference5Header}
+                   onChange={(e) => { setReference5Header(e.target.value); }}
+                   placeholder="Opinia 5 - nagłówek" />
+        </label>
+        <label className="admin__label">
+            <span>
+                Opinia 5 - tekst
+            </span>
+            <textarea className="input input--admin input--textarea"
+                      value={reference5Text}
+                      onChange={(e) => { setReference5Text(e.target.value); }}
+                      placeholder="Opinia 5 - tekst" />
+        </label>
+        <label className="admin__label">
+            <span>
+                Opinia 6 - nagłówek
+            </span>
+            <input className="input input--admin"
+                   value={reference6Header}
+                   onChange={(e) => { setReference6Header(e.target.value); }}
+                   placeholder="Opinia 6 - nagłówek" />
+        </label>
+        <label className="admin__label">
+            <span>
+                Opinia 6 - tekst
+            </span>
+            <textarea className="input input--admin input--textarea"
+                      value={reference6Text}
+                      onChange={(e) => { setReference6Text(e.target.value); }}
+                      placeholder="Opinia 6 - tekst" />
         </label>
 
         {/* Cooperation */}

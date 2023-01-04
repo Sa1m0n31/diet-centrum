@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import editIcon from "../../static/img/edit.svg";
 import {getAllPurchases} from "../../helpers/api/purchase";
+import {getDaysBetweenTwoDays} from "../../helpers/api/others";
 
 const AdminPurchasesList = () => {
     const [purchases, setPurchases] = useState([]);
@@ -9,7 +10,9 @@ const AdminPurchasesList = () => {
         getAllPurchases()
             .then((res) => {
                 if(res?.status === 200) {
-                    setPurchases(res.data);
+                    setPurchases(res.data?.sort((a, b) => {
+                        return a.purchase_date > b.purchase_date ? -1 : 1;
+                    }));
                 }
             });
     }, []);
@@ -23,6 +26,11 @@ const AdminPurchasesList = () => {
 
         <div className="admin__products">
             {purchases.map((item, index) => {
+                const sendDateObject = JSON.parse(item.send_date);
+                const sendDate = new Date(sendDateObject.year, sendDateObject.monthNumber-1, sendDateObject.day);
+
+                const daysToGo = getDaysBetweenTwoDays(sendDate, new Date());
+
                 return <div className="admin__products__item flex" key={index}>
                     <div className="admin__products__item__column">
                         <span className="value">
@@ -51,6 +59,14 @@ const AdminPurchasesList = () => {
                         </span>
                         <span className="value">
                             {item.sum} PLN
+                        </span>
+                    </div>
+                    <div className="admin__products__item__column">
+                        <span className="key">
+                            Dni do wysłania
+                        </span>
+                        <span className="value">
+                            {daysToGo > 0 ? daysToGo : (daysToGo === 0) ? <span className="red">Dzisiaj</span> : 'Wysłano'}
                         </span>
                     </div>
                     <div className="admin__products__item__column">

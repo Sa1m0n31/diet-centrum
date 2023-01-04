@@ -11,19 +11,19 @@ const CooperationProcess = () => {
             setCooperationPoints([
                 {
                     title: c.cooperationPoint1Header,
+                    text: c.cooperationPoint1Text
+                },
+                {
+                    title: c.cooperationPoint2Header,
                     text: c.cooperationPoint2Text
                 },
                 {
-                    title: c.cooperationPoint1Header,
-                    text: c.cooperationPoint2Text
+                    title: c.cooperationPoint3Header,
+                    text: c.cooperationPoint3Text
                 },
                 {
-                    title: c.cooperationPoint1Header,
-                    text: c.cooperationPoint2Text
-                },
-                {
-                    title: c.cooperationPoint1Header,
-                    text: c.cooperationPoint2Text
+                    title: c.cooperationPoint4Header,
+                    text: c.cooperationPoint4Text
                 }
             ]);
         }

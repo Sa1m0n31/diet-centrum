@@ -1032,6 +1032,7 @@ a.btn--adminTopMenu {
 }
 
 .references {
+    height: 300px;
     position: relative;
 }
 
@@ -1046,10 +1047,11 @@ a.btn--adminTopMenu {
 }
 
 .references__item {
-    width: 31%;
+    width: 30%;
     border: 1px solid #A8A8A8;
     border-radius: 10px;
     padding: 20px;
+    height: auto;
 }
 
 .references__item__header {
@@ -1078,6 +1080,10 @@ a.btn--adminTopMenu {
     background: #EBF1EA;
     padding: 50px 0 30px;
     margin-top: 160px;
+}
+
+.container--aboutUs .section--cooperation {
+    margin-top: 80px;
 }
 
 .cooperation {
@@ -1351,7 +1357,7 @@ a.btn--adminTopMenu {
 }
 
 .problems__right > div > * {
-    margin: 15px 0;
+    margin: 25px 0;
 }
 
 .btn--problems {
@@ -1360,6 +1366,7 @@ a.btn--adminTopMenu {
     border-radius: 10px;
     font-size: 18px;
     font-weight: 600;
+    margin-top: 30px;
 }
 
 .btn--problems:hover {
@@ -2095,6 +2102,7 @@ a.btn--adminTopMenu {
     font-weight: 400;
     font-size: 16px;
     margin-bottom: 10px;
+    max-width: 800px;
 }
 
 .order__section {
@@ -2128,7 +2136,7 @@ a.btn--adminTopMenu {
 
 .uploadAttachmentLabel {
     position: relative;
-    width: 250px;
+    width: 350px;
     height: 50px;
     background: #F8F8F8;
     border: 1px dashed #A8A8A8;
@@ -2147,7 +2155,8 @@ a.btn--adminTopMenu {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 90%;
+    margin: auto;
     height: 100%;
 }
 
@@ -2186,7 +2195,7 @@ a.btn--adminTopMenu {
 }
 
 .calendar {
-    max-width: 1000px;
+    max-width: 1625px;
     flex-wrap: wrap;
     margin: 20px 0 30px;
 }
@@ -2194,7 +2203,7 @@ a.btn--adminTopMenu {
 .btn--calendar {
     border-radius: 5px;
     width: 125px;
-    height: 125px;
+    height: 145px;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -2207,6 +2216,14 @@ a.btn--adminTopMenu {
 
 .btn--calendar:hover {
     opacity: .75;
+}
+
+.calendar--edition .btn--calendar:hover {
+    opacity: 1;
+}
+
+.calendar--edition .btn--calendar {
+    height: 250px;
 }
 
 .btn--calendar--selected {
@@ -2243,12 +2260,16 @@ a.btn--adminTopMenu {
 .calendar__weekday {
     font-weight: 700;
     font-size: 15px;
-    margin: 10px auto 5px;
+    margin: 5px auto 5px;
 }
 
 .calendar__month {
     font-size: 14px;
     font-weight: 400;
+}
+
+.calendar__price {
+    margin-top: 6px;
 }
 
 .categories__header {
@@ -2422,7 +2443,7 @@ a.btn--adminTopMenu {
 }
 
 .calendar--order {
-    max-width: 700px;
+    max-width: 870px;
 }
 
 .btn--calendar:disabled {
@@ -2770,4 +2791,46 @@ a.btn--adminTopMenu {
 
 .text-center {
     text-align: center;
+}
+
+.calendar__edition__limit {
+    font-weight: 400;
+    font-size: 12px;
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.input--calendarLimit {
+    text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.references__block {
+    position: absolute;
+    align-items: flex-start;
+    width: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    transition: .6s opacity;
+}
+
+.references__block:last-of-type {
+    opacity: 0;
+    z-index: -1;
 }
