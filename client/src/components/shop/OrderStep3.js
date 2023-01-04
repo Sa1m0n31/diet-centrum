@@ -13,7 +13,8 @@ import Loader from "../admin/Loader";
 
 const OrderStep3 = () => {
     const { cart } = useContext(CartContext);
-    const { userData, invoice, invoiceData, email, day, paperVersion, setStep, attachment } = useContext(OrderContext);
+    const { userData, invoice, invoiceData, email, day, paperVersion, datePrice,
+        setStep, attachment } = useContext(OrderContext);
 
     const [products, setProducts] = useState([]);
     const [cartItems, setCartItems] = useState([]);
@@ -68,9 +69,9 @@ const OrderStep3 = () => {
         if(cartItems?.length) {
             setCartSum(cartItems.reduce((prev, curr) => {
                 return prev + curr.price;
-            }, 0) + (paperVersion ? 5 : 0));
+            }, 0) + (paperVersion ? 5 : 0) + datePrice);
         }
-    }, [cartItems, paperVersion]);
+    }, [cartItems, paperVersion, datePrice]);
 
     useEffect(() => {
         if(cartSum && !discountCode) {
@@ -227,6 +228,15 @@ const OrderStep3 = () => {
                     {email}
                 </span>
             </div>
+
+            {datePrice ? <div className="clientData__section">
+                <h5 className="clientData__section__header">
+                    Opłata za dzień dostarczenia:
+                </h5>
+                <span className="clientData__section__data">
+                    {datePrice} zł
+                </span>
+            </div> : ''}
 
             <div className="clientData__section">
                 <h5 className="clientData__section__header">

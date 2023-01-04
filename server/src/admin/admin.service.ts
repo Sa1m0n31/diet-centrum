@@ -119,6 +119,6 @@ export class AdminService {
                         Wiadomość: ${message}
                     </p>
                 </div>`
-        })
+        });
     }
 }

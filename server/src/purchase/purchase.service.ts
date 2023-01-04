@@ -6,6 +6,7 @@ import * as crypto from 'crypto';
 import axios from 'axios'
 import { v4 as uuid } from 'uuid';
 import {Day} from "../entities/day.entity";
+import {MailerService} from "@nestjs-modules/mailer";
 
 @Injectable()
 export class PurchaseService {
@@ -13,7 +14,8 @@ export class PurchaseService {
         @InjectRepository(Purchase)
         private readonly purchaseRepository: Repository<Purchase>,
         @InjectRepository(Day)
-        private readonly dayRepository: Repository<Day>
+        private readonly dayRepository: Repository<Day>,
+        private readonly mailerService: MailerService
     ) {
     }
 
@@ -120,6 +122,34 @@ export class PurchaseService {
             });
             changePurchaseLimitObject.purchase_limit--;
             await this.dayRepository.save(changePurchaseLimitObject);
+
+            // Send mail to client
+            const dateToDisplay = `${dateObject.day}.${dateObject.monthNumber}.${dateObject.year}`;
+
+            await this.mailerService.sendMail({
+                to: emailToSend,
+                from: process.env.EMAIL_ADDRESS,
+                subject: 'Otrzymaliśmy Twoje zamówienie',
+                html: `<div>
+                    <h2 style="display: block; width: 100%;">
+                        Dziękujemy za złożenie zamówienia w Diet Centrum! Swój plan otrzymasz do ${dateToDisplay}.
+                    </h2>
+                    <h4 style="display: block; width: 100%; margin-bottom: 0;">
+                        Szczegóły zamówienia:
+                    </h4>
+                    <p style="margin-top: 7px;">
+                        Id zamówienia: <b>${addResult.id}</b><br/>
+                        Imię i nazwisko: <b>${firstName} ${lastName}</b><br/>
+                        Nr telefonu: <b>${phoneNumber}</b><br/>
+                        Email, na który ma być wysłany plan: <b>${emailToSend}</b><br/>
+                    </p>
+                    
+                    <p>
+                        Pozdrawiam,<br/>
+                        Tomasz Dębiński
+                    </p>
+                </div>`
+            });
 
             if(addResult) {
                 return this.paymentProcess(addResult.id, sum, email);

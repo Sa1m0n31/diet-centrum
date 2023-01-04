@@ -3,9 +3,26 @@
         left: -15px;
         width: 315px;
     }
+
+    .order__stickyInfo {
+        width: 300px;
+    }
+
+    .order__stickyInfo .cart__table__bottom__sum--discount {
+        font-size: 14px;
+    }
+
+    .order__stickyInfo .cart__table__bottom__sum:last-of-type {
+        font-size: 18px;
+    }
+
 }
 
 @media(max-width: 1400px) {
+    .order--2__main {
+        width: calc(100% - 350px);
+    }
+
     .landing__header {
         font-size: 32px;
     }
@@ -610,7 +627,7 @@
 
     .btn--calendar {
         width: 90px;
-        height: 80px;
+        height: 110px;
     }
 
     .calendar__day {
@@ -1718,6 +1735,18 @@
         z-index: 3 !important;
         position: relative;
         flex-direction: column;
+    }
+
+    .order--2 {
+        flex-wrap: wrap;
+    }
+
+    .order__stickyInfo {
+        display: none;
+    }
+
+    .order--2__main {
+        width: 100%;
     }
 }
 

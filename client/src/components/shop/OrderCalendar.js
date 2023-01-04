@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {getNextNDays} from "../../helpers/api/others";
 import {getDays} from "../../helpers/api/admin";
 
-const OrderCalendar = ({selected, setSelected, numberOfDays, offset}) => {
+const OrderCalendar = ({selected, setSelected, numberOfDays, offset, setDatePrice}) => {
     const [daysInfo, setDaysInfo] = useState([]);
     const [days, setDays] = useState([]);
     const [excluded, setExcluded] = useState([]);
@@ -66,9 +66,17 @@ const OrderCalendar = ({selected, setSelected, numberOfDays, offset}) => {
         return id === selected;
     }
 
-    const handleClick = (id) => {
-        setSelected(id);
+    const handleClick = (idx) => {
+        setSelected(idx);
     }
+
+    useEffect(() => {
+        if(selected >= 0) {
+            setDatePrice(daysInfo.find((item, index) => {
+                return index === selected;
+            })?.price || 0);
+        }
+    }, [selected]);
 
     return <div className="calendar calendar--order flex">
         {daysInfo?.map((item, index) => {

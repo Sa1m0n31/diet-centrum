@@ -32,7 +32,7 @@ export class BlogController {
     ], {
         storage: diskStorage({
             filename: FileUploadHelper.customFileName,
-            destination: './uploads/blog'
+            destination: '../uploads/blog'
         })
     }))
     addArticle(@UploadedFiles() files: {
@@ -47,7 +47,7 @@ export class BlogController {
     ], {
         storage: diskStorage({
             filename: FileUploadHelper.customFileName,
-            destination: './uploads/blog'
+            destination: '../uploads/blog'
         })
     }))
     updateArticle(@UploadedFiles() files: {

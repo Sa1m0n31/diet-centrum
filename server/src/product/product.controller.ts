@@ -18,7 +18,7 @@ export class ProductController {
         ], {
             storage: diskStorage({
                 filename: FileUploadHelper.customFileName,
-                destination: './uploads/product'
+                destination: '../uploads/product'
             })
         }
     ))
@@ -34,7 +34,7 @@ export class ProductController {
         ], {
             storage: diskStorage({
                 filename: FileUploadHelper.customFileName,
-                destination: './uploads/product'
+                destination: '../uploads/product'
             })
         }
     ))
