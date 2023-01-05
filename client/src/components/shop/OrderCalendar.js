@@ -25,7 +25,7 @@ const OrderCalendar = ({selected, setSelected, numberOfDays, offset, setDatePric
                             return {
                                 ...item,
                                 index,
-                                price: blockedItem ? parseFloat(blockedItem.price) : 0,
+                                price: blockedItem ? blockedItem.price : 0,
                                 excluded: !blockedItem?.purchase_limit
                             }
                         }))
@@ -41,7 +41,7 @@ const OrderCalendar = ({selected, setSelected, numberOfDays, offset, setDatePric
                             return {
                                 ...item,
                                 index,
-                                price: blockedItem ? parseFloat(blockedItem.price) : 0,
+                                price: blockedItem ? blockedItem.price : 0,
                                 limit: blockedItem?.purchase_limit ? blockedItem.purchase_limit : 0
                             }
                         }).filter((item) => {
@@ -72,9 +72,18 @@ const OrderCalendar = ({selected, setSelected, numberOfDays, offset, setDatePric
 
     useEffect(() => {
         if(selected >= 0) {
-            setDatePrice(daysInfo.find((item, index) => {
-                return index === selected;
-            })?.price || 0);
+            setDatePrice(prevState => {
+                const obj = daysInfo.find((item, index) => {
+                    return index === selected;
+                });
+
+                if(obj) {
+                    return obj.price;
+                }
+                else {
+                    return prevState;
+                }
+            });
         }
     }, [selected]);
 

@@ -46,14 +46,12 @@ const OrderStep2 = () => {
     }, [cart]);
 
     useEffect(() => {
-        console.log(cartItems);
-        console.log(datePrice);
         if(cartItems?.length && datePrice !== undefined) {
             setCartSum(cartItems.reduce((prev, curr) => {
                 return prev + curr.price;
-            }, 0) + (paperVersion ? 5 : 0) + datePrice);
+            }, 0) + (paperVersion ? 5 : 0) + datePrice - discount);
         }
-    }, [cartItems, paperVersion, datePrice]);
+    }, [cartItems, paperVersion, datePrice, discount]);
 
     useEffect(() => {
         if(cartSum && !discountCode) {
@@ -133,7 +131,7 @@ const OrderStep2 = () => {
         <div className="order__stickyInfo">
             <div className="cart__table__bottom__right">
                 <h4 className="cart__table__bottom__sum cart__table__bottom__sum--discount">
-                    Wartość zamówienia: <span>{cartSum - (paperVersion ? 5 : 0) - datePrice} zł</span>
+                    Wartość zamówienia{discount ? ' (po rabacie):' : ':'} <span>{cartSum - (paperVersion ? 5 : 0) - datePrice} zł</span>
                 </h4>
                 {paperVersion ? <h4 className="cart__table__bottom__sum cart__table__bottom__sum--discount">
                     Wersja papierowa: <span>5 zł</span>

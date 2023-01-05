@@ -53,7 +53,7 @@ export class Purchase {
     @Column()
     discount_code: string;
 
-    @Column()
+    @Column('decimal', { precision: 6, scale: 2 })
     discount_value: number;
 
     @Column()
@@ -65,6 +65,6 @@ export class Purchase {
     @Column()
     attachment: string;
 
-    @Column()
+    @Column('decimal', { precision: 6, scale: 2 })
     sum: number;
 }

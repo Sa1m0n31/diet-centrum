@@ -14,8 +14,8 @@ export class Day {
     @Column()
     year: number;
 
-    @Column()
-    price: string;
+    @Column('decimal', { precision: 6, scale: 2 })
+    price: number;
 
     @Column()
     purchase_limit: number;

@@ -91,7 +91,7 @@ export class AdminService {
                     day: item.day,
                     month: item.monthNumber,
                     year: item.year,
-                    price: item.price.toString(),
+                    price: item.price,
                     purchase_limit: item.limit
                 });
             }

@@ -24,7 +24,7 @@ const OrderAdminCalendar = ({daysInfo, setDaysInfo, numberOfDays, offset}) => {
                                 ...item,
                                 id: blockedItem?.id ? blockedItem.id : 1,
                                 index,
-                                price: blockedItem?.price ? parseFloat(blockedItem.price) : 0,
+                                price: blockedItem?.price ? blockedItem.price : 0,
                                 limit: blockedItem?.purchase_limit ? blockedItem.purchase_limit : 0,
                                 edited: false
                             }
