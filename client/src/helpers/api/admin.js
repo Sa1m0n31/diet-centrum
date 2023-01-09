@@ -79,5 +79,14 @@ const updateDays = (days) => {
     });
 }
 
+const updateAttachment = (attachment) => {
+    const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+    const formData = new FormData();
+
+    formData.append('attachment', attachment);
+
+    return axios.patch('/admin/updateAttachment', formData, config);
+}
+
 export { updateContent, getContent, sendContactForm, getDays, updateDays,
-    updateTexts, authAdmin, logoutAdmin, loginAdmin }
+    updateTexts, authAdmin, logoutAdmin, loginAdmin, updateAttachment }

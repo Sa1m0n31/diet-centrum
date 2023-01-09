@@ -5,23 +5,31 @@ import {OrderContext} from "../../pages/shop/OrderProcess";
 import OrderCalendar from "./OrderCalendar";
 import nextArrow from "../../static/img/arrow-white.svg";
 import checkIcon from '../../static/img/check-green.svg';
-import {getAmountInArray, getNextNDays, isEmail, scrollToTop} from "../../helpers/api/others";
+import {getAmountInArray, isEmail, scrollToTop} from "../../helpers/api/others";
 import {API_URL} from "../../static/settings";
-import {CartContext} from "../../App";
+import {CartContext, ContentContext} from "../../App";
 import {getAllProducts} from "../../helpers/api/product";
 import {verifyDiscountCode} from "../../helpers/api/code";
 
 const OrderStep2 = () => {
+    const { c } = useContext(ContentContext);
     const { cart } = useContext(CartContext);
     const { day, setDay, email, setEmail, attachment, setAttachment, paperVersion, datePrice, setDatePrice,
         setStep } = useContext(OrderContext);
 
     const [errors, setErrors] = useState([]);
     const [attachmentName, setAttachmentName] = useState('');
+    const [attachmentToDownloadName, setAttachmentToDownloadName] = useState('');
     const [cartItems, setCartItems] = useState([]);
     const [cartSum, setCartSum] = useState(0);
     const [discountCode, setDiscountCode] = useState('');
     const [discount, setDiscount] = useState(0);
+
+    useEffect(() => {
+        if(c?.attachmentPath) {
+            setAttachmentToDownloadName(c.attachmentPath.split('/').slice(-1)[0]);
+        }
+    }, [c]);
 
     useEffect(() => {
         if(cart.length) {
@@ -137,7 +145,7 @@ const OrderStep2 = () => {
                     Wersja papierowa: <span>5 zł</span>
                 </h4> : ''}
                 <h4 className="cart__table__bottom__sum cart__table__bottom__sum--discount">
-                    Opłata za dzień dostarczenia: <span>{datePrice} zł</span>
+                    Opłata za ekspresową usługę: <span>{datePrice ? '+' : ''}{datePrice} zł</span>
                 </h4>
                 {discount ? <h4 className="cart__table__bottom__sum cart__table__bottom__sum--discount">
                     Rabat: <span>-{discount} zł</span>
@@ -182,7 +190,7 @@ const OrderStep2 = () => {
                     wiązało się z opóźnieniem w otrzymaniu planu.
                 </h3>
 
-                <a href={`${API_URL}/uploads/ankieta.pdf`}
+                <a href={`${API_URL}/uploads/attachmentToDownload/${attachmentToDownloadName}`}
                    download="ankieta.pdf"
                    target="_blank"
                    className="btn btn--download center">

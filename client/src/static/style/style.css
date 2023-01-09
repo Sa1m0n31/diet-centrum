@@ -471,6 +471,35 @@ body {
     border-right: 2px solid var(--primary);
     z-index: 30;
     background: #fff;
+    overflow-y: auto;
+}
+
+.adminMenu::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+}
+.adminMenu::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+}
+.adminMenu::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border: 33px none #ffffff;
+    border-radius: 36px;
+}
+.adminMenu::-webkit-scrollbar-thumb:hover {
+    background: var(--hover);
+}
+.adminMenu::-webkit-scrollbar-thumb:active {
+    background: var(--hover);
+}
+.adminMenu::-webkit-scrollbar-track {
+    background: #C1DCFF;
+    border: 49px none #C1DCFF;
+    border-radius: 50px;
+}
+.adminMenu::-webkit-scrollbar-corner {
+    background: transparent;
 }
 
 .adminMenu__item {
@@ -2203,6 +2232,7 @@ a.btn--adminTopMenu {
     max-width: 1625px;
     flex-wrap: wrap;
     margin: 20px 0 30px;
+    justify-content: flex-start;
 }
 
 .btn--calendar {
@@ -2868,4 +2898,60 @@ input[type=number] {
     margin-top: 10px;
     border-top: 1px solid #A8A8A8;
     font-size: 24px;
+}
+
+.calendarDivider {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #A8A8A8;
+    margin: 15px 0 30px;
+}
+
+.value > .red,
+.value > .green {
+    font-weight: 700;
+}
+
+.admin__purchase__section__status {
+    padding: 4px 8px;
+    margin-top: 10px;
+    border: 2px solid var(--primary);
+    border-radius: 3px;
+    outline: none;
+    font-size: 17px;
+}
+
+.admin__purchase__section__status option {
+    padding: 5px;
+    font-size: 17px;
+}
+
+.admin__purchase__filter {
+    margin: 30px 0;
+}
+
+.admin__purchase__filter > label {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-right: 40px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.admin__purchase__filter__header {
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 25px;
+}
+
+.admin__purchase__filter > label > button {
+    width: 22px;
+    height: 22px;
+}
+
+.admin__purchase__filter .adminSelect .btn--adminSelect::after {
+    width: 50%;
+    height: 50%;
 }

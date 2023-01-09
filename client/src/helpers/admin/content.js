@@ -6,6 +6,7 @@ import termsIcon from '../../static/img/agreement.svg'
 import blogIcon from '../../static/img/blog.svg'
 import calendarIcon from '../../static/img/calendar.svg';
 import discountIcon from '../../static/img/discount.svg';
+import surveyIcon from '../../static/img/survey.svg';
 import problem1Icon from "../../static/img/problem-1.svg";
 import problem2Icon from "../../static/img/problem-2.svg";
 import problem3Icon from "../../static/img/problem-3.svg";
@@ -59,6 +60,11 @@ const menu = [
         name: 'Edycja dni',
         icon: calendarIcon,
         link: '/panel/kalendarz'
+    },
+    {
+        name: 'Ankieta',
+        icon: surveyIcon,
+        link: '/panel/edycja-ankiety'
     }
 ]
 

@@ -89,25 +89,35 @@ const OrderCalendar = ({selected, setSelected, numberOfDays, offset, setDatePric
 
     return <div className="calendar calendar--order flex">
         {daysInfo?.map((item, index) => {
-            return <button className={isSelected(index) ? "btn btn--calendar btn--calendar--selected" :
-                (isExcluded(index) ? "btn btn--calendar btn--calendar--excluded" : "btn btn--calendar")}
-                           onClick={() => { handleClick(index); }}
-                           disabled={isExcluded(index)}
-                           key={index}>
+            let divider = false;
+            if(index > 0) {
+                if(daysInfo[index-1]?.month !== item?.month) {
+                    divider = true;
+                }
+            }
+
+            return <>
+                {divider ? <span className="calendarDivider"></span> : ''}
+                <button className={isSelected(index) ? "btn btn--calendar btn--calendar--selected" :
+                    (isExcluded(index) ? "btn btn--calendar btn--calendar--excluded" : "btn btn--calendar")}
+                        onClick={() => { handleClick(index); }}
+                        disabled={isExcluded(index)}
+                        key={index}>
                 <span className="calendar__day">
                     {item.day}
                 </span>
-                <span className="calendar__weekday">
+                    <span className="calendar__weekday">
                     {item.weekday}
                 </span>
-                <span className="calendar__month">
+                    <span className="calendar__month">
                     {item.month}
                 </span>
 
-                {item.price ? <span className="calendar__price">
+                    {item.price ? <span className="calendar__price">
                     {item.price} zł
                 </span> : ''}
-            </button>
+                </button>
+            </>
         })}
     </div>
 };

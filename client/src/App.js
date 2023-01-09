@@ -143,6 +143,9 @@ function App() {
         <Route path="/panel/kalendarz">
           <AdminPanel selectedItem={7} />
         </Route>
+        <Route path="/panel/edycja-ankiety">
+          <AdminPanel selectedItem={8} />
+        </Route>
       </Router>
     </ContentContext.Provider>
   </CartContext.Provider> : <LoadingPage />

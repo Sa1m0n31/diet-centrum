@@ -5,17 +5,41 @@ import {getDaysBetweenTwoDays} from "../../helpers/api/others";
 
 const AdminPurchasesList = () => {
     const [purchases, setPurchases] = useState([]);
+    const [filteredPurchases, setFilteredPurchases] = useState([]);
+    const [filterType, setFilterType] = useState(0);
 
     useEffect(() => {
         getAllPurchases()
             .then((res) => {
                 if(res?.status === 200) {
                     setPurchases(res.data?.sort((a, b) => {
-                        return a.purchase_date > b.purchase_date ? -1 : 1;
+                        return a.id > b.id ? -1 : 1;
                     }));
                 }
             });
     }, []);
+
+    useEffect(() => {
+        if(purchases?.length) {
+            setFilteredPurchases(purchases);
+        }
+    }, [purchases]);
+
+    useEffect(() => {
+        switch(filterType) {
+            case 0:
+                setFilteredPurchases(purchases);
+                break;
+            case 1:
+                setFilteredPurchases(purchases.filter((item) => (item.status === 'W realizacji')));
+                break;
+            case 2:
+                setFilteredPurchases(purchases.filter((item) => (item.status === 'Zrealizowane')));
+                break;
+            default:
+                break;
+        }
+    }, [filterType]);
 
     return <main className="admin">
         <div className="admin__header flex">
@@ -24,8 +48,33 @@ const AdminPurchasesList = () => {
             </h1>
         </div>
 
+        <div className="admin__purchase__filter flex flex--start">
+            <h2 className="admin__purchase__filter__header">
+                Filtruj zamówienia:
+            </h2>
+
+            <label className={filterType === 0 ? "adminSelect" : ""}>
+                <button className="btn btn--adminSelect" onClick={() => { setFilterType(0); }}>
+
+                </button>
+                Wszystkie
+            </label>
+            <label className={filterType === 1 ? "adminSelect" : ""}>
+                <button className="btn btn--adminSelect" onClick={() => { setFilterType(1); }}>
+
+                </button>
+                W realizacji
+            </label>
+            <label className={filterType === 2? "adminSelect" : ""}>
+                <button className="btn btn--adminSelect" onClick={() => { setFilterType(2); }}>
+
+                </button>
+                Zrealizowane
+            </label>
+        </div>
+
         <div className="admin__products">
-            {purchases.map((item, index) => {
+            {filteredPurchases.map((item, index) => {
                 const sendDateObject = JSON.parse(item.send_date);
                 const sendDate = new Date(sendDateObject.year, sendDateObject.monthNumber-1, sendDateObject.day);
 
@@ -59,6 +108,18 @@ const AdminPurchasesList = () => {
                         </span>
                         <span className="value">
                             {item.sum} PLN
+                        </span>
+                    </div>
+                    <div className="admin__products__item__column">
+                        <span className="key">
+                            Status
+                        </span>
+                        <span className="value">
+                            {item.status === 'W realizacji' ? <span className="red">
+                            W realizacji
+                        </span> : <span className="green">
+                            Zrealizowane
+                        </span>}
                         </span>
                     </div>
                     <div className="admin__products__item__column">

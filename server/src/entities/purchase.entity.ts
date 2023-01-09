@@ -65,6 +65,9 @@ export class Purchase {
     @Column()
     attachment: string;
 
+    @Column()
+    status: string;
+
     @Column('decimal', { precision: 6, scale: 2 })
     sum: number;
 }

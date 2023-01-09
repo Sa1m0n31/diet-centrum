@@ -1,12 +1,13 @@
 import {HttpException, Injectable} from '@nestjs/common';
 import {InjectRepository} from "@nestjs/typeorm";
 import {Purchase} from "../entities/purchase.entity";
-import {Repository} from "typeorm";
+import {In, Repository} from "typeorm";
 import * as crypto from 'crypto';
 import axios from 'axios'
 import { v4 as uuid } from 'uuid';
 import {Day} from "../entities/day.entity";
 import {MailerService} from "@nestjs-modules/mailer";
+import {Product} from "../entities/product.entity";
 
 @Injectable()
 export class PurchaseService {
@@ -15,6 +16,8 @@ export class PurchaseService {
         private readonly purchaseRepository: Repository<Purchase>,
         @InjectRepository(Day)
         private readonly dayRepository: Repository<Day>,
+        @InjectRepository(Product)
+        private readonly productRepository: Repository<Product>,
         private readonly mailerService: MailerService
     ) {
     }
@@ -27,6 +30,26 @@ export class PurchaseService {
         return this.purchaseRepository.findOneBy({
             id
         });
+    }
+
+    async updatePurchaseStatus(id, status) {
+        return this.purchaseRepository.createQueryBuilder()
+            .update({
+                status
+            })
+            .where({
+                id
+            })
+            .execute();
+    }
+
+    addTrailingZero(n) {
+        if(n < 10) {
+            return `0${n}`;
+        }
+        else {
+            return n;
+        }
     }
 
     async paymentProcess(id, amount, email) {
@@ -110,6 +133,7 @@ export class PurchaseService {
                 payment_id: null,
                 payment_status: 'Nieopłacone',
                 attachment: files?.attachment ? files.attachment[0]?.path : '',
+                status: 'W realizacji',
                 sum
             });
 
@@ -124,27 +148,81 @@ export class PurchaseService {
             await this.dayRepository.save(changePurchaseLimitObject);
 
             // Send mail to client
-            const dateToDisplay = `${dateObject.day}.${dateObject.monthNumber}.${dateObject.year}`;
+            const productsIds = JSON.parse(cart).map((item) => (item.id));
+            const orderCart = await this.productRepository.findBy({
+                id: In(productsIds)
+            });
+            const orderTable = orderCart.map((item, index) => {
+                return `<tr>
+                    <td style="border: 1px solid #313131; padding: 4px 10px;">
+                        ${index+1}
+                    </td>
+                    <td style="border: 1px solid #313131; padding: 4px 10px;">
+                        ${item.title}
+                    </td>
+                    <td style="border: 1px solid #313131; padding: 4px 10px;">
+                        ${item.price} zł
+                    </td>
+                </tr>`;
+            });
+
+            const dateToDisplay = `${this.addTrailingZero(dateObject.day)}.${this.addTrailingZero(dateObject.monthNumber)}.${dateObject.year}`;
 
             await this.mailerService.sendMail({
                 to: emailToSend,
                 from: process.env.EMAIL_ADDRESS,
                 subject: 'Otrzymaliśmy Twoje zamówienie',
                 html: `<div>
-                    <h2 style="display: block; width: 100%;">
-                        Dziękujemy za złożenie zamówienia w Diet Centrum! Swój plan otrzymasz do ${dateToDisplay}.
+                    <img style="margin: auto; width: 300px; display: block;" src="https://diet-centrum.klient-skylo.pl/static/media/logo-footer.87837e4f19f137882985.png" alt="diet-centrum" />
+                    <h2 style="display: block; text-align: center; width: 100%;">
+                        Dziękujemy za złożenie zamówienia w Diet Centrum!<br/>Swój plan otrzymasz do ${dateToDisplay}.
                     </h2>
-                    <h4 style="display: block; width: 100%; margin-bottom: 0;">
+                    <h4 style="display: block; width: 100%; text-align: center; margin-bottom: 0;">
                         Szczegóły zamówienia:
                     </h4>
-                    <p style="margin-top: 7px;">
-                        Id zamówienia: <b>${addResult.id}</b><br/>
-                        Imię i nazwisko: <b>${firstName} ${lastName}</b><br/>
-                        Nr telefonu: <b>${phoneNumber}</b><br/>
-                        Email, na który ma być wysłany plan: <b>${emailToSend}</b><br/>
-                    </p>
+                    <table style="margin-top: 15px; margin-left: auto; margin-right: auto; border-collapse: collapse; text-align: center;">
+                        <tr>
+                            <td style="border: 1px solid #313131; padding: 4px 10px;">
+                                 Id zamówienia:
+                            </td>
+                            <td style="border: 1px solid #313131; padding: 4px 10px;">
+                                <b>${addResult.id}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #313131; padding: 4px 10px;">
+                                 Imię i nazwisko:
+                            </td>
+                            <td style="border: 1px solid #313131; padding: 4px 10px;">
+                                <b>${firstName} ${lastName}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #313131; padding: 4px 10px;">
+                                  Nr telefonu:
+                            </td>
+                            <td style="border: 1px solid #313131; padding: 4px 10px;">
+                                <b>${phoneNumber}</b>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #313131; padding: 4px 10px;">
+                                 Email, na który ma być wysłany plan:
+                            </td>
+                            <td style="border: 1px solid #313131; padding: 4px 10px;">
+                                <b>${emailToSend}</b>
+                            </td>
+                        </tr>
+                    </table>
                     
-                    <p>
+                    <h4 style="display: block; width: 100%; text-align: center; margin-bottom: 0;">
+                        Zamówione plany:
+                    </h4>
+                    <table style="border-collapse: collapse; margin-top: 15px; margin-left: auto; margin-right: auto; ">
+                        ${orderTable}
+                    </table>
+                    
+                    <p style="text-align: center;">
                         Pozdrawiam,<br/>
                         Tomasz Dębiński
                     </p>

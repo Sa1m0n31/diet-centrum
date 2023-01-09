@@ -1,7 +1,21 @@
-import {Body, Controller, Get, Patch, Post, Req, UnauthorizedException, UseGuards} from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Patch,
+    Post,
+    Req,
+    UnauthorizedException, UploadedFiles,
+    UseGuards,
+    UseInterceptors
+} from '@nestjs/common';
 import {AdminService} from "./admin.service";
 import {JwtAuthGuard} from "../common/jwt-auth.guard";
 import {JwtService} from "@nestjs/jwt";
+import {FileFieldsInterceptor} from "@nestjs/platform-express";
+import {diskStorage} from "multer";
+import {FileUploadHelper} from "../common/FileUploadHelper";
+import {Express} from "express";
 
 @Controller('admin')
 export class AdminController {
@@ -40,6 +54,22 @@ export class AdminController {
     @Patch('/updateContent')
     updateContent(@Body() body) {
         return this.adminService.updateContent(body);
+    }
+
+    @Patch('/updateAttachment')
+    @UseInterceptors(FileFieldsInterceptor([
+        {name: 'attachment', maxCount: 1}
+        ], {
+            storage: diskStorage({
+                filename: FileUploadHelper.customFileName,
+                destination: '../uploads/attachmentToDownload'
+            })
+        }
+    ))
+    updateAttachment(@UploadedFiles() files: {
+        attachment?: Express.Multer.File[]
+    }) {
+        return this.adminService.updateAttachment(files);
     }
 
     @Get('/getContent')

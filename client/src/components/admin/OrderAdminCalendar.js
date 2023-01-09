@@ -57,20 +57,29 @@ const OrderAdminCalendar = ({daysInfo, setDaysInfo, numberOfDays, offset}) => {
 
     return <div className="calendar calendar--edition flex">
         {daysInfo?.map((item, index) => {
-            return <button className={item.limit === 0 ? "btn btn--calendar btn--calendar--excluded" : "btn btn--calendar"}
-                           onClick={(e) => { e.preventDefault(); }}
-                           key={index}>
+            let divider = false;
+            if(index > 0) {
+                if(daysInfo[index-1]?.month !== item?.month) {
+                    divider = true;
+                }
+            }
+
+            return <>
+            {divider ? <span className="calendarDivider"></span> : ''}
+                <button className={item.limit === 0 ? "btn btn--calendar btn--calendar--excluded" : "btn btn--calendar"}
+                        onClick={(e) => { e.preventDefault(); }}
+                        key={index}>
                 <span className="calendar__day">
                     {item.day}
                 </span>
-                <span className="calendar__weekday">
+                    <span className="calendar__weekday">
                     {item.weekday}
                 </span>
-                <span className="calendar__month">
+                    <span className="calendar__month">
                     {item.month}
                 </span>
 
-                <span className="calendar__edition">
+                    <span className="calendar__edition">
                     <span className="calendar__edition__limit">
                         Limit
                         <input className="input input--calendarLimit"
@@ -88,7 +97,8 @@ const OrderAdminCalendar = ({daysInfo, setDaysInfo, numberOfDays, offset}) => {
                                onChange={(e) => { handleChange(e.target.value, 'price', index); }} />
                     </span>
                 </span>
-            </button>
+                </button>
+            </>
         })}
     </div>
 };

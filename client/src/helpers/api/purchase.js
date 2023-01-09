@@ -37,4 +37,10 @@ const addPurchase = (cart, userData, invoiceData, emailToSend, sendDate, paperVe
     return axios.post('/purchase/add', formData, config);
 }
 
-export { getAllPurchases, getPurchaseById, addPurchase }
+const updatePurchaseStatus = (id, status) => {
+    return axios.patch('/purchase/updateStatus',  {
+        id, status
+    });
+}
+
+export { getAllPurchases, getPurchaseById, addPurchase, updatePurchaseStatus }

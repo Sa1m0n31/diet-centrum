@@ -707,6 +707,20 @@
     .btn--handleSubmitOrder {
         width: 300px !important;
     }
+
+    .admin__purchase__filter {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .admin__purchase__filter__header {
+        margin: 0 0 10px 0;
+    }
+
+    .admin__purchase__filter > label {
+        margin: 8px auto;
+    }
 }
 
 @media(max-width: 768px) {
@@ -720,6 +734,14 @@
 
     .d-mobile.flex {
         display: flex !important;
+    }
+
+    .admin__purchase__filter__header {
+        font-size: 15px;
+    }
+
+    .admin__purchase__filter > label {
+        font-size: 12px;
     }
 
     .btn--handleSubmitOrder {
@@ -1747,6 +1769,13 @@
 
     .order--2__main {
         width: 100%;
+    }
+
+    .center--purchaseStatus {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 }
 

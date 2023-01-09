@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {getPurchaseById} from "../../helpers/api/purchase";
+import {getPurchaseById, updatePurchaseStatus} from "../../helpers/api/purchase";
 import {getAllProducts} from "../../helpers/api/product";
 import {API_URL} from "../../static/settings";
 import downloadIcon from '../../static/img/download.svg';
 
 const AdminPurchaseDetails = () => {
     const [purchase, setPurchase] = useState({});
+    const [currentStatus, setCurrentStatus] = useState('W realizacji');
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
 
@@ -40,6 +41,10 @@ const AdminPurchaseDetails = () => {
     }, []);
 
     useEffect(() => {
+        setCurrentStatus(purchase?.status);
+    }, [purchase]);
+
+    useEffect(() => {
         if(purchase?.cart && products?.length) {
             setCart(purchase.cart.map((item) => {
                 const product = getProductFromList(item.id);
@@ -53,6 +58,11 @@ const AdminPurchaseDetails = () => {
 
     const getProductFromList = (id) => {
         return products.find((item) => (item.id === id));
+    }
+
+    const handleUpdateStatus = (status) => {
+        setCurrentStatus(status);
+        updatePurchaseStatus(purchase.id, status);
     }
 
     return <main className="admin admin--productEdition">
@@ -129,6 +139,19 @@ const AdminPurchaseDetails = () => {
                     </span> : <span className="paymentStatus paymentStatus--negative">
                         Nieopłacone
                     </span>}
+                </div>
+
+                <div className="admin__purchase__section center--purchaseStatus">
+                    <h2 className="admin__purchase__section__header">
+                        Status zamówienia:
+                    </h2>
+
+                    <select className="admin__purchase__section__status"
+                            value={currentStatus}
+                            onChange={(e) => { handleUpdateStatus(e.target.value); }}>
+                        <option>W realizacji</option>
+                        <option>Zrealizowane</option>
+                    </select>
                 </div>
             </div>
 

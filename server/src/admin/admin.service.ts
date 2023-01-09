@@ -121,4 +121,15 @@ export class AdminService {
                 </div>`
         });
     }
+
+    async updateAttachment(files) {
+        return this.contentRepository.createQueryBuilder()
+            .update({
+                value: files?.attachment ? files.attachment[0]?.path : ''
+            })
+            .where({
+                field: 'attachmentPath'
+            })
+            .execute();
+    }
 }

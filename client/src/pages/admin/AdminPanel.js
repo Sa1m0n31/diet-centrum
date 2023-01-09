@@ -14,6 +14,7 @@ import AdminPurchaseDetails from "../../components/admin/AdminPurchaseDetails";
 import AdminTermsEdition from "../../components/admin/AdminTermsEdition";
 import {authAdmin} from "../../helpers/api/admin";
 import LoadingPage from "../shop/LoadingPage";
+import AdminSurveyEdition from "../../components/admin/AdminSurveyEdition";
 
 const AdminPanel = ({selectedItem, page}) => {
     const [mainComponent, setMainComponent] = useState(null);
@@ -55,6 +56,9 @@ const AdminPanel = ({selectedItem, page}) => {
                             break;
                         case 7:
                             setMainComponent(<AdminCalendarEdition />);
+                            break;
+                        case 8:
+                            setMainComponent(<AdminSurveyEdition />);
                             break;
                         default:
                             break;

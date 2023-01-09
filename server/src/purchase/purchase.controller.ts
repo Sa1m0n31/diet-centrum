@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post, UploadedFiles, UseInterceptors} from '@nestjs/common';
+import {Body, Controller, Get, Param, Patch, Post, UploadedFiles, UseInterceptors} from '@nestjs/common';
 import {PurchaseService} from "./purchase.service";
 import {FileFieldsInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from "multer";
@@ -41,5 +41,10 @@ export class PurchaseController {
     @Post('/verifyPayment')
     verifyPayment(@Body() body) {
         return this.purchaseService.verifyPayment(body);
+    }
+
+    @Patch('/updateStatus')
+    updateStatus(@Body() body) {
+        return this.purchaseService.updatePurchaseStatus(body.id, body.status);
     }
 }
