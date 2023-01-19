@@ -36,7 +36,7 @@ const OrderProcess = () => {
         nip: ''
     });
     const [day, setDay] = useState(null);
-    const [attachment, setAttachment] = useState(null);
+    const [attachments, setAttachments] = useState([]);
     const [email, setEmail] = useState('');
 
     let content = useRef(null);
@@ -78,7 +78,7 @@ const OrderProcess = () => {
                 paperVersion, setPaperVersion,
                 setStep,
                 day, setDay,
-                attachment, setAttachment,
+                attachments, setAttachments,
                 email, setEmail
             }}>
                 {mainComponent}

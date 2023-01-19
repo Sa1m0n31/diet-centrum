@@ -45,6 +45,8 @@ const AdminContentEdition = () => {
     const [footerText, setFooterText] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
+    const [facebook, setFacebook] = useState('');
+    const [instagram, setInstagram] = useState('');
     const [error, setError] = useState('');
     const [info, setInfo] = useState('');
     const [loading, setLoading] = useState(false);
@@ -93,6 +95,8 @@ const AdminContentEdition = () => {
                     setFooterText(r.footerText);
                     setPhoneNumber(r.phoneNumber);
                     setEmail(r.email);
+                    setFacebook(r.facebook);
+                    setInstagram(r.instagram);
                 }
             });
     }, []);
@@ -114,7 +118,7 @@ const AdminContentEdition = () => {
             cooperationHeader, cooperationPoint1Header, cooperationPoint1Text, cooperationPoint2Header, cooperationPoint2Text,
             cooperationPoint3Header, cooperationPoint3Text, cooperationPoint4Header, cooperationPoint4Text,
             beforeFooterHeader, beforeFooterSubheader, beforeFooterButtonText, beforeFooterButtonLink,
-            footerText, phoneNumber, email
+            footerText, phoneNumber, email, facebook, instagram
         }
 
         setLoading(true);
@@ -527,6 +531,29 @@ const AdminContentEdition = () => {
                    value={email}
                    onChange={(e) => { setEmail(e.target.value); }}
                    placeholder="Adres e-mail" />
+        </label>
+
+        {/* Social media */}
+        <label className="admin__label">
+            <h3 className="admin__offerTypeHeader mb">
+                Social media
+            </h3>
+            <span>
+                Facebook
+            </span>
+            <input className="input input--admin"
+                   value={facebook}
+                   onChange={(e) => { setFacebook(e.target.value); }}
+                   placeholder="Facebook" />
+        </label>
+        <label className="admin__label">
+            <span>
+                Instagram
+            </span>
+            <input className="input input--admin"
+                   value={instagram}
+                   onChange={(e) => { setInstagram(e.target.value); }}
+                   placeholder="Instagram" />
         </label>
 
         {loading ? <div className="center">

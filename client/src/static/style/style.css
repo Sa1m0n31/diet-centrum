@@ -2171,7 +2171,9 @@ a.btn--adminTopMenu {
 .uploadAttachmentLabel {
     position: relative;
     width: 350px;
-    height: 50px;
+    min-height: 50px;
+    height: auto;
+    padding: 15px;
     background: #F8F8F8;
     border: 1px dashed #A8A8A8;
     border-radius: 10px;
@@ -2194,6 +2196,15 @@ a.btn--adminTopMenu {
     height: 100%;
 }
 
+.uploadAttachmentLabel > .attachmentItemWrapper {
+    flex-direction: column;
+    height: auto;
+}
+
+.uploadAttachmentLabel > .attachmentItemWrapper .img--check {
+    margin: 0 0 8px 0 !important;
+}
+
 .uploadAttachmentLabel > span > .img {
     width: 20px;
     margin-left: 12px;
@@ -2212,7 +2223,6 @@ a.btn--adminTopMenu {
     opacity: 0;
     width: 100%;
     height: 100%;
-    z-index: 30;
     cursor: pointer;
 }
 
@@ -2237,7 +2247,7 @@ a.btn--adminTopMenu {
 
 .btn--calendar {
     border-radius: 5px;
-    width: 125px;
+    width: 12%;
     height: 145px;
     padding: 10px;
     display: flex;
@@ -2245,7 +2255,7 @@ a.btn--adminTopMenu {
     justify-content: center;
     align-items: center;
     border: 2px solid var(--primary);
-    margin: 0 15px 15px 0;
+    margin: 0 1% 15px;
     background: transparent;
 }
 
@@ -2299,7 +2309,7 @@ a.btn--adminTopMenu {
 }
 
 .calendar__month {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 400;
 }
 
@@ -2954,4 +2964,89 @@ input[type=number] {
 .admin__purchase__filter .adminSelect .btn--adminSelect::after {
     width: 50%;
     height: 50%;
+}
+
+.btn--attachmentItem {
+    width: 12px;
+    height: 12px;
+    background: red;
+    color: #fff;
+    font-size: 8px;
+    font-weight: 700;
+    border-radius: 50%;
+    margin-left: 8px;
+    z-index: 100;
+    padding: 0;
+    transform-origin: center;
+}
+
+.btn--attachmentItem:hover {
+    transform: scale(1.2);
+}
+
+.attachmentItemWrapper .center {
+    text-align: center;
+}
+
+.calendar__monthWrapper {
+    width: 100%;
+    padding: 10px 0 30px;
+}
+
+.calendar__month__name {
+    font-size: 22px;
+    height: 50px;
+    padding: 5px 35px;
+    width: 250px;
+    border: 2px solid #A8A8A8;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.btn--monthArrow {
+    background: var(--primary);
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+    margin: 0 20px;
+}
+
+.btn--monthArrow[disabled] {
+    opacity: .7;
+    cursor: default;
+}
+
+.btn--monthArrow:not([disabled]):hover {
+    background: var(--hover);
+}
+
+.btn--monthArrow--next .img {
+    transform: rotateY(180deg);
+}
+
+.btn--monthArrow .img {
+    height: 60%;
+    width: auto;
+    filter: brightness(0) invert(1);
+}
+
+.calendar__weekdays {
+    margin: 20px 0;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.calendar__weekdays__item {
+    padding: 3px 5px;
+    margin: 0 1%;
+    width: 12%;
+    border: 1px solid #A8A8A8;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn--calendar--empty {
+    opacity: 0 !important;
 }

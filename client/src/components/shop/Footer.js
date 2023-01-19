@@ -2,8 +2,9 @@ import React, {useContext} from 'react';
 import logo from '../../static/img/logo-footer.png';
 import phoneIcon from '../../static/img/phone.svg';
 import mailIcon from '../../static/img/mail.svg';
-import {socialMedia} from "../../helpers/shop/content";
 import {ContentContext} from "../../App";
+import facebookIcon from '../../static/img/facebook.svg'
+import instagramIcon from '../../static/img/instagram.svg'
 
 const Footer = () => {
     const { c } = useContext(ContentContext);
@@ -18,14 +19,16 @@ const Footer = () => {
                     {c.footerText}
                 </p>
                 <div className="footer__col__socialMedia flex">
-                    {socialMedia.map((item, index) => {
-                        return <a href={item.link}
-                                  rel="noreferrer"
-                                  key={index}
-                                  className="aboutUs__box__socialMedia__link">
-                            <img className="img" src={item.icon} alt="social-media" />
-                        </a>
-                    })}
+                    <a href={c.facebook}
+                       rel="noreferrer"
+                       className="aboutUs__box__socialMedia__link">
+                        <img className="img" src={facebookIcon} alt="social-media" />
+                    </a>
+                    <a href={c.instagram}
+                       rel="noreferrer"
+                       className="aboutUs__box__socialMedia__link">
+                        <img className="img" src={instagramIcon} alt="social-media" />
+                    </a>
                 </div>
             </div>
 

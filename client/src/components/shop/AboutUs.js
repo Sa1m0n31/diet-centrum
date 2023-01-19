@@ -1,7 +1,8 @@
 import React, {useContext} from 'react';
 import manImage from '../../static/img/man.png'
-import {socialMedia} from "../../helpers/shop/content";
 import {ContentContext} from "../../App";
+import facebookIcon from '../../static/img/facebook.svg'
+import instagramIcon from '../../static/img/instagram.svg'
 
 const AboutUs = () => {
     const { c } = useContext(ContentContext);
@@ -25,14 +26,16 @@ const AboutUs = () => {
                 <span className="aboutUs__box__socialMedia__header">
                     Nasze social media:
                 </span>
-                {socialMedia.map((item, index) => {
-                    return <a href={item.link}
-                              key={index}
-                              rel="noreferrer"
-                              className="aboutUs__box__socialMedia__link">
-                        <img className="img" src={item.icon} alt="social-media" />
-                    </a>
-                })}
+                <a href={c.facebook}
+                   rel="noreferrer"
+                   className="aboutUs__box__socialMedia__link">
+                    <img className="img" src={facebookIcon} alt="social-media" />
+                </a>
+                <a href={c.instagram}
+                   rel="noreferrer"
+                   className="aboutUs__box__socialMedia__link">
+                    <img className="img" src={instagramIcon} alt="social-media" />
+                </a>
             </div>
         </div>
     </div> : '';

@@ -14,7 +14,7 @@ import Loader from "../admin/Loader";
 const OrderStep3 = () => {
     const { cart } = useContext(CartContext);
     const { userData, invoice, invoiceData, email, day, paperVersion, datePrice,
-        setStep, attachment } = useContext(OrderContext);
+        setStep, attachments } = useContext(OrderContext);
 
     const [products, setProducts] = useState([]);
     const [cartItems, setCartItems] = useState([]);
@@ -28,7 +28,7 @@ const OrderStep3 = () => {
     let buttonsSection = useRef(null);
     let loader = useRef(null);
 
-    const nextDays = getNextNDays(60, 2);
+    const nextDays = getNextNDays(100, 0);
 
     useEffect(() => {
         getAllProducts()
@@ -138,7 +138,7 @@ const OrderStep3 = () => {
 
         addPurchase(cartWithPrices, userData, invoice ? invoiceData : null,
             email, sendDate, paperVersion,
-            discountCode, isNaN(discount) ? 0 : discount, cartSum, attachment)
+            discountCode, isNaN(discount) ? 0 : discount, cartSum, attachments)
             .then((res) => {
                 if(!res) {
                     setError(errorText);
@@ -231,7 +231,7 @@ const OrderStep3 = () => {
 
             {datePrice ? <div className="clientData__section">
                 <h5 className="clientData__section__header">
-                    Opłata za dzień dostarczenia:
+                    Opłata za ekspresową usługę:
                 </h5>
                 <span className="clientData__section__data">
                     {datePrice} zł

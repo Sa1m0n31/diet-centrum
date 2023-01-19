@@ -1,8 +1,6 @@
 import icon1 from "../../static/img/book.svg";
 import icon2 from "../../static/img/individual.svg";
 import icon3 from "../../static/img/contact-mail.svg";
-import facebookIcon from '../../static/img/facebook.svg'
-import instagramIcon from '../../static/img/instagram.svg'
 
 const landingPageBenefits = [
     {
@@ -22,15 +20,4 @@ const landingPageBenefits = [
     }
 ];
 
-const socialMedia = [
-    {
-        icon: facebookIcon,
-        link: 'https://facebook.com'
-    },
-    {
-        icon: instagramIcon,
-        link: 'https://instagram.com'
-    }
-]
-
-export { landingPageBenefits, socialMedia }
+export { landingPageBenefits }

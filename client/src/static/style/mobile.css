@@ -525,6 +525,30 @@
         flex-direction: column;
     }
 
+    .calendar__monthWrapper {
+        justify-content: flex-start;
+    }
+
+    .btn--monthArrow:first-of-type {
+        margin-left: 0;
+    }
+
+    .calendar__month__name,
+    .btn--monthArrow {
+        height: 35px;
+    }
+
+    .calendar__month__name {
+        padding: 3px;
+        font-size: 15px;
+        width: 150px;
+    }
+
+    .calendar__weekdays,
+    .btn--calendar--empty {
+        display: none;
+    }
+
     .btn--productList {
         width: 12px;
         height: 12px;
@@ -631,13 +655,13 @@
     }
 
     .calendar__day {
-        font-size: 16px;
+        font-size: 21px;
         margin-bottom: 6px;
     }
 
     .calendar__weekday {
         margin-top: 0;
-        font-size: 10px;
+        font-size: 14px;
     }
 
     .calendar__month {

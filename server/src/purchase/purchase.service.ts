@@ -111,6 +111,14 @@ export class PurchaseService {
         const { cart, firstName, lastName, street, building, flat, postalCode, city, phoneNumber, email,
             emailToSend, sendDate, invoice, paperVersion, discountCode, discountValue, sum} = body;
 
+        const allFiles = [
+            files.attachments1 ? files.attachments1[0] : null,
+            files.attachments2 ? files.attachments2[0] : null,
+            files.attachments3 ? files.attachments3[0] : null,
+            files.attachments4 ? files.attachments4[0] : null,
+            files.attachments5 ? files.attachments5[0] : null,
+        ].filter((item) => (item));
+
         try {
             const addResult = await this.purchaseRepository.save({
                 cart,
@@ -132,7 +140,9 @@ export class PurchaseService {
                 discount_value: discountValue,
                 payment_id: null,
                 payment_status: 'Nieopłacone',
-                attachment: files?.attachment ? files.attachment[0]?.path : '',
+                attachment: files?.attachments1 ? JSON.stringify(allFiles.map((item) => {
+                    return item.path;
+                })) : '',
                 status: 'W realizacji',
                 sum
             });

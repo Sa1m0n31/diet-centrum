@@ -3,9 +3,11 @@ import {getPurchaseById, updatePurchaseStatus} from "../../helpers/api/purchase"
 import {getAllProducts} from "../../helpers/api/product";
 import {API_URL} from "../../static/settings";
 import downloadIcon from '../../static/img/download.svg';
+import {downloadData} from "../../helpers/api/others";
 
 const AdminPurchaseDetails = () => {
     const [purchase, setPurchase] = useState({});
+    const [attachments, setAttachments] = useState([]);
     const [currentStatus, setCurrentStatus] = useState('W realizacji');
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
@@ -42,6 +44,13 @@ const AdminPurchaseDetails = () => {
 
     useEffect(() => {
         setCurrentStatus(purchase?.status);
+
+        if(purchase?.attachment) {
+            try {
+                setAttachments(JSON.parse(purchase.attachment));
+            }
+            catch(e) {}
+        }
     }, [purchase]);
 
     useEffect(() => {
@@ -194,13 +203,11 @@ const AdminPurchaseDetails = () => {
                     <h2 className="admin__purchase__section__header">
                         Załącznik:
                     </h2>
-                    {purchase?.attachment ? <a className="btn btn--adminDownload center"
-                                               download={`ankieta_zamowienie-${purchase.id}.${purchase?.attachment?.split('.')?.slice(-1)}`}
-                                               target="_blank"
-                                               href={`${API_URL}/${purchase.attachment}`}>
+                    {attachments?.length ? <button className="btn btn--adminDownload center"
+                                                    onClick={() => { downloadData(attachments, purchase.id); }} >
                         <img className="img" src={downloadIcon} alt="pobierz" />
-                        Pobierz załącznik
-                    </a> : <h4 style={{fontWeight: 400}}>
+                        Pobierz załączniki
+                    </button> : <h4 style={{fontWeight: 400}}>
                         Brak
                     </h4>}
                 </div>

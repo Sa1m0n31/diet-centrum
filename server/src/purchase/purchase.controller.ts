@@ -24,7 +24,11 @@ export class PurchaseController {
 
     @Post('/add')
     @UseInterceptors(FileFieldsInterceptor([
-        {name: 'attachment', maxCount: 1}
+        {name: 'attachments1', maxCount: 1},
+        {name: 'attachments2', maxCount: 1},
+        {name: 'attachments3', maxCount: 1},
+        {name: 'attachments4', maxCount: 1},
+        {name: 'attachments5', maxCount: 1}
     ], {
         storage: diskStorage({
             filename: FileUploadHelper.customFileName,

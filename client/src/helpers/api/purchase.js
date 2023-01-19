@@ -9,7 +9,7 @@ const getPurchaseById = (id) => {
 }
 
 const addPurchase = (cart, userData, invoiceData, emailToSend, sendDate, paperVersion,
-                     discountCode, discountValue, sum, attachment) => {
+                     discountCode, discountValue, sum, attachments) => {
     const { firstName, lastName, street, building, flat, postalCode, city, phoneNumber, email } = userData;
 
     const config = { headers: { 'Content-Type': 'multipart/form-data' } };
@@ -32,7 +32,12 @@ const addPurchase = (cart, userData, invoiceData, emailToSend, sendDate, paperVe
     formData.append('discountCode', discountCode);
     formData.append('discountValue', discountValue);
     formData.append('sum', sum);
-    formData.append('attachment', attachment);
+
+    let i = 0;
+    for(const att of attachments) {
+        i++;
+        formData.append(`attachments${i}`, att);
+    }
 
     return axios.post('/purchase/add', formData, config);
 }

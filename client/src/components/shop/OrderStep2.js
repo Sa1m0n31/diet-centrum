@@ -14,11 +14,11 @@ import {verifyDiscountCode} from "../../helpers/api/code";
 const OrderStep2 = () => {
     const { c } = useContext(ContentContext);
     const { cart } = useContext(CartContext);
-    const { day, setDay, email, setEmail, attachment, setAttachment, paperVersion, datePrice, setDatePrice,
+    const { day, setDay, email, setEmail, attachments, setAttachments, paperVersion, datePrice, setDatePrice,
         setStep } = useContext(OrderContext);
 
     const [errors, setErrors] = useState([]);
-    const [attachmentName, setAttachmentName] = useState('');
+    const [attachmentsNames, setAttachmentsNames] = useState([]);
     const [attachmentToDownloadName, setAttachmentToDownloadName] = useState('');
     const [cartItems, setCartItems] = useState([]);
     const [cartSum, setCartSum] = useState(0);
@@ -91,10 +91,10 @@ const OrderStep2 = () => {
     }, [email]);
 
     useEffect(() => {
-        if(attachment) {
+        if(attachments) {
             setErrors(prevState => (prevState.filter((item) => (item !== 'attachment'))));
         }
-    }, [attachment]);
+    }, [attachments]);
 
     const calculateNewCartSum = (type, value) => {
         if(type === 0) {
@@ -109,11 +109,27 @@ const OrderStep2 = () => {
     }
 
     const handleAttachmentUpload = (files) => {
-        let file = files[0];
-        if(file) {
-            setAttachmentName(file.name.length > 50 ? `${file.name.substring(0, 50)}...` : file.name);
-            setAttachment(file);
+        let attachmentsNamesTmp = [];
+        let attachmentsTmp = [];
+
+        for(const file of files) {
+            if(file) {
+                attachmentsTmp.push(file);
+                attachmentsNamesTmp.push(file.name.length > 50 ? `${file.name.substring(0, 50)}...` : file.name)
+            }
         }
+
+        setAttachments(prevState => {
+            return [...prevState, ...attachmentsTmp];
+        });
+        setAttachmentsNames(prevState => {
+            return [...prevState, ...attachmentsNamesTmp];
+        });
+    }
+
+    const removeAttachment = (i) => {
+        setAttachments(prevState => (prevState.filter((item, index) => (index !== i))));
+        setAttachmentsNames(prevState => (prevState.filter((item, index) => (index !== i))));
     }
 
     const validateData = () => {
@@ -168,9 +184,7 @@ const OrderStep2 = () => {
 
                 <OrderCalendar selected={day}
                                setSelected={setDay}
-                               setDatePrice={setDatePrice}
-                               numberOfDays={60}
-                               offset={2} />
+                               setDatePrice={setDatePrice} />
             </div>
 
             <div className="order__section">
@@ -201,19 +215,30 @@ const OrderStep2 = () => {
 
             <div className="order__section">
                 <h3 className="order__section__header">
-                    Miejsce na Twój załącznik
+                    Miejsce na Twoje załączniki
                 </h3>
 
                 <label className={errors.includes('attachment') ? "uploadAttachmentLabel uploadAttachmentLabel--error" : "uploadAttachmentLabel"}>
-                    {!attachment ? <span>
-                    Dodaj plik
+                    {!attachments?.length ? <span>
+                    Dodaj pliki
                     <img className="img" src={uploadIcon} alt="dodaj" />
-                </span> :  <span>
+                </span> :  <span className="attachmentItemWrapper">
                         <img className="img img--check" src={checkIcon} alt="dodano" />
-                        {attachmentName}
+                        {attachmentsNames?.map((item, index) => {
+                            return <span className="center" key={index}>
+                                {item}
+
+                                <button className="btn btn--attachmentItem"
+                                        onClick={(e) => { e.stopPropagation(); e.preventDefault(); removeAttachment(index); }}>
+                                    &times;
+                                </button>
+                            </span>
+                        })}
                     </span>}
                     <input className="input input--file"
                            type="file"
+                           multiple={true}
+                           maxLength={5}
                            onChange={(e) => { handleAttachmentUpload(e.target.files); }} />
                 </label>
             </div>
