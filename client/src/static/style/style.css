@@ -3050,3 +3050,16 @@ input[type=number] {
 .btn--calendar--empty {
     opacity: 0 !important;
 }
+
+.checkboxWrapper a {
+    padding: 0 5px;
+    text-decoration: underline;
+}
+
+.checkboxWrapper a:hover {
+    opacity: .8;
+}
+
+.checkboxWrapper .red {
+    color: red;
+}

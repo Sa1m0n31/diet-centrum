@@ -90,7 +90,7 @@ const problems = [
         icon: problem6Icon, text: 'Insulinooporność'
     },
     {
-        icon: problem7Icon, text: 'Nidoczynność tarczycy'
+        icon: problem7Icon, text: 'Niedoczynność tarczycy'
     },
     {
         icon: problem8Icon, text: 'Problemy skórne'

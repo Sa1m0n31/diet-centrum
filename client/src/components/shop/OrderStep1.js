@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import nextArrow from '../../static/img/arrow-white.svg';
 import {OrderContext} from "../../pages/shop/OrderProcess";
 import {isEmail, scrollToTop} from "../../helpers/api/others";
@@ -7,6 +7,7 @@ const OrderStep1 = () => {
     const { userData, setUserData, invoice, setInvoice,
         invoiceData, setInvoiceData, paperVersion, setPaperVersion, setStep } = useContext(OrderContext);
 
+    const [checkbox, setCheckbox] = useState(false);
     const [errors, setErrors] = useState([]);
 
     const handleChange = (key, target) => {
@@ -34,6 +35,7 @@ const OrderStep1 = () => {
     const validateData = () => {
         let err = [];
 
+        if(!checkbox) err.push('checkbox');
         if(!userData.firstName) err.push('firstNameUser');
         if(!userData.lastName) err.push('lastNameUser');
         if(!userData.street) err.push('streetUser');
@@ -213,6 +215,13 @@ const OrderStep1 = () => {
 
                 </button>
                 Wybieram wersję papierową planu (+5.00 zł)
+            </label>
+
+            <label className={checkbox ? "adminSelect adminSelect--order flex flex--start checkboxWrapper" : (errors.includes('checkbox') ? "checkboxWrapper flex flex--start red" : "checkboxWrapper flex flex--start")}>
+                <button className="btn btn--adminSelect btn--adminSelect--order" onClick={() => { setCheckbox(p => !p); }}>
+
+                </button>
+                Akceptuję <a target="_blank" href="/regulamin">Regulamin</a> oraz <a href="/polityka-prywatnosci" target="_blank">Politykę prywatności</a> *
             </label>
         </div>
 
