@@ -13,7 +13,7 @@ import Loader from "../admin/Loader";
 
 const OrderStep3 = () => {
     const { cart } = useContext(CartContext);
-    const { userData, invoice, invoiceData, email, day, paperVersion, datePrice,
+    const { userData, invoice, invoiceData, email, day, paperVersion, datePrice, paymentMethod, setPaymentMethod,
         setStep, attachments } = useContext(OrderContext);
 
     const [products, setProducts] = useState([]);
@@ -147,12 +147,17 @@ const OrderStep3 = () => {
                     localStorage.removeItem('cart');
                     localStorage.removeItem('discountCode');
 
-                    // Redirect to payment page
-                    const token = res.data.token;
-                    window.location = `${PAYMENT_PAGE_URL}${token}`;
+                    if(paymentMethod === 0) {
+                        // Redirect to payment page
+                        const token = res.data.token;
+                        window.location = `${PAYMENT_PAGE_URL}${token}`;
+                    }
+                    else {
+                        window.location = '/dziekujemy';
+                    }
                 }
             })
-            .catch((e) => {
+            .catch(() => {
                 setError(errorText);
                 setLoading(false);
             });
@@ -252,7 +257,7 @@ const OrderStep3 = () => {
                     Sposób płatności:
                 </h5>
                 <span className="clientData__section__data">
-                    Płatność online z Przelewy24
+                    {paymentMethod === 0 ? 'Płatność online z Przelewy24' : 'Przelew tradycyjny'}
                 </span>
             </div>
 
@@ -286,7 +291,7 @@ const OrderStep3 = () => {
                 </button>
                 <button className="btn btn--goToCart btn--handleSubmitOrder"
                         onClick={() => { handleSubmit(); }}>
-                    Zamawiam i płacę
+                    {paymentMethod === 0 ? 'Zamawiam i płacę' : 'Zamawiam'}
                     <img className="img" src={nextArrow} alt="dalej" />
                 </button>
             </div>

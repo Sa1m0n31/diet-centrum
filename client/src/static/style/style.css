@@ -108,6 +108,17 @@ body {
     right: 0;
 }
 
+.siteHeader__contact.flex {
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-top: -10px;
+}
+
+.siteHeader__contact.flex > span:last-of-type {
+    padding-top: 5px;
+}
+
 .siteHeader__contact {
     justify-content: flex-start;
 }
@@ -886,6 +897,22 @@ a.btn--adminTopMenu {
     margin: 15px 0;
 }
 
+.admin__products__item__column:nth-of-type(4),
+.admin__products__item__column:nth-of-type(5),
+.admin__products__item__column:nth-of-type(6),
+.admin__products__item__column:nth-of-type(2) {
+    flex-basis: 15%;
+}
+
+.admin__products__item__column:nth-of-type(3) {
+    flex-basis: 20%;
+}
+
+.admin__products__item__column:nth-of-type(7),
+.admin__products__item__column:nth-of-type(1) {
+    flex-basis: 8%;
+}
+
 .admin__products__item__column > .key {
     font-size: 12px;
     color: grey;
@@ -1284,11 +1311,11 @@ a.btn--adminTopMenu {
 
 .footer__col__contact > .img {
     width: 11px;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 .footer__col__contact {
-    font-size: 14px;
+    font-size: 16px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -2098,8 +2125,14 @@ a.btn--adminTopMenu {
 }
 
 .cart__bottom--order {
+    border-top: 1px solid #A8A8A8;
     justify-content: flex-start;
     max-width: 900px;
+}
+
+.cart__bottom--order--1 {
+    border-top: none;
+    margin-top: -20px;
 }
 
 .clientData,
@@ -3062,4 +3095,17 @@ input[type=number] {
 
 .checkboxWrapper .red {
     color: red;
+}
+
+.checkboxWrapper--paymentMethod {
+    max-width: 650px;
+    border-bottom: 1px solid #A8A8A8;
+    padding-bottom: 10px;
+}
+
+.paymentTraditional,
+.paymentTraditional * {
+    font-size: 14px;
+    color: var(--text);
+    font-style: italic;
 }

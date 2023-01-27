@@ -7,9 +7,6 @@ import OrderAdminCalendar from "./OrderAdminCalendar";
 
 const AdminCalendarEdition = () => {
     const [daysInfo, setDaysInfo] = useState([]);
-
-    const [selectedDays, setSelectedDays] = useState(-1);
-    const [multipleSelected, setMultipleSelected] = useState([]);
     const [info, setInfo] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
@@ -23,6 +20,8 @@ const AdminCalendarEdition = () => {
 
     const handleSubmit = () => {
         setLoading(true);
+        setInfo('');
+        setError('');
 
         const editedDaysInfo = daysInfo.filter((item) => (item.edited));
 
@@ -60,7 +59,7 @@ const AdminCalendarEdition = () => {
         </h2>
 
         <OrderAdminCalendar numberOfDays={365}
-                           offset={2}
+                           offset={0}
                            daysInfo={daysInfo}
                            setDaysInfo={setDaysInfo} />
 

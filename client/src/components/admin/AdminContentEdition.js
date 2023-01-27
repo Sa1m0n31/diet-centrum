@@ -47,6 +47,8 @@ const AdminContentEdition = () => {
     const [email, setEmail] = useState('');
     const [facebook, setFacebook] = useState('');
     const [instagram, setInstagram] = useState('');
+    const [bankAccount, setBankAccount] = useState('');
+
     const [error, setError] = useState('');
     const [info, setInfo] = useState('');
     const [loading, setLoading] = useState(false);
@@ -97,6 +99,7 @@ const AdminContentEdition = () => {
                     setEmail(r.email);
                     setFacebook(r.facebook);
                     setInstagram(r.instagram);
+                    setBankAccount(EditorState.createWithContent(convertFromRaw(JSON.parse(r.bankAccount))));
                 }
             });
     }, []);
@@ -113,6 +116,7 @@ const AdminContentEdition = () => {
             landingHeader, landingSubheader, landingBtn1Text, landingBtn1Link, landingBtn2Text, landingBtn2Link,
             aboutMeHeader, aboutMeText,
             aboutMeContent: JSON.stringify(convertToRaw(aboutMeContent?.getCurrentContent())),
+            bankAccount: JSON.stringify(convertToRaw(bankAccount?.getCurrentContent())),
             referencesText, reference1Header, reference1Text, reference2Header, reference2Text, reference3Header, reference3Text,
             reference4Header, reference4Text, reference5Header, reference5Text, reference6Header, reference6Text,
             cooperationHeader, cooperationPoint1Header, cooperationPoint1Text, cooperationPoint2Header, cooperationPoint2Text,
@@ -122,6 +126,8 @@ const AdminContentEdition = () => {
         }
 
         setLoading(true);
+        setInfo('');
+        setError('');
 
         updateContent(data)
             .then((res) => {
@@ -554,6 +560,22 @@ const AdminContentEdition = () => {
                    value={instagram}
                    onChange={(e) => { setInstagram(e.target.value); }}
                    placeholder="Instagram" />
+        </label>
+
+        {/* Bank account */}
+        <label className="admin__label">
+            <h3 className="admin__offerTypeHeader mb">
+                Numer konta
+            </h3>
+            <span>
+                Dane do przelewu tradycyjnego
+            </span>
+            <Editor
+                editorState={bankAccount}
+                wrapperClassName="wrapperClassName"
+                editorClassName="editor"
+                onEditorStateChange={(text) => { setBankAccount(text); }}
+            />
         </label>
 
         {loading ? <div className="center">

@@ -5,6 +5,7 @@ import menuIcon from '../../static/img/menu-mobile.svg';
 import phoneIcon from '../../static/img/phone.svg';
 import cartIcon from '../../static/img/shopping-basket.svg';
 import backIcon from '../../static/img/arrow-back.svg';
+import mailIcon from '../../static/img/mail.svg';
 import {ContentContext} from "../../App";
 
 const SiteHeader = ({homepage, breadcrumb}) => {
@@ -72,6 +73,11 @@ const SiteHeader = ({homepage, breadcrumb}) => {
                     <img className="img" src={phoneIcon} alt="telefon" />
                     {c.phoneNumber}
                 </a>
+                <a className="siteHeader__contact__link"
+                   href={`mailto:${c.email}`}>
+                    <img className="img" src={mailIcon} alt="telefon" />
+                    {c.email}
+                </a>
             </span>
 
             <div className="mobileMenu__bottom flex">
@@ -88,14 +94,20 @@ const SiteHeader = ({homepage, breadcrumb}) => {
 
         {/* DESKTOP */}
         <span className="siteHeader__contact flex d-desktop">
-            <img className="img" src={phoneIcon} alt="telefon" />
-            <span>
-                Skontaktuj się z nami:
+            <span className="flex flex--start">
+                <img className="img" src={phoneIcon} alt="telefon" />
+                 <a className="siteHeader__contact__link"
+                    href={`tel:${c?.phoneNumber?.replace(' ', '')}`}>
+                    {c.phoneNumber}
+                </a>
             </span>
-            <a className="siteHeader__contact__link"
-               href={`tel:${c?.phoneNumber?.replace(' ', '')}`}>
-                {c.phoneNumber}
-            </a>
+            <span className="flex flex--start">
+                <img className="img" src={mailIcon} alt="mail" />
+                <a className="siteHeader__contact__link"
+                   href={`mailto:${c?.email}`}>
+                    {c.email}
+                </a>
+            </span>
         </span>
 
         <div className="siteHeader__main flex d-desktop">

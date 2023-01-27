@@ -32,6 +32,8 @@ const AdminTermsEdition = () => {
     }, [info, error]);
 
     const handleSubmit = () => {
+        setInfo('');
+        setError('');
         setLoading(true);
         updateTexts(termsOfService, privacyPolicy)
             .then((res) => {

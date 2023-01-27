@@ -38,6 +38,7 @@ const OrderProcess = () => {
     const [day, setDay] = useState(null);
     const [attachments, setAttachments] = useState([]);
     const [email, setEmail] = useState('');
+    const [paymentMethod, setPaymentMethod] = useState(0);
 
     let content = useRef(null);
 
@@ -79,7 +80,8 @@ const OrderProcess = () => {
                 setStep,
                 day, setDay,
                 attachments, setAttachments,
-                email, setEmail
+                email, setEmail,
+                paymentMethod, setPaymentMethod
             }}>
                 {mainComponent}
             </OrderContext.Provider>

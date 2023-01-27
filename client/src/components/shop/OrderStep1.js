@@ -2,9 +2,12 @@ import React, {useContext, useState} from 'react';
 import nextArrow from '../../static/img/arrow-white.svg';
 import {OrderContext} from "../../pages/shop/OrderProcess";
 import {isEmail, scrollToTop} from "../../helpers/api/others";
+import {ContentContext} from "../../App";
+import draftToHtml from "draftjs-to-html";
 
 const OrderStep1 = () => {
-    const { userData, setUserData, invoice, setInvoice,
+    const { c } = useContext(ContentContext);
+    const { userData, setUserData, invoice, setInvoice, paymentMethod, setPaymentMethod,
         invoiceData, setInvoiceData, paperVersion, setPaperVersion, setStep } = useContext(OrderContext);
 
     const [checkbox, setCheckbox] = useState(false);
@@ -216,14 +219,37 @@ const OrderStep1 = () => {
                 </button>
                 Wybieram wersję papierową planu (+5.00 zł)
             </label>
+        </div>
 
-            <label className={checkbox ? "adminSelect adminSelect--order flex flex--start checkboxWrapper" : (errors.includes('checkbox') ? "checkboxWrapper flex flex--start red" : "checkboxWrapper flex flex--start")}>
-                <button className="btn btn--adminSelect btn--adminSelect--order" onClick={() => { setCheckbox(p => !p); }}>
+        <div className="checkboxWrapper checkboxWrapper--paymentMethod">
+            <h5 className="checkboxWrapper__header">
+                Sposób płatności
+            </h5>
+            <label className={paymentMethod === 0 ? "adminSelect adminSelect--order flex flex--start" : "flex flex--start"}>
+                <button className="btn btn--adminSelect btn--adminSelect--order" onClick={() => { setPaymentMethod(0); }}>
 
                 </button>
-                Akceptuję <a target="_blank" href="/regulamin">Regulamin</a> oraz <a href="/polityka-prywatnosci" target="_blank">Politykę prywatności</a> *
+                Płatności internetowe (Przelewy24, BLIK)
             </label>
+
+            <label className={paymentMethod === 1 ? "adminSelect adminSelect--order flex flex--start checkboxWrapper" : (errors.includes('checkbox') ? "checkboxWrapper flex flex--start red" : "checkboxWrapper flex flex--start")}>
+                <button className="btn btn--adminSelect btn--adminSelect--order" onClick={() => { setPaymentMethod(1); }}>
+
+                </button>
+                Przelew tradycyjny
+            </label>
+
+            {paymentMethod === 1 ? <div className="paymentTraditional" dangerouslySetInnerHTML={{
+                __html:  draftToHtml(JSON.parse(c.bankAccount))
+            }}></div> : ''}
         </div>
+
+        <label className={checkbox ? "adminSelect adminSelect--order flex flex--start checkboxWrapper" : (errors.includes('checkbox') ? "checkboxWrapper flex flex--start red" : "checkboxWrapper flex flex--start")}>
+            <button className="btn btn--adminSelect btn--adminSelect--order" onClick={() => { setCheckbox(p => !p); }}>
+
+            </button>
+            Akceptuję <a target="_blank" href="/regulamin">Regulamin</a> oraz <a href="/polityka-prywatnosci" target="_blank">Politykę prywatności</a> *
+        </label>
 
         <div className="cart__bottom cart__bottom--order cart__bottom--order--1 flex">
             <button className="btn btn--goToCart"
